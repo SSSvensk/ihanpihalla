@@ -1,3 +1,4 @@
+<!-- Google Maps-test -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -105,6 +106,8 @@
          var infowindowH = new google.maps.InfoWindow({
             content: contentStringH
          });
+        
+        //Creating some markers to map
 
          marker = new google.maps.Marker({
             position: myLatLng,
@@ -140,6 +143,8 @@
             map: map,
             title: 'Hervanta'
          });
+        
+        //Close other windows, when clicked
 
          marker.addListener('click', function() {
             infowindow.open(map, marker);
@@ -195,8 +200,13 @@
          iii++;
          document.getElementById("points").innerHTML = iii;
        }
-
-       //Ajax-function to send data to PHP-file
+        
+       //AJAX-function!
+       //Here we have the link between front-end and back-end (or actually client and server).
+       //This function would send variable iii to PHP-file, where it would process it further
+       //There's no other way to send data from JS to server
+       //Notice, we're using here jQuery library, to which we referred at the beginning.
+       //Now it's not working
        $(document).ready(function() {
 
             $("button").click(function() {
@@ -216,6 +226,8 @@
 
       }
     </script>
+    
+    <!-- Referring to Google Maps itself and getting the map -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA--pyfMnawhJ50Lwzpsiht-wTmBAHg0s8&callback=initMap"
     async defer></script>
   </body>
