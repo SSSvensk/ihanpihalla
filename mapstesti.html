@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      div.box {
+        float: right;
+        top: 3%;
+        right: 3%;
+        position: fixed;
+        background-color: #FFFFFF;
+        /*height: 10%;*/
+        width: 200px;
+        border-radius: 10px;
+      }
+      div#status {
+        font-size: 150%;
+        padding-left: 10px;
+      }
+      img#profileImage {
+        padding-top: 10px;
+        padding-left: 10px;
+      }
+      div#pointz {
+        float: right;
+        top: 33%;
+        right: 3%;
+        position: fixed;
+        background-color: #FFFFFF;
+        /*height: 10%;*/
+        width: 200px;
+        border-radius: 10px;
+      }
+      div.logo {
+        position: fixed;
+        top: 1%;
+        right: 5%;
+      }
+    </style>
+    <script src = "jsloginfile.js" type = "text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div class = "logo"><img src = "ihanpihalla.png" width = "300" height = "150"></div>
+    <!--
+    <div class="box">
+      <fb:login-button id = "loginbutton" scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+      <img src = "" id = "profileImage" width = "50" height = "50">
+      <div id = "status"></div>
+      <div id = "logoutfb"><a onclick="FB.logout();" href="#">Logout</a></div>
+    </div>
+    <div id="pointz">
+      <div id = "points">1</div>
+      <div id = "subbut"><button>Submit!</button></div>
+    </div>
+  -->
+    <script>
+      var map;
+      var marker, kmarker, lmarker, cmarker, hmarker;
+      var iii = 1;
+
+      function initMap() {
+         var myLatLng = {lat: 61.5040869, lng: 23.7806253};
+
+         map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: myLatLng,
+            mapTypeId: 'satellite'
+         });
+
+         //map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
+
+         var contentString = '<h2>Tammela</h2><br><a href = "indexxx.html">Design yard</a>';
+         var contentStringK = '<h2>Kaleva</h2><br><a href = "indexxx.html">Design yard</a>';
+         var contentStringL = '<h2>Linnainmaa</h2><br><a href = "indexxx.html">Design yard</a>';
+         var contentStringC = '<h2>Keskusta</h2><br><a href = "indexxx.html">Design yard</a>';
+         var contentStringH = '<h2>Hervanta</h2><br><a href = "indexxx.html">Design yard</a>';
+
+         var infowindow = new google.maps.InfoWindow({
+            content: contentString
+         });
+         var infowindowK = new google.maps.InfoWindow({
+            content: contentStringK
+         });
+         var infowindowL = new google.maps.InfoWindow({
+            content: contentStringL
+         });
+         var infowindowC = new google.maps.InfoWindow({
+            content: contentStringC
+         });
+         var infowindowH = new google.maps.InfoWindow({
+            content: contentStringH
+         });
+
+         marker = new google.maps.Marker({
+            position: myLatLng,
+            draggable: false,
+            map: map,
+            title: 'Tammela'
+         });
+
+         kmarker = new google.maps.Marker({
+            position: {lat: 61.5016926, lng: 23.7963967},
+            draggable: false,
+            map: map,
+            title: 'Kaleva'
+         });
+
+         lmarker = new google.maps.Marker({
+            position: {lat: 61.494423, lng: 23.886347},
+            draggable: false,
+            map: map,
+            title: 'Linnainmaa'
+         });
+
+         cmarker = new google.maps.Marker({
+            position: {lat: 61.4920351, lng: 23.7522534},
+            draggable: false,
+            map: map,
+            title: 'Keskusta'
+         });
+
+         hmarker = new google.maps.Marker({
+            position: {lat: 61.449500, lng: 23.849099},
+            draggable: false,
+            map: map,
+            title: 'Hervanta'
+         });
+
+         marker.addListener('click', function() {
+            infowindow.open(map, marker);
+            infowindowK.close();
+            infowindowL.close();
+            infowindowC.close();
+            infowindowH.close();
+         });
+
+         kmarker.addListener('click', function() {
+            infowindowK.open(map, kmarker);
+            infowindow.close();
+            infowindowL.close();
+            infowindowC.close();
+            infowindowH.close();
+         });
+
+         lmarker.addListener('click', function() {
+            infowindowL.open(map, lmarker);
+            infowindow.close();
+            infowindowK.close();
+            infowindowC.close();
+            infowindowH.close();
+         });
+
+         cmarker.addListener('click', function() {
+            infowindowC.open(map, cmarker);
+            infowindow.close();
+            infowindowK.close();
+            infowindowL.close();
+            infowindowH.close();
+         });
+
+         hmarker.addListener('click', function() {
+            infowindowH.open(map, hmarker);
+            infowindow.close();
+            infowindowK.close();
+            infowindowL.close();
+            infowindowC.close();
+         });
+         /*
+         map.addListener('click', function(event) {
+         placeMarker(event.latLng);
+      });
+      */
+
+      function placeMarker(location) {
+         var newMarker = new google.maps.Marker({
+         position: location,
+         animation: google.maps.Animation.BOUNCE,
+         map: map,
+      });
+         iii++;
+         document.getElementById("points").innerHTML = iii;
+       }
+
+       //Ajax-function to send data to PHP-file
+       $(document).ready(function() {
+
+            $("button").click(function() {
+                var userID = iii;
+                //alert($(this).attr('id'));
+                $.ajax({
+                    type: "POST",
+                    url: 'logtime.php',
+                    data: { userID : userID },
+                    success: function(data)
+                    {
+                        alert("Saved!");
+                    }
+                });
+            });
+        });
+
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA--pyfMnawhJ50Lwzpsiht-wTmBAHg0s8&callback=initMap"
+    async defer></script>
+  </body>
+</html>
