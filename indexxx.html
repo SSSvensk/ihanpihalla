@@ -1,7 +1,12 @@
+<!-- Indexxx.html, to demonstrate Three JS. Code is a bit messy sometimes... -->
+
 <!DOCTYPE HTML>
 <html>
 <head>
 	<title>Three JS Test</title>
+	
+	<!-- CSS definitions. Sorry for using Finnish sometimes... -->
+	
 	<style>
 	body {
 		margin: 0;
@@ -58,18 +63,25 @@
 	</style>
 </head>
 <body>
+	<!-- References to JavaScript-files -->
 	<script src = "three.min.js"></script>
 	<script src = "OrbitControls.js"></script>
+	
+	<!--Start of JavaScript -->
 	<script type = "text/javascript">
+		
+ 	//Some variables
 	var scene, camera, renderer;
 	var controls;
 	var trees = 0;
 
+	//Init the view
 	init();
 	//animate();
 
 	function init() {
 
+		//Using three js, let's create objects
 		scene = new THREE.Scene();
 
 		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
@@ -80,16 +92,17 @@
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		document.body.appendChild(renderer.domElement);
 
+		//Creating and adding 3 "buildings" to scene. Bad code!
 		var cubeWidth = 5;
-        var cubeHeight = 5;
-        var cubeDepth = 15;            
-        var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
-        var cubeMaterial = new THREE.MeshBasicMaterial({color: 0xcccccc, vertexColors: 'white', wireframeLinewidth: 3});                
-        cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        cube.position.y = 2.45;
-        cube.position.x = -8;
-        cube.position.z = 0.5;           
-        scene.add(cube);
+       		var cubeHeight = 5;
+        	var cubeDepth = 15;            
+        	var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+        	var cubeMaterial = new THREE.MeshBasicMaterial({color: 0xcccccc, vertexColors: 'white', wireframeLinewidth: 3});                
+        	cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        	cube.position.y = 2.45;
+        	cube.position.x = -8;
+        	cube.position.z = 0.5;           
+        	scene.add(cube);
 
         cubeWidth = 15;
         cubeHeight = 5;
@@ -113,27 +126,34 @@
         cube.position.z = -11;
         scene.add(cube);
 
-
+        //Not sure what does this do
         ray = new THREE.Ray( camera.position, null );
 
+	//Create floor
         var geometry = new THREE.PlaneBufferGeometry( 30, 30, 32 );
 		var material = new THREE.MeshBasicMaterial( {color: 0x009933, side: THREE.DoubleSide} );
 		var plane = new THREE.Mesh( geometry, material );
 		plane.rotation.x = Math.PI / 2;
 		scene.add( plane );
-
+		
+		//Defining controls:
 		controls = new THREE.OrbitControls(camera, renderer.domElement);
 		controls.addEventListener( 'change', render );
+		
+		//Limits for vertical rotation
 		controls.minPolarAngle = - Math.PI;
 		controls.maxPolarAngle = Math.PI / 2 - 0.2;
 
+		//Limits for horizontal rotation (none)
 		controls.minAzimuthAngle = -Infinity; // radians
 		controls.maxAzimuthAngle = Infinity; // radians
 
+		//Limits for max and min-zoom
 		controls.minDistance = 0;
 		controls.maxDistance = 30;
         
-        /*
+		//Grid
+        	/*
 		var size = 14, step = 1;
 		var geometry = new THREE.Geometry();
 		var material = new THREE.LineBasicMaterial({color: 'white'});
@@ -149,6 +169,8 @@
 		var line = new THREE.Line( geometry, material, THREE.LinePieces);
 		scene.add(line);
 		*/
+		
+		//Rendering elements to view
 
 		render();
 	}
@@ -157,20 +179,26 @@
 		requestAnimationFrame( animate );
 		render();
 	}
-
+		
+	
+	//Rendering function
 	function render() {
 
+		//Not needed now
 		var timer = Date.now() * 0.0005;
-        /*
+        	/*
 		camera.position.x = Math.cos(timer) * 50;
 		camera.position.z = Math.sin(timer) * 50;
-        */
+        	*/
+		
 		camera.lookAt( scene.position );
-
 		renderer.render(scene, camera);
 	}
 
+	//function for adding cube.
 	function addCube() {
+		
+		//Create windows and enter values
 		var xco = prompt("Please enter y-coord");
 		var zco = prompt("Please enter x-koord");
 		var cubeWidth = 1;
@@ -215,6 +243,7 @@
         render();
 	}
 
+	//Bg changes its color if there's 3 trees.
 	function updateBackground() {
 		if (trees > 2) {
 			scene.background = new THREE.Color( 0xC1FFFF );
@@ -222,13 +251,15 @@
 		}
 	}
 
-
+	//End of script
 	</script>
+	
+	<!-- HTML stuff -->
 	<div class = "takaisin"><a href = "mapstesti.html">Back to map</a></div>
 	<div class = "lisays"><button onclick = "addCube()">Add cube!</button><br><button onclick = "addTree()">Add tree!</button></div>
 	<!--<div class = "pisteet">
 		<div id = "puut">0</div>
 	</div>-->
-	<div class = "logo"><img src = "ihanpihalla.png" width = "300" height = "150"></div>
+	<!--<div class = "logo"><img src = "ihanpihalla.png" width = "300" height = "150"></div>-->
 </body>
 </html>
