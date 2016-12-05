@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Three JS Test</title>
+	<style>
+	body {
+		margin: 0;
+	}
+	canvas {
+		width: 100%;
+		height: 100%;
+		background-color: #FFFFFF;
+	}
+	a {
+		text-decoration: none;
+		font-family: Arial, Helvetica, sans-serif;
+		color: white;
+	}
+	div.lisays {
+		position: fixed;
+		background-color: #FFFFFF;
+		top: 10%;
+		left: 3%;
+	}
+	div.takaisin {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-left: 5px;
+		padding-right: 5px;
+		position: fixed;
+		background-color: #595959;
+		top: 1%;
+		left: 3%;
+		border-left: 6px solid white;
+		width: 100px;
+	}
+	div.pisteet {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		position: fixed;
+		width: 95%;
+		background-color: #FFFFFF;
+		bottom: 1%;
+		left: 3%;
+	}
+	div.takaisin:hover {
+		border-left: 6px solid white;
+		background-color: #808080;
+	}
+	div.logo {
+		position: fixed;
+		top: 1%;
+		right: 5%;
+	}
+	button {
+		width: 100px;
+	}
+	</style>
+</head>
+<body>
+	<script src = "three.min.js"></script>
+	<script src = "OrbitControls.js"></script>
+	<script type = "text/javascript">
+	var scene, camera, renderer;
+	var controls;
+	var trees = 0;
+
+	init();
+	//animate();
+
+	function init() {
+
+		scene = new THREE.Scene();
+
+		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
+		camera.position.set(30,20,0);
+		camera.lookAt(scene.position);
+
+		renderer = new THREE.WebGLRenderer();
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		document.body.appendChild(renderer.domElement);
+
+		var cubeWidth = 5;
+        var cubeHeight = 5;
+        var cubeDepth = 15;            
+        var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+        var cubeMaterial = new THREE.MeshBasicMaterial({color: 0xcccccc, vertexColors: 'white', wireframeLinewidth: 3});                
+        cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cube.position.y = 2.45;
+        cube.position.x = -8;
+        cube.position.z = 0.5;           
+        scene.add(cube);
+
+        cubeWidth = 15;
+        cubeHeight = 5;
+        cubeDepth = 5;            
+        cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+        cubeMaterial = new THREE.MeshBasicMaterial({color: 0xcccccc, vertexColors: 'white', wireframeLinewidth: 3});                
+        cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cube.position.y = 2.45;
+        cube.position.x = 3;
+        cube.position.z = 11;
+        scene.add(cube);
+
+        cubeWidth = 15;
+        cubeHeight = 5;
+        cubeDepth = 5;            
+        cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+        cubeMaterial = new THREE.MeshBasicMaterial({color: 0xcccccc, vertexColors: 'white', wireframeLinewidth: 3});                
+        cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cube.position.y = 2.45;
+        cube.position.x = 3;
+        cube.position.z = -11;
+        scene.add(cube);
+
+
+        ray = new THREE.Ray( camera.position, null );
+
+        var geometry = new THREE.PlaneBufferGeometry( 30, 30, 32 );
+		var material = new THREE.MeshBasicMaterial( {color: 0x009933, side: THREE.DoubleSide} );
+		var plane = new THREE.Mesh( geometry, material );
+		plane.rotation.x = Math.PI / 2;
+		scene.add( plane );
+
+		controls = new THREE.OrbitControls(camera, renderer.domElement);
+		controls.addEventListener( 'change', render );
+		controls.minPolarAngle = - Math.PI;
+		controls.maxPolarAngle = Math.PI / 2 - 0.2;
+
+		controls.minAzimuthAngle = -Infinity; // radians
+		controls.maxAzimuthAngle = Infinity; // radians
+
+		controls.minDistance = 0;
+		controls.maxDistance = 30;
+        
+        /*
+		var size = 14, step = 1;
+		var geometry = new THREE.Geometry();
+		var material = new THREE.LineBasicMaterial({color: 'white'});
+
+		for (var i = - size; i <= size; i += step) {
+			geometry.vertices.push(new THREE.Vector3( - size, - 0.04, i ));
+			geometry.vertices.push(new THREE.Vector3( size, - 0.04, i ));
+
+			geometry.vertices.push(new THREE.Vector3( i, - 0.04, - size ));
+			geometry.vertices.push(new THREE.Vector3( i, - 0.04, size ));
+		}
+
+		var line = new THREE.Line( geometry, material, THREE.LinePieces);
+		scene.add(line);
+		*/
+
+		render();
+	}
+
+	function animate() {
+		requestAnimationFrame( animate );
+		render();
+	}
+
+	function render() {
+
+		var timer = Date.now() * 0.0005;
+        /*
+		camera.position.x = Math.cos(timer) * 50;
+		camera.position.z = Math.sin(timer) * 50;
+        */
+		camera.lookAt( scene.position );
+
+		renderer.render(scene, camera);
+	}
+
+	function addCube() {
+		var xco = prompt("Please enter y-coord");
+		var zco = prompt("Please enter x-koord");
+		var cubeWidth = 1;
+        var cubeHeight = 1;
+        var cubeDepth = 1;            
+        var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+        var cubeMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00, vertexColors: 'white', wireframeLinewidth: 3});                
+        cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cube.position.y = 0.45;
+        cube.position.x = xco;
+        cube.position.z = zco;
+          
+        scene.add(cube);
+        render();
+	}
+
+	function addTree() {
+		var xco = prompt("Please enter y-coord");
+		var zco = prompt("Please enter x-koord");
+		var cubeWidth = 0.1;
+        var cubeHeight = 2;
+        var cubeDepth = 0.1;            
+        var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+        var cubeMaterial = new THREE.MeshBasicMaterial({color: 0x993300, vertexColors: 'white', wireframeLinewidth: 3});                
+        tree = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        tree.position.y = 0.95;
+        tree.position.x = xco;
+        tree.position.z = zco;
+
+        var geometry = new THREE.SphereGeometry(1, 32, 32);
+        var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+        var sphere = new THREE.Mesh(geometry, material);
+        sphere.position.y = 0.95 + cubeHeight;
+        sphere.position.x = xco;
+        sphere.position.z = zco;
+        scene.add(sphere);
+        render();
+        scene.add(tree);
+        trees++;
+        updateBackground();
+        document.getElementById('puut').innerHTML = trees;
+        render();
+	}
+
+	function updateBackground() {
+		if (trees > 2) {
+			scene.background = new THREE.Color( 0xC1FFFF );
+			render();
+		}
+	}
+
+
+	</script>
+	<div class = "takaisin"><a href = "mapstesti.html">Back to map</a></div>
+	<div class = "lisays"><button onclick = "addCube()">Add cube!</button><br><button onclick = "addTree()">Add tree!</button></div>
+	<!--<div class = "pisteet">
+		<div id = "puut">0</div>
+	</div>-->
+	<div class = "logo"><img src = "ihanpihalla.png" width = "300" height = "150"></div>
+</body>
+</html>
