@@ -1,12 +1,8 @@
-<!-- Indexxx.html, to demonstrate Three JS. Code is a bit messy sometimes... -->
-
 <!DOCTYPE HTML>
 <html>
 <head>
 	<title>Three JS Test</title>
-	
-	<!-- CSS definitions. Sorry for using Finnish sometimes... -->
-	
+	<!-- CSS style definitions -->
 	<style>
 	body {
 		margin: 0;
@@ -37,72 +33,141 @@
 		top: 1%;
 		left: 3%;
 		border-left: 6px solid white;
+		transition-duration: 0.4s;
 		width: 100px;
-	}
-	div.pisteet {
-		padding-top: 5px;
-		padding-bottom: 5px;
-		position: fixed;
-		width: 95%;
-		background-color: #FFFFFF;
-		bottom: 1%;
-		left: 3%;
 	}
 	div.takaisin:hover {
 		border-left: 6px solid white;
 		background-color: #808080;
 	}
-	div.logo {
+	/*
+	div.incs {
+		top: 90%;
+		width: 90%;
 		position: fixed;
-		top: 1%;
-		right: 5%;
+		background-color: white;
+		text-align: center;
 	}
-	button {
+	*/
+	button#cube {
 		width: 100px;
+		background-color: black;
+		border-radius: 5px;
+		border: none;
+		transition-duration: 0.4s;
+		border: 2px solid #e7e7e7;
+	}
+	button#cube:hover {
+		background-color: green;
+		cursor: pointer;
+	}
+	button#cube:active {
+		background-color: yellow;
+		cursor: pointer;
+	}
+	button#cube span {
+        color: white;
+    }
+    ui-widget-content.success-dialog {
+   		background: #F9F9F9;
+    	border: 1px solid #90d93f;
+    	color: #222222;
+	}
+
+	.ui-dialog.success-dialog {
+    	left: 0;
+    	outline: 0 none;
+    	padding: 0 !important;
+    	position: absolute;
+    	top: 0;
+	}
+
+	.ui-dialog.success-dialog .ui-dialog-content {
+    	background: none repeat scroll 0 0 transparent;
+    	border: 0 none;
+    	overflow: auto;
+    	position: relative;
+    	padding: 0 !important;
+    	margin: 0;
+	}
+
+	.ui-dialog.success-dialog .ui-widget-header {
+    	background: #b0de78;
+    	border: 0;
+    	color: #fff;
+    	font-weight: normal;
+	}
+
+	.ui-dialog.success-dialog .ui-dialog-titlebar {
+    	padding: 0.1em .5em;
+    	position: relative;
+    	font-size: 1em;
 	}
 	</style>
 </head>
 <body>
-	<!-- References to JavaScript-files -->
+	<!--Linking JavaScript and CSS-files-->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
 	<script src = "three.min.js"></script>
 	<script src = "OrbitControls.js"></script>
-	
-	<!--Start of JavaScript -->
+	<script src = "dat.gui.min.js"></script>
+	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type = "text/javascript">
-		
- 	//Some variables
+
+	//Some variables
 	var scene, camera, renderer;
+	var mouse = new THREE.Vector2();
+	var objects = [];
+	var raycaster = new THREE.Raycaster();
+	var container;
+	var SELECTED;
+	var INTERSECTED;
+	var intersection = new THREE.Vector3();
+	var offset = new THREE.Vector3();
 	var controls;
 	var trees = 0;
+	var plane = new THREE.Plane();
 
-	//Init the view
+	var i = 0;
+	var dragged = false;
+	var selectedId;
+
 	init();
 	//animate();
 
+    //Initializer-function to initialize the whole thing
 	function init() {
 
-		//Using three js, let's create objects
+		container = document.createElement( 'div' );
+		document.body.appendChild( container );
+
+		//Creating scene. Scene is where everything is added.
 		scene = new THREE.Scene();
 
-		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
+		//Creating camera and giving it its position
+		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
 		camera.position.set(30,20,0);
 		camera.lookAt(scene.position);
 
+        //Renderer stuff
 		renderer = new THREE.WebGLRenderer();
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		document.body.appendChild(renderer.domElement);
 
-		//Creating and adding 3 "buildings" to scene. Bad code!
+        //Building some block of flats
 		var cubeWidth = 5;
-       		var cubeHeight = 5;
-        	var cubeDepth = 15;            
-        	var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
-        	var cubeMaterial = new THREE.MeshBasicMaterial({color: 0xcccccc, vertexColors: 'white', wireframeLinewidth: 3});                
-        	cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        	cube.position.y = 2.45;
-        	cube.position.x = -8;
-        	cube.position.z = 0.5;           
-        	scene.add(cube);
+        var cubeHeight = 5;
+        var cubeDepth = 15;            
+        var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+        var cubeMaterial = new THREE.MeshBasicMaterial({color: 0xcccccc, vertexColors: 'white', wireframeLinewidth: 3});                
+        cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cube.position.y = 2.45;
+        cube.position.x = -8;
+        cube.position.z = 0.5;           
+        scene.add(cube);
 
         cubeWidth = 15;
         cubeHeight = 5;
@@ -126,81 +191,202 @@
         cube.position.z = -11;
         scene.add(cube);
 
-        //Not sure what does this do
+        //Adding event listeners to elements
+        renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
+		renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
+		renderer.domElement.addEventListener( 'click', onDocumentMouseClick, false );
+
         ray = new THREE.Ray( camera.position, null );
 
-	//Create floor
+        //Creating plane
         var geometry = new THREE.PlaneBufferGeometry( 30, 30, 32 );
 		var material = new THREE.MeshBasicMaterial( {color: 0x009933, side: THREE.DoubleSide} );
-		var plane = new THREE.Mesh( geometry, material );
-		plane.rotation.x = Math.PI / 2;
-		scene.add( plane );
-		
-		//Defining controls:
+		var planee = new THREE.Mesh( geometry, material );
+		planee.position.y = 0;
+		planee.rotation.x = Math.PI / 2;
+		scene.add( planee );
+
+		//Creating controls. Now itäs possible to rotate the view and zoom
 		controls = new THREE.OrbitControls(camera, renderer.domElement);
 		controls.addEventListener( 'change', render );
-		
-		//Limits for vertical rotation
+
+		//Setting limits to rotation and zoom.
+		//Vertical rotation is limited, so that it's not possible to look under the plane.
 		controls.minPolarAngle = - Math.PI;
 		controls.maxPolarAngle = Math.PI / 2 - 0.2;
 
-		//Limits for horizontal rotation (none)
+		//No limits for horizontal rotation
 		controls.minAzimuthAngle = -Infinity; // radians
 		controls.maxAzimuthAngle = Infinity; // radians
 
-		//Limits for max and min-zoom
+		//Zoom limits
 		controls.minDistance = 0;
 		controls.maxDistance = 30;
-        
-		//Grid
-        	/*
-		var size = 14, step = 1;
-		var geometry = new THREE.Geometry();
-		var material = new THREE.LineBasicMaterial({color: 'white'});
 
-		for (var i = - size; i <= size; i += step) {
-			geometry.vertices.push(new THREE.Vector3( - size, - 0.04, i ));
-			geometry.vertices.push(new THREE.Vector3( size, - 0.04, i ));
+		//Adding event listener of window if window is resized
+		window.addEventListener( 'resize', onWindowResize, false );
 
-			geometry.vertices.push(new THREE.Vector3( i, - 0.04, - size ));
-			geometry.vertices.push(new THREE.Vector3( i, - 0.04, size ));
-		}
-
-		var line = new THREE.Line( geometry, material, THREE.LinePieces);
-		scene.add(line);
-		*/
-		
-		//Rendering elements to view
-
+		//Render the scene together
 		render();
 	}
 
+	//When window is resized, this function is called resizing window automatically
+	function onWindowResize() {
+
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		render();
+	}
+
+	//When moving mouse (while pressing down), this function is called
+
+	function onDocumentMouseMove( event ) {
+
+        dragged = true;
+		event.preventDefault();
+		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+		//Raycaster let us know which object is selected
+		raycaster.setFromCamera( mouse, camera );
+
+		if ( SELECTED ) {
+
+			if ( raycaster.ray.intersectPlane( plane, intersection ) ) {
+
+				SELECTED.position.copy( intersection.sub( offset ) );
+
+				//Rendering while mouse is dragging object.
+				render();
+		    }
+
+		return;
+		}
+
+		var intersects = raycaster.intersectObjects( objects );
+
+		if ( intersects.length > 0 ) {
+
+			if ( INTERSECTED != intersects[ 0 ].object ) {
+
+				if ( INTERSECTED ) INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
+
+				INTERSECTED = intersects[ 0 ].object;
+				INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
+
+				//Dir-vector is normal-vector for plane.
+				var dir = new THREE.Vector3(0,200,0);
+				var centroid = new THREE.Vector3(0,0,0);
+				plane.setFromNormalAndCoplanarPoint(dir, centroid);
+
+				//plane.setFromNormalAndCoplanarPoint(camera.getWorldDirection( plane.normal ),INTERSECTED.position );
+			}
+
+			container.style.cursor = 'pointer';
+
+		} else {
+
+			if ( INTERSECTED ) INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
+
+			INTERSECTED = null;
+			container.style.cursor = 'auto';
+		}
+		render();
+	}
+
+	//When mouse down, this function is called
+
+	function onDocumentMouseDown( event ) {
+
+        dragged = false;
+		event.preventDefault();
+		raycaster.setFromCamera( mouse, camera );
+		var intersects = raycaster.intersectObjects( objects );
+
+		if ( intersects.length > 0 ) {
+
+			controls.enabled = false;
+			SELECTED = intersects[ 0 ].object;
+
+			if ( raycaster.ray.intersectPlane( plane, intersection ) ) {
+
+				offset.copy( intersection ).sub( SELECTED.position );
+
+			}
+			container.style.cursor = 'move';
+		}
+		render();
+
+	}
+
+	//When mouse is up, this function is called
+
+	function onDocumentMouseUp( event ) {
+
+		event.preventDefault();
+		controls.enabled = true;
+
+		if ( INTERSECTED ) {
+			SELECTED = null;
+		}
+
+		if ( dragged ) {
+			setTimeout(function(){ui.helper.unbind("click.prevent");}, 300);
+		}
+
+		container.style.cursor = 'auto';
+		render();
+
+	}
+
+	//When clicked mouse on object, this function is called
+
+	function onDocumentMouseClick(event) {
+		event.preventDefault();
+		raycaster.setFromCamera( mouse, camera );
+		var intersects = raycaster.intersectObjects( objects );
+		if (INTERSECTED && !dragged) {
+			var xco = INTERSECTED.position.z.toFixed(2); 
+			var zco = INTERSECTED.position.x.toFixed(2);
+			document.getElementById('oi').innerHTML = INTERSECTED.userData.id;
+			selectedId = INTERSECTED.userData.id;
+			document.getElementById('ox').innerHTML = INTERSECTED.position.x.toFixed(2);
+			document.getElementById('oz').innerHTML = INTERSECTED.position.z.toFixed(2); 
+			$('#success').dialog({
+				height: 150,
+				width: 350,
+				modal: true,
+    			resizable: false,
+				dialogClass: 'no-close success-dialog'
+			});
+		}
+	}
+
+	function removeObject() {
+		
+	}
+
+	//Animation function. Not needed...
 	function animate() {
 		requestAnimationFrame( animate );
 		render();
 	}
-		
-	
+
 	//Rendering function
 	function render() {
 
-		//Not needed now
 		var timer = Date.now() * 0.0005;
-        	/*
-		camera.position.x = Math.cos(timer) * 50;
-		camera.position.z = Math.sin(timer) * 50;
-        	*/
-		
 		camera.lookAt( scene.position );
 		renderer.render(scene, camera);
 	}
 
-	//function for adding cube.
+	//Function to add cubes
 	function addCube() {
-		
-		//Create windows and enter values
-		var xco = prompt("Please enter y-coord");
-		var zco = prompt("Please enter x-koord");
+		var xco = 0;
+		var zco = 0;
 		var cubeWidth = 1;
         var cubeHeight = 1;
         var cubeDepth = 1;            
@@ -210,10 +396,14 @@
         cube.position.y = 0.45;
         cube.position.x = xco;
         cube.position.z = zco;
+        cube.userData.id = i;
+        i++;
+        objects.push(cube);
           
         scene.add(cube);
         render();
 	}
+	//Function to add "trees"
 
 	function addTree() {
 		var xco = prompt("Please enter y-coord");
@@ -234,6 +424,7 @@
         sphere.position.y = 0.95 + cubeHeight;
         sphere.position.x = xco;
         sphere.position.z = zco;
+        objects.push(sphere);
         scene.add(sphere);
         render();
         scene.add(tree);
@@ -243,7 +434,7 @@
         render();
 	}
 
-	//Bg changes its color if there's 3 trees.
+	//Function to change background color of the game
 	function updateBackground() {
 		if (trees > 2) {
 			scene.background = new THREE.Color( 0xC1FFFF );
@@ -251,15 +442,16 @@
 		}
 	}
 
-	//End of script
 	</script>
-	
-	<!-- HTML stuff -->
 	<div class = "takaisin"><a href = "mapstesti.html">Back to map</a></div>
-	<div class = "lisays"><button onclick = "addCube()">Add cube!</button><br><button onclick = "addTree()">Add tree!</button></div>
+	<div class = "lisays"><button id = "cube" onclick = "addCube()"><span>Add cube!</span></button><br><!--<button onclick = "addTree()">Add tree!</button>--></div>
+	<div id="success" title="Cube">
+    <p>You have clicked an object! Object index: <p id = "oi"></p>Location: <p id = "ox"></p><p id = "oz"></p><button onclick = "removeObject()">Remove object</button></p>
+</div>
+	<!--<div class = "incs">Click add cube to add cube to yard. Drag and drop it to the place you want<br>Delete cube by doubleclicking it</div>--><!--<button onclick = "addTree()">Add tree!</button></div>-->
+
 	<!--<div class = "pisteet">
 		<div id = "puut">0</div>
 	</div>-->
-	<!--<div class = "logo"><img src = "ihanpihalla.png" width = "300" height = "150"></div>-->
 </body>
 </html>
