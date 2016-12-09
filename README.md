@@ -8,7 +8,11 @@ Become collaborator by sending your GitHub username to Sami (DM/PM on Slack) and
 
 
 ~^.^~
+-----------
+UPDATE 10.12.
 
-kdsdjwepodjewijfweoifjweoifjewoifjewio
-kokopkpokpokpokpokpo
-k
+indexxx.html:
+Now it's possible to drag & drop objects (lol, cube)
+Infowindows
+Smaller changes
+-----------
