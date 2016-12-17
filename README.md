@@ -39,3 +39,10 @@ To do 15.12.16
   
   
   ~^.^~
+  ---
+  UPDATE 17.12.16
+
+  indexxx.html
+  Changed the way how objects are added
+
+  -Sami
