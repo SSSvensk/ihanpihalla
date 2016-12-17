@@ -121,7 +121,7 @@
 <body>
 	<!--Linking JavaScript and CSS-files-->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
 	<script src = "three.min.js"></script>
 	<script src = "OrbitControls.js"></script>
 	<script src = "OBJLoader.js"></script>
@@ -129,7 +129,7 @@
 	<script src = "Cube.js"></script>
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type = "text/javascript">
 
 	//Some variables
@@ -161,7 +161,7 @@
 	init();
 	//animate();
 
-    //Initializer-function to initialize the whole thing
+        //Initializer-function to initialize the whole thing
 	function init() {
 
 		container = document.createElement( 'div' );
@@ -170,12 +170,16 @@
 		//Creating scene. Scene is where everything is added.
 		scene = new THREE.Scene();
 
-		//Creating camera and giving it its position
+		//Creating camera and giving it its position.
 		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+		
+		//Camera is in position where x=30, y=20 and z=0
 		camera.position.set(30,20,0);
+		
+		//Camera looks to the centre of scene, (I guess it's point 0,0,0)
 		camera.lookAt(scene.position);
 
-        //Renderer stuff
+                //Renderer stuff
 		renderer = new THREE.WebGLRenderer();
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		document.body.appendChild(renderer.domElement);
@@ -192,58 +196,73 @@
 		renderer.shadowMapWidth = 1024;
 		renderer.shadowMapHeight = 1024;
 
-        //Building some block of flats
+                //Building some block of flats
 		var cubeWidth = 1;
-        var cubeHeight = 1;
-        var cubeDepth = 1;            
-        var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
-        //var cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
-        var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
-        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        cube.scale.set( 5, 5, 15 );
-        cube.position.y = 2.45;
-        cube.position.x = -8;
-        cube.position.z = 0.5; 
-        cube.castShadow = true;
+                var cubeHeight = 1;
+                var cubeDepth = 1;            
+                var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+		
+		//Instead of color, there can be a picture in cube's side
+                //var cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
+                var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
+                var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+	
+		//This function call will multiplay each vertex of cube. So cube dimensions are now
+		//Width: 15*1 = 15
+		//Height: 5*1 = 5
+		//Depth: 5*1 = 5
+                cube.scale.set( 5, 5, 15 );
+		
+		//Giving position
+                cube.position.y = 2.45;
+                cube.position.x = -8;
+                cube.position.z = 0.5; 
+		
+		//Let there be shadow
+                cube.castShadow = true;
 		cube.receiveShadow = true; 
-        allObjects.push(cube);         
-        scene.add(cube);
+		
+		//Pushing object to array
+                allObjects.push(cube);         
+                scene.add(cube);
+		
+		//Repeating the same stuff for other cubes...
 
-        cubeWidth = 1;
-        cubeHeight = 1;
-        cubeDepth = 1;            
-        cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
-        //cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
-        cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
-        var newCube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        newCube.scale.set( 15, 5, 5 );
-        newCube.position.y = 2.45;
-        newCube.position.x = 3;
-        newCube.position.z = 11;
-        newCube.castShadow = true;
+                cubeWidth = 1;
+                cubeHeight = 1;
+                cubeDepth = 1;            
+                cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+                //cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
+                cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
+                var newCube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+                newCube.scale.set( 15, 5, 5 );
+                newCube.position.y = 2.45;
+                newCube.position.x = 3;
+                newCube.position.z = 11;
+                newCube.castShadow = true;
 		newCube.receiveShadow = true; 
-        allObjects.push(newCube);
-        scene.add(newCube);
+                allObjects.push(newCube);
+                scene.add(newCube);
 
-        cubeWidth = 1;
-        cubeHeight = 1;
-        cubeDepth = 1;            
-        cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
-        //cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
-        cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                  
-        cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        cube.scale.set( 15, 5, 5 );
-        cube.position.y = 2.45;
-        cube.position.x = 3;
-        cube.position.z = -11;
-        cube.castShadow = true;
+                cubeWidth = 1;
+                cubeHeight = 1;
+                cubeDepth = 1;            
+                cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+                //cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
+                cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                  
+                cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+                cube.scale.set( 15, 5, 5 );
+                cube.position.y = 2.45;
+                cube.position.x = 3;
+                cube.position.z = -11;
+                cube.castShadow = true;
 		cube.receiveShadow = true; 
-        allObjects.push(cube);
-        scene.add(cube);
+                allObjects.push(cube);
+                scene.add(cube);
 
-        //Different lights. Pick your favourite
+                //Different lights. Pick your favourite
 /*
-        var light = new THREE.AmbientLight( 0x404040 ); // soft white light
+                var light = new THREE.AmbientLight( 0x404040 ); // soft white light
 		scene.add( light );
 /*
 		var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
@@ -259,17 +278,19 @@
 		var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x080820, 1 );
 		scene.add( hemiLight );
 
-        //Adding event listeners to elements
-        renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+               //Adding event listeners to elements. Basically each action calls certain function. Parameter list is (mouse action, function and some boolean that I have no idea what it's meaning is:D)
+                renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
 		renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
 		renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
 		renderer.domElement.addEventListener( 'click', onDocumentMouseClick, false );
 
-        ray = new THREE.Ray( camera.position, null );
+		//Not sure if this was important...
+                ray = new THREE.Ray( camera.position, null );
 
-        //Creating plane
-        var geometry = new THREE.PlaneBufferGeometry( 30, 30, 32 );
+                //Creating plane/ground for scene
+                var geometry = new THREE.PlaneBufferGeometry( 30, 30, 32 );
 		
+		//Image to ground texture.
 		var texture = THREE.ImageUtils.loadTexture( "grass5.jpg" );
 
 		//Making texture spread in 2 directions. Without these, texture would look like bar code
@@ -347,7 +368,7 @@
 		render();
 	}
 
-	//When window is resized, this function is called resizing window automatically
+	//When window is resized, this function is called resizing window automatically. Most of this is copypasted...
 	function onWindowResize() {
 
 		camera.aspect = window.innerWidth / window.innerHeight;
@@ -360,10 +381,10 @@
 	}
 
 	//When moving mouse, this function is called
-
 	function onDocumentMouseMove( event ) {
 
-        dragged = true;
+		
+                dragged = true;
 		event.preventDefault();
 		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
@@ -371,33 +392,35 @@
 		//Raycaster let us know which object is selected
 		raycaster.setFromCamera( mouse, camera );
 
-		//If object is selected and object is inside yard
-
+		//If object is selected and object is inside yard, let's run the following code
 		if ( SELECTED && (SELECTED.position.x < 14.5 && SELECTED.position.x > -14.5 && SELECTED.position.z < 14.5 && SELECTED.position.z > -14.5 )) {
 
-            var ot = checkObjectsNotTopOfEachOther();
+			//Getting 0-1-value from function that inspects if objects are on top of each other
+                        var ot = checkObjectsNotTopOfEachOther();
 			if ( raycaster.ray.intersectPlane( plane, intersection ) && ot == 0) {
 
+				//Not sure excatly what here happens, but apparently position of object is changing here
 				SELECTED.position.copy( intersection.sub( offset ) );
 
-				//Rendering while mouse is dragging object.
+				//Rendering changes to scene
 				render();
-		    } else {
-		    	cancelDragAndDrop();
+		        } else {
+				//Cancelling drag and drop if objects is draggend on top of other object
+		    	        cancelDragAndDrop();
 		    }
 
 		return;
 		}
 
+		//If the new object is just added to scene, following code is run
 		else if (ADDED) {
 			//var ot = checkObjectsNotTopOfEachOther();
 			if ( raycaster.ray.intersectPlane( plane, intersection )) {
 
 				ADDED.position.copy( intersection.sub( offset ) );
 
-				//Rendering while mouse is dragging object.
+				//Rendering while mouse is dragging object and position is inside boundaries
 				if ((ADDED.position.x < 14.5 && ADDED.position.x > -14.5) && (ADDED.position.z < 14.5 && ADDED.position.z > -14.5)) {
-
 					render();
 				}
 		    } 
@@ -405,7 +428,7 @@
 		}
 
 		//Else if object is selected but outside yard limits
-		//Then it's returned back to its previous location before drag&drop and no more selected
+		//Then it's returned back to its previous location before drag&drop and no more selected and alerted to user
 		else if ( SELECTED && (SELECTED.position.x > 14.5 || SELECTED.position.x < -14.5 || SELECTED.position.z > 14.5 || SELECTED.position.z < -14.5 )) {
 			cancelDragAndDrop();
 			alert("Object over bounds!");
@@ -441,7 +464,7 @@
 	//When mouse down, this function is called
 	function onDocumentMouseDown( event ) {
 
-        dragged = false;
+                dragged = false;
 		event.preventDefault();
 		raycaster.setFromCamera( mouse, camera );
 		var intersects = raycaster.intersectObjects( objects, true );
@@ -458,14 +481,11 @@
 			previousX = SELECTED.position.x;
 
 			if ( raycaster.ray.intersectPlane( plane, intersection ) ) {
-
 				offset.copy( intersection ).sub( SELECTED.position );
-
 			}
 			container.style.cursor = 'move';
 		}
 		render();
-
 	}
 
 	//When mouse is up, this function is called
@@ -489,20 +509,22 @@
 	}
 
 	//When clicked mouse on object, this function is called
-
 	function onDocumentMouseClick(event) {
 		event.preventDefault();
 		controls.enabled = true;
+		//If new object has been just added and it's inside yard borders
 		if (ADDED && ((ADDED.position.x < 14.5 && ADDED.position.x > -14.5) && (ADDED.position.z < 14.5 && ADDED.position.z > -14.5))) {
 			SELECTED = null;
 			ADDED = null;
 			render();
 			//return;
 		} else {
-		event.preventDefault();
-		raycaster.setFromCamera( mouse, camera );
-		var intersects = raycaster.intersectObjects( objects );
-		if (INTERSECTED && !dragged) {
+		        event.preventDefault();
+			
+			//Getting objects that are penetrated by ray
+		        raycaster.setFromCamera( mouse, camera );
+		        var intersects = raycaster.intersectObjects( objects );
+		        if (INTERSECTED && !dragged) {
 			var xco = INTERSECTED.position.z.toFixed(2); 
 			var zco = INTERSECTED.position.x.toFixed(2);
 			document.getElementById('oi').innerHTML = INTERSECTED.userData.id;
