@@ -26,7 +26,7 @@ To do 15.12.16
       
       Value 1 has only one value per object
       Value 2 has multiple values per object, depending on the individual connections to other objects.
-          Options: Data structure with nodes and verticies or array for each object
+          Options: Data structure with nodes and edges (Replaced with right word :D, Sami, 19.12) or array for each object
           
       Point calculation: points (p) defined as linear function of d and s_objectn-n
       p = m d + points_max (Value 1)
