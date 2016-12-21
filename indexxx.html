@@ -112,7 +112,7 @@
 <body>
 	<!--Linking JavaScript and CSS-files-->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+  <link rel="stylesheet" href="/resources/demos/style.css">
 	<script src = "three.min.js"></script>
 	<script src = "OrbitControls.js"></script>
 	<script src = "OBJLoader.js"></script>
@@ -120,7 +120,7 @@
 	<script src = "Cube.js"></script>
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type = "text/javascript">
 
 	//Some variables
@@ -170,7 +170,7 @@
 		//Camera looks to the centre of scene, (I guess it's point 0,0,0)
 		camera.lookAt(scene.position);
 
-        //Renderer stuff
+    //Renderer stuff
 		renderer = new THREE.WebGLRenderer();
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		document.body.appendChild(renderer.domElement);
@@ -187,16 +187,16 @@
 		renderer.shadowMapWidth = 1024;
 		renderer.shadowMapHeight = 1024;
 
-        //Building some block of flats
+   //Building some block of flats
 		var cubeWidth = 1;
         var cubeHeight = 1;
         var cubeDepth = 1;            
         var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
 		
 		//Instead of color, there can be a picture in cube's side
-        //var cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
-        var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
-        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    //var cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
+    var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});
+    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 	
 		//This function call will multiplay each vertex of cube. So cube dimensions are now
 		//Width: 15*1 = 15
@@ -269,17 +269,18 @@
 		var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x080820, 1 );
 		scene.add( hemiLight );
 
-        //Adding event listeners to elements. Basically each action calls certain function. Parameter list is (mouse action, function and some boolean that I have no idea what it's meaning is:D)
-        renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+    //Adding event listeners to elements. Basically each action calls certain function. Parameter list is (mouse action, function and some boolean that I have no idea what it's meaning is:D)
+    renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
 		renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
 		renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
 		renderer.domElement.addEventListener( 'click', onDocumentMouseClick, false );
 
 		//Not sure if this was important...
-        ray = new THREE.Ray( camera.position, null );
+    ray = new THREE.Ray( camera.position, null );
 
-        //Creating planeground for scene
-        var geometry = new THREE.PlaneBufferGeometry( 30, 30, 32 );
+    //Creating planeground for scene
+    var geometry = new THREE.PlaneBufferGeometry( 30, 30, 32 );
 		
 		//Image to ground texture.
 		var texture = THREE.ImageUtils.loadTexture( "grass5.jpg" );
@@ -311,6 +312,7 @@
 
 		//Setting vectors which define basically in which direction is the yard is and in which direction cubes move
 		var dir = new THREE.Vector3(0,200,0);
+
 		var centroid = new THREE.Vector3(0,0,0);
 		plane.setFromNormalAndCoplanarPoint(dir, centroid);
 
@@ -353,7 +355,8 @@
 	//When moving mouse, this function is called
 	function onDocumentMouseMove( event ) {
 
-        dragged = true;
+		
+                dragged = true;
 		event.preventDefault();
 		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
@@ -365,7 +368,8 @@
 		if ( SELECTED && (SELECTED.position.x < 14.5 && SELECTED.position.x > -14.5 && SELECTED.position.z < 14.5 && SELECTED.position.z > -14.5 )) {
 
 			//Getting 0-1-value from function that inspects if objects are on top of each other
-            var ot = checkObjectsNotTopOfEachOther();
+      var ot = checkObjectsNotTopOfEachOther();
+    
 			if ( raycaster.ray.intersectPlane( plane, intersection ) && ot == 0) {
 
 				//Not sure excatly what here happens, but apparently position of object is changing here
@@ -376,7 +380,7 @@
 				//Rendering changes to scene
 				render();
 
-		        } else {
+		    } else {
 				//Cancelling drag and drop if objects is draggend on top of other object
 		    	    cancelDragAndDrop();
 		    }
@@ -409,6 +413,7 @@
 		//Storing every object, that are penetrated by ray, to intersects-array
 		var intersects = raycaster.intersectObjects( objects, true);
 
+
 		if ( intersects.length > 0 ) {
 			if ( INTERSECTED != intersects[ 0 ].object ) {
 
@@ -436,7 +441,7 @@
 	//When mouse down, this function is called
 	function onDocumentMouseDown( event ) {
 
-        dragged = false;
+    dragged = false;
 		event.preventDefault();
 		raycaster.setFromCamera( mouse, camera );
 		var intersects = raycaster.intersectObjects( objects, true );
@@ -538,6 +543,56 @@
 		};
 		return onTop;
 	}
+	}
+	document.getElementById('details').innerHTML = allObjects[0].scale.z;
+	}
+
+	function checkObjectsNotTopOfEachOther() {
+		if (SELECTED) {
+		var ind = allObjects.indexOf(SELECTED);
+		var sxo = SELECTED.position.x + (SELECTED.scale.x / 2);
+		var sxt = SELECTED.position.x - (SELECTED.scale.x / 2);
+		var szo = SELECTED.position.z + (SELECTED.scale.z / 2);
+		var szt = SELECTED.position.z - (SELECTED.scale.z / 2);
+
+		for (var i = 0; i < allObjects.length; i++) {
+			if (i != ind) {
+				var aoxo = allObjects[i].position.x + (allObjects[i].scale.x / 2);
+				var aoxt = allObjects[i].position.x - (allObjects[i].scale.x / 2);
+				var aozo = allObjects[i].position.z + (allObjects[i].scale.z / 2);
+				var aozt = allObjects[i].position.z - (allObjects[i].scale.z / 2);
+				if (((sxo >= aoxt) && (szo >= aozt) && (szt <= aozt) && (sxt <= aoxt)) || ((szo >= aozt) && (sxt <= aoxo) && (sxo >= aoxo) && (szt <= aozt)) || ((aoxo >= sxt) && (aozo >= szt) && (aozt <= szt) && (aoxt <= sxt)) || ((aozo >= szt) && (aoxt <= sxo) && (aoxo >= sxo) && (aozt <= szt))) {
+					onTop = 1;
+					break;
+				} else {
+					onTop = 0;
+				}
+			}
+		};
+		return onTop;
+	}
+	/*
+	else {
+		var sxo = ADDED.position.x + (ADDED.scale.x / 2);
+		var sxt = ADDED.position.x - (ADDED.scale.x / 2);
+		var szo = ADDED.position.z + (ADDED.scale.z / 2);
+		var szt = ADDED.position.z - (ADDED.scale.z / 2);
+
+		for (var i = 0; i < allObjects.length; i++) {
+				var aoxo = allObjects[i].position.x + (allObjects[i].scale.x / 2);
+				var aoxt = allObjects[i].position.x - (allObjects[i].scale.x / 2);
+				var aozo = allObjects[i].position.z + (allObjects[i].scale.z / 2);
+				var aozt = allObjects[i].position.z - (allObjects[i].scale.z / 2);
+				if (((sxo >= aoxt) && (szo >= aozt) && (szt <= aozt) && (sxt <= aoxt)) || ((szo >= aozt) && (sxt <= aoxo) && (sxo >= aoxo) && (szt <= aozt)) || ((aoxo >= sxt) && (aozo >= szt) && (aozt <= szt) && (aoxt <= sxt)) || ((aozo >= szt) && (aoxt <= sxo) && (aoxo >= sxo) && (aozt <= szt))) {
+					onTop = 1;
+					break;
+				} else {
+					onTop = 0;
+			}
+		};
+		return onTop;
+	}
+	*/
 	}
 
 	function removeObject() {
@@ -710,6 +765,12 @@
 			render();
 		}
 	}
+	
+	$(document).ready(function () {
+        $("#remove").click(function () {
+            $(this).closest('.ui-dialog-content').dialog('close'); 
+        });
+    });
 
 	function listIndexes() {
 		var indlist = objects.length + "<br>";
