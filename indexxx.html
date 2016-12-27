@@ -1,131 +1,33 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Three JS Test</title>
-	<!-- CSS style definitions -->
-	<style>
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-	canvas {
-		display: block;
-		width: 100%;
-		height: 100%;
-		background-color: #FFFFFF;
-	}
-	a {
-		text-decoration: none;
-		font-family: Arial, Helvetica, sans-serif;
-		color: white;
-	}
-	div.lisays {
-		position: fixed;
-		background-color: #FFFFFF;
-		top: 10%;
-		left: 3%;
-	}
-	div.takaisin {
-		padding-top: 10px;
-		padding-bottom: 10px;
-		padding-left: 5px;
-		padding-right: 5px;
-		position: fixed;
-		background-color: #595959;
-		top: 1%;
-		left: 3%;
-		border-left: 6px solid white;
-		transition-duration: 0.4s;
-		width: 100px;
-	}
-	div.takaisin:hover {
-		border-left: 6px solid white;
-		background-color: #808080;
-	}
-	div#success {
-		display: none;
-	}
-	div#details {
-		position: fixed;
-		width: 10%;
-		bottom: 5%;
-		left: 3%;
-		background-color: white;
-	}
-	button {
-		width: 100px;
-		background-color: black;
-		border-radius: 5px;
-		border: none;
-		transition-duration: 0.4s;
-		border: 2px solid #e7e7e7;
-	}
-	button:hover {
-		background-color: green;
-		cursor: pointer;
-	}
-	button:active {
-		background-color: yellow;
-		cursor: pointer;
-	}
-	button span {
-        color: white;
-    }
-    ui-widget-content.success-dialog {
-   		background: #F9F9F9;
-    	border: 1px solid #90d93f;
-    	color: #222222;
-	}
-
-	.ui-dialog.success-dialog {
-    	left: 0;
-    	outline: 0 none;
-    	padding: 0 !important;
-    	position: absolute;
-    	top: 0;
-	}
-
-	.ui-dialog.success-dialog .ui-dialog-content {
-    	background: none repeat scroll 0 0 transparent;
-    	border: 0 none;
-    	overflow: auto;
-    	position: relative;
-    	padding: 0 !important;
-    	margin: 0;
-	}
-
-	.ui-dialog.success-dialog .ui-widget-header {
-    	background: #b0de78;
-    	border: 0;
-    	color: #fff;
-    	font-weight: normal;
-	}
-
-	.ui-dialog.success-dialog .ui-dialog-titlebar {
-    	padding: 0.1em .5em;
-    	position: relative;
-    	font-size: 1em;
-	}
-	</style>
+	<title>Example Address 1</title>
 </head>
 <body>
 	<!--Linking JavaScript and CSS-files-->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
+	<link rel = "stylesheet" href = "ihanpihallacss.css">
+  <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
 	<script src = "three.min.js"></script>
 	<script src = "OrbitControls.js"></script>
 	<script src = "OBJLoader.js"></script>
 	<script src = "dat.gui.min.js"></script>
 	<script src = "Cube.js"></script>
+	<script src = "jsdb.js"></script>
+	<script src = "mousefunctions.js"></script>
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type = "text/javascript">
 
 	//Some variables
 	var scene, camera, renderer;
 	var mouse = new THREE.Vector2();
+
+	//Array to store all objects, including buildings
+	var allObjects = [];
+
+	//Array to store clickable objects
 	var objects = [];
 	var raycaster = new THREE.Raycaster();
 	var container;
@@ -137,7 +39,8 @@
 	var controls;
 	var trees = 0;
 	var plane = new THREE.Plane();
-	var allObjects = [];
+
+	var directionalLight;
 
 	var i = 0;
 	var dragged = false;
@@ -150,7 +53,7 @@
 	var onTop;
 
 	init();
-	//animate();
+	animate();
 
         //Initializer-function to initialize the whole thing
 	function init() {
@@ -160,6 +63,7 @@
 
 		//Creating scene. Scene is where everything is added.
 		scene = new THREE.Scene();
+		scene.background = new THREE.Color( 0xC1FFFF );
 
 		//Creating camera and giving it its position.
 		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
@@ -168,9 +72,12 @@
 		camera.position.set(30,20,0);
 		
 		//Camera looks to the centre of scene, (I guess it's point 0,0,0)
-		camera.lookAt(scene.position);
+		//camera.lookAt(scene.position);
+		camera.lookAt(new THREE.Vector3(50,0,0));
+
 
     //Renderer stuff
+
 		renderer = new THREE.WebGLRenderer();
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		document.body.appendChild(renderer.domElement);
@@ -183,39 +90,45 @@
 		renderer.shadowCameraFov = 50;
 
 		renderer.shadowMapBias = 0.0039;
-		renderer.shadowMapDarkness = 0.5;
+		renderer.shadowMapDarkness = 0.1;
 		renderer.shadowMapWidth = 1024;
 		renderer.shadowMapHeight = 1024;
 
-   //Building some block of flats
+
+    //Building some block of flats
 		var cubeWidth = 1;
-        var cubeHeight = 1;
-        var cubeDepth = 1;            
-        var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+    var cubeHeight = 1;
+    var cubeDepth = 1;            
+    var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
 		
 		//Instead of color, there can be a picture in cube's side
-    //var cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
-    var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});
+     //var cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
+    var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
     var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 	
 		//This function call will multiplay each vertex of cube. So cube dimensions are now
 		//Width: 15*1 = 15
 		//Height: 5*1 = 5
 		//Depth: 5*1 = 5
-        cube.scale.set( 5, 5, 15 );
+    cube.scale.set( 5, 5, 15 );
 		
 		//Giving position
-        cube.position.y = 2.45;
-        cube.position.x = -8;
-        cube.position.z = 0.5; 
+    //cube.position.y = 2.45;
+    //cube.position.x = -8;
+    //cube.position.z = 0.5; 
+    cube.position.set(-8, 2.45, 0.5);
+    cube.updateMatrix();
 		
 		//Let there be shadow
-        cube.castShadow = true;
+    cube.castShadow = true;
 		cube.receiveShadow = true; 
+		cube.userData = {OBID: i, TYPE: "Building"};
 		
 		//Pushing object to array
-        allObjects.push(cube);         
-        scene.add(cube);
+		objects.push(cube);
+    allObjects.push(cube); 
+    i++;       
+    scene.add(cube);
 		
 		//Repeating the same stuff for other cubes...
 
@@ -227,11 +140,16 @@
         cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
         var newCube = new THREE.Mesh(cubeGeometry, cubeMaterial);
         newCube.scale.set( 15, 5, 5 );
-        newCube.position.y = 2.45;
-        newCube.position.x = 3;
-        newCube.position.z = 11;
+        //newCube.position.y = 2.45;
+        //newCube.position.x = 3;
+        //newCube.position.z = 11;
+        newCube.position.set(3, 2.45, 11);
+        newCube.updateMatrix();
         newCube.castShadow = true;
 		newCube.receiveShadow = true; 
+		newCube.userData = {OBID: i, TYPE: "Building"}
+		i++;
+		objects.push(newCube);
         allObjects.push(newCube);
         scene.add(newCube);
 
@@ -243,11 +161,17 @@
         cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                  
         cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
         cube.scale.set( 15, 5, 5 );
-        cube.position.y = 2.45;
-        cube.position.x = 3;
-        cube.position.z = -11;
+        //cube.position.y = 2.45;
+        //cube.position.x = 3;
+        //cube.position.z = -11;
+        cube.position.set(3, 2.45, -11);
+        cube.updateMatrix();
         cube.castShadow = true;
 		cube.receiveShadow = true; 
+		cube.userData = {OBID: i, TYPE: "Building"}; 
+		i++; 
+		objects.push(cube);
+
         allObjects.push(cube);
         scene.add(cube);
 
@@ -255,20 +179,24 @@
 /*
         var light = new THREE.AmbientLight( 0x404040 ); // soft white light
 		scene.add( light );
-/*
-		var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-		directionalLight.position.set( 0, 20, 10 );
+*/
+		directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+		directionalLight.position.set( 100, 10, 0 );
 		directionalLight.castShadow = true;
 		scene.add( directionalLight );
 
+		directionalLight.shadowCameraLeft = -30;
+        directionalLight.shadowCameraRight = 30;
+        directionalLight.shadowCameraTop = 35;
+        directionalLight.shadowCameraBottom = -30;
+/*
 		var pointLight = new THREE.PointLight( 0xffffff, 1.5, 40 );
 		pointLight.position.set( 0, 5, 0 );
 		pointLight.castShadow = true;
 		scene.add( pointLight );
 */
-		var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x080820, 1 );
+		var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x080820, 0.8 );
 		scene.add( hemiLight );
-
 
     //Adding event listeners to elements. Basically each action calls certain function. Parameter list is (mouse action, function and some boolean that I have no idea what it's meaning is:D)
     renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
@@ -277,10 +205,12 @@
 		renderer.domElement.addEventListener( 'click', onDocumentMouseClick, false );
 
 		//Not sure if this was important...
-    ray = new THREE.Ray( camera.position, null );
+        ray = new THREE.Ray( camera.position, null );
 
-    //Creating planeground for scene
-    var geometry = new THREE.PlaneBufferGeometry( 30, 30, 32 );
+        //Creating planeground for scene
+        var geometry = new THREE.PlaneBufferGeometry( 300, 300, 32 );
+
+
 		
 		//Image to ground texture.
 		var texture = THREE.ImageUtils.loadTexture( "grass5.jpg" );
@@ -290,7 +220,7 @@
 		texture.wrapT = THREE.RepeatWrapping;
 
 		//Repeating texture, lower the number is, lower the quality is...
-		texture.repeat.set( 6, 6 ); 
+		texture.repeat.set( 60, 60 ); 
 
 		//Settng texture as map for material
 		var material = new THREE.MeshLambertMaterial( {map:texture} );
@@ -299,7 +229,7 @@
 		var planee = new THREE.Mesh( geometry, material );
 
 		//Just inserting coordinates of borders to variables
-		borderY = borderX = 15
+		borderY = borderX = 15;
 		borderYY = borderXX = -15;
 
 		//Setting plane's position and rotation. If you remove minus in front of the rotation, the texture stays on the bottom
@@ -312,7 +242,6 @@
 
 		//Setting vectors which define basically in which direction is the yard is and in which direction cubes move
 		var dir = new THREE.Vector3(0,200,0);
-
 		var centroid = new THREE.Vector3(0,0,0);
 		plane.setFromNormalAndCoplanarPoint(dir, centroid);
 
@@ -330,8 +259,8 @@
 		controls.maxAzimuthAngle = Infinity; // radians
 
 		//Zoom limits
-		controls.minDistance = 0;
-		//controls.maxDistance = 30;
+		controls.minDistance = 25;
+		controls.maxDistance = 30;
 
 		//Adding event listener of window if window is resized
 		window.addEventListener( 'resize', onWindowResize, false );
@@ -352,173 +281,6 @@
 		render();
 	}
 
-	//When moving mouse, this function is called
-	function onDocumentMouseMove( event ) {
-
-		
-                dragged = true;
-		event.preventDefault();
-		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-		//Raycaster let us know which object is selected
-		raycaster.setFromCamera( mouse, camera );
-
-		//If object is selected and object is inside yard, let's run the following code
-		if ( SELECTED && (SELECTED.position.x < 14.5 && SELECTED.position.x > -14.5 && SELECTED.position.z < 14.5 && SELECTED.position.z > -14.5 )) {
-
-			//Getting 0-1-value from function that inspects if objects are on top of each other
-      var ot = checkObjectsNotTopOfEachOther();
-    
-			if ( raycaster.ray.intersectPlane( plane, intersection ) && ot == 0) {
-
-				//Not sure excatly what here happens, but apparently position of object is changing here
-				SELECTED.position.copy( intersection.sub( offset ) );
-				//SELECTED.updateMatrixWorld();
-				document.getElementById('details').innerHTML = SELECTED.position.x + ", " + SELECTED.position.z;
-
-				//Rendering changes to scene
-				render();
-
-		    } else {
-				//Cancelling drag and drop if objects is draggend on top of other object
-		    	    cancelDragAndDrop();
-		    }
-
-		return;
-		}
-
-		//If the new object is just added to scene, following code is run
-		else if (ADDED) {
-			//var ot = checkObjectsNotTopOfEachOther();
-			if ( raycaster.ray.intersectPlane( plane, intersection )) {
-
-				ADDED.position.copy( intersection.sub( offset ) );
-
-				//Rendering while mouse is dragging object and position is inside boundaries
-				if ((ADDED.position.x < 14.5 && ADDED.position.x > -14.5) && (ADDED.position.z < 14.5 && ADDED.position.z > -14.5)) {
-					render();
-				}
-		    } 
-		    return;
-		}
-
-		//Else if object is selected but outside yard limits
-		//Then it's returned back to its previous location before drag&drop and no more selected and alerted to user
-		else if ( SELECTED && (SELECTED.position.x > 14.5 || SELECTED.position.x < -14.5 || SELECTED.position.z > 14.5 || SELECTED.position.z < -14.5 )) {
-			cancelDragAndDrop();
-			alert("Object over bounds!");
-		}
-
-		//Storing every object, that are penetrated by ray, to intersects-array
-		var intersects = raycaster.intersectObjects( objects, true);
-
-
-		if ( intersects.length > 0 ) {
-			if ( INTERSECTED != intersects[ 0 ].object ) {
-
-				if ( INTERSECTED ) INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
-
-				INTERSECTED = intersects[ 0 ].object;
-
-				//Preserves the color/texture
-				INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
-				//plane.setFromNormalAndCoplanarPoint(camera.getWorldDirection( plane.normal ),INTERSECTED.position );
-			}
-
-			container.style.cursor = 'pointer';
-
-		} else {
-
-			if ( INTERSECTED ) INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
-
-			INTERSECTED = null;
-			container.style.cursor = 'auto';
-		}
-		render();
-	}
-
-	//When mouse down, this function is called
-	function onDocumentMouseDown( event ) {
-
-    dragged = false;
-		event.preventDefault();
-		raycaster.setFromCamera( mouse, camera );
-		var intersects = raycaster.intersectObjects( objects, true );
-
-		if ( intersects.length > 0 ) {
-
-			//Not able to rotate the view or zoom while mousedown on object
-			//Only focusing on clicked object now...
-			controls.enabled = false;
-
-			//Picking selected object
-			SELECTED = intersects[ 0 ].object.parent;
-			previousZ = SELECTED.position.z;
-			previousX = SELECTED.position.x;
-
-			if ( raycaster.ray.intersectPlane( plane, intersection ) ) {
-				offset.copy( intersection ).sub( SELECTED.position );
-			}
-			container.style.cursor = 'move';
-		}
-		render();
-	}
-
-	//When mouse is up, this function is called
-	function onDocumentMouseUp( event ) {
-
-		//document.getElementById('success').innerHTML.display = "none";
-		event.preventDefault();
-		controls.enabled = true;
-
-		if ( SELECTED ) {
-			SELECTED = null;
-		}
-
-		if ( dragged ) {
-			setTimeout(function(){ui.helper.unbind("click.prevent");}, 300);
-		}
-
-		container.style.cursor = 'auto';
-		render();
-
-	}
-
-	//When clicked mouse on object, this function is called
-	function onDocumentMouseClick(event) {
-		event.preventDefault();
-		controls.enabled = true;
-		//If new object has been just added and it's inside yard borders
-		if (ADDED && ((ADDED.position.x < 14.5 && ADDED.position.x > -14.5) && (ADDED.position.z < 14.5 && ADDED.position.z > -14.5))) {
-			SELECTED = null;
-			ADDED = null;
-			render();
-			//return;
-		} else {
-		    event.preventDefault();		
-			//Getting objects that are penetrated by ray
-		    raycaster.setFromCamera( mouse, camera );
-		    var intersects = raycaster.intersectObjects( objects, true );
-		    if (INTERSECTED && !dragged) {
-			    var xco = INTERSECTED.parent.position.z.toFixed(2); 
-			    var zco = INTERSECTED.parent.position.x.toFixed(2);
-			    document.getElementById('oi').innerHTML = INTERSECTED.parent.userData.OBID;
-			    document.getElementById("success").title = INTERSECTED.parent.userData.TYPE;
-			    selectedId = INTERSECTED.userData.id;
-			    document.getElementById('ox').innerHTML = xco;
-			    document.getElementById('oz').innerHTML = zco;
-			    $('#success').dialog({
-				    height: 150,
-				    width: 350,
-				    modal: true,
-    			    resizable: false,
-				    dialogClass: 'no-close success-dialog'
-			    });
-		    }
-	    }
-	}
-
 	function checkObjectsNotTopOfEachOther() {
 		if (SELECTED) {
 		var ind = allObjects.indexOf(SELECTED);
@@ -543,56 +305,6 @@
 		};
 		return onTop;
 	}
-	}
-	document.getElementById('details').innerHTML = allObjects[0].scale.z;
-	}
-
-	function checkObjectsNotTopOfEachOther() {
-		if (SELECTED) {
-		var ind = allObjects.indexOf(SELECTED);
-		var sxo = SELECTED.position.x + (SELECTED.scale.x / 2);
-		var sxt = SELECTED.position.x - (SELECTED.scale.x / 2);
-		var szo = SELECTED.position.z + (SELECTED.scale.z / 2);
-		var szt = SELECTED.position.z - (SELECTED.scale.z / 2);
-
-		for (var i = 0; i < allObjects.length; i++) {
-			if (i != ind) {
-				var aoxo = allObjects[i].position.x + (allObjects[i].scale.x / 2);
-				var aoxt = allObjects[i].position.x - (allObjects[i].scale.x / 2);
-				var aozo = allObjects[i].position.z + (allObjects[i].scale.z / 2);
-				var aozt = allObjects[i].position.z - (allObjects[i].scale.z / 2);
-				if (((sxo >= aoxt) && (szo >= aozt) && (szt <= aozt) && (sxt <= aoxt)) || ((szo >= aozt) && (sxt <= aoxo) && (sxo >= aoxo) && (szt <= aozt)) || ((aoxo >= sxt) && (aozo >= szt) && (aozt <= szt) && (aoxt <= sxt)) || ((aozo >= szt) && (aoxt <= sxo) && (aoxo >= sxo) && (aozt <= szt))) {
-					onTop = 1;
-					break;
-				} else {
-					onTop = 0;
-				}
-			}
-		};
-		return onTop;
-	}
-	/*
-	else {
-		var sxo = ADDED.position.x + (ADDED.scale.x / 2);
-		var sxt = ADDED.position.x - (ADDED.scale.x / 2);
-		var szo = ADDED.position.z + (ADDED.scale.z / 2);
-		var szt = ADDED.position.z - (ADDED.scale.z / 2);
-
-		for (var i = 0; i < allObjects.length; i++) {
-				var aoxo = allObjects[i].position.x + (allObjects[i].scale.x / 2);
-				var aoxt = allObjects[i].position.x - (allObjects[i].scale.x / 2);
-				var aozo = allObjects[i].position.z + (allObjects[i].scale.z / 2);
-				var aozt = allObjects[i].position.z - (allObjects[i].scale.z / 2);
-				if (((sxo >= aoxt) && (szo >= aozt) && (szt <= aozt) && (sxt <= aoxt)) || ((szo >= aozt) && (sxt <= aoxo) && (sxo >= aoxo) && (szt <= aozt)) || ((aoxo >= sxt) && (aozo >= szt) && (aozt <= szt) && (aoxt <= sxt)) || ((aozo >= szt) && (aoxt <= sxo) && (aoxo >= sxo) && (aozt <= szt))) {
-					onTop = 1;
-					break;
-				} else {
-					onTop = 0;
-			}
-		};
-		return onTop;
-	}
-	*/
 	}
 
 	function removeObject() {
@@ -616,6 +328,9 @@
 	//Animation function. Not needed...
 	function animate() {
 		requestAnimationFrame( animate );
+		var timer = Date.now() * 0.005;
+		directionalLight.position.x = Math.cos( timer ) * 10;
+        directionalLight.position.z = Math.sin( timer ) * 10;
 		render();
 	}
 
@@ -669,6 +384,9 @@
                     if ( child instanceof THREE.Mesh ) {
                         //child.material.ambient.setHex(0xFF0000);
                         child.material.color.setHex(0x996306);
+                        child.castShadow = true;
+				                child.receiveShadow = true;
+
                     }
                 } );
 				//object.matrixWorld(2,0,2);
@@ -683,7 +401,10 @@
 				allObjects.push(object);
 				objects.push(object);
 				i++;
-				document.getElementById('details').innerHTML = object.userData.OBID;
+				document.getElementById('info').style.visibility = "visible";
+				//document.getElementById('details').innerHTML = object.userData.OBID;
+				document.getElementById('typename').innerHTML = object.userData.TYPE;
+
 			}
 		);
 
@@ -701,6 +422,8 @@
                     if ( child instanceof THREE.Mesh ) {
                         //child.material.ambient.setHex(0xFF0000);
                         child.material.color.setHex(0xf2cf8a);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
                     }
                 } );
 				//object.matrixWorld(2,0,2);
@@ -715,7 +438,10 @@
 				allObjects.push(object);
 				objects.push(object);
 				i++;
+				document.getElementById('info').style.visibility = "visible";
 				document.getElementById('details').innerHTML = object.userData.id;
+				document.getElementById('typename').innerHTML = object.userData.TYPE;
+
 			}
 		);
 
@@ -740,20 +466,26 @@
                         //child.material.ambient.setHex(0xFF0000);
                         child.material = material;
                         child.material.color.setHex(0x08dd0f);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
                     }
                 } );
 				object.position.set(20,0,20);
 				object.scale.set(4,6,4);
 				object.updateMatrix();
 				object.castShadow = true;
-				object.userData = { OBID: i, TYPE: "Tree" };
+
+				object.userData = { OBID: i, TYPE: "Tree"};
+
 				i++;
 				ADDED = object;
 				scene.add( object );
 				render();
 				allObjects.push(object);
 				objects.push(object);
-				document.getElementById('details').innerHTML = i;
+				document.getElementById('info').style.visibility = "visible";
+				document.getElementById('typename').innerHTML = object.userData.TYPE;
+
 			}
 		);
 
@@ -765,13 +497,103 @@
 			render();
 		}
 	}
+
+	function listIndexes() {
+		var indlist = "Amount: " + allObjects.length + "<br>Types of objects:<br>";
+		for (var i = 0; i < allObjects.length; i++) {
+			indlist += allObjects[i].userData.OBID + ": " + allObjects[i].userData.TYPE + "<br>";
+		};
+		document.getElementById('details').innerHTML = indlist;
+	}
+
+	function getDistance(objoi, objti) {
+		var dobjo = new THREE.Object3D();
+		for (var i = 0; i < objects.length; i++) {
+			if (objects[i].userData.OBID == objoi) {
+				dobjo = objects[i];
+			}
+		};
+		var dobjt = new THREE.Object3D();
+		for (var i = 0; i < objects.length; i++) {
+			if (objects[i].userData.OBID == objti) {
+				dobjt = objects[i];
+			}
+		};
+
+		var xo = dobjo.position.x.toFixed(2);
+		var xt = dobjt.position.x.toFixed(2);
+		var xy = xo - xt;
+		if (xy < 0) {
+			xy = xy * (-1);
+		};
+		var zo = dobjo.position.z.toFixed(2);
+		var zt = dobjt.position.z.toFixed(2);
+		var zy = zo - zt;
+		if (zy < 0) {
+			zy = zy * (-1);
+		};
+		//document.getElementById('details').innerHTML = Math.sqrt(Math.pow(xy, 2) + Math.pow(zy, 2)).toFixed(2);
+
+		//Returning distance with two decimals
+		return Math.sqrt(Math.pow(xy, 2) + Math.pow(zy, 2)).toFixed(2);
+	}
 	
 	$(document).ready(function () {
         $("#remove").click(function () {
+        	document.getElementById("success").title = "";
             $(this).closest('.ui-dialog-content').dialog('close'); 
         });
     });
 
+    function closeNav() {
+    	document.getElementById("mysideNav").style.width = "0px";
+    	document.getElementById("downpanel").style.width = "100%";
+    	document.getElementById("downpanel").style.left = "0%";
+    	document.getElementById("takaisin").style.visibility = 'visible';
+    }
+
+    function openNav() {
+    	document.getElementById("mysideNav").style.width = "20%";
+    	document.getElementById("downpanel").style.width = "80%";
+    	document.getElementById("downpanel").style.left = "20%";
+    	document.getElementById("takaisin").style.visibility = 'none';
+    	if (document.getElementById("mysideNav").style.width == "20%") {
+    		document.getElementById("sidenavcontain").style.visibility = 'visible';
+    	}
+    }
+
+	</script>
+	<a href="mapstesti.html" class="closegame">&times;</a>
+	<div id = "takaisin" class = "takaisin"><a onClick = "openNav()">Open panel</a></div>
+	<div id = "mysideNav" class = "sideNav">
+		<div id = "sidenavcontain">
+		<h2>Elements</h2>
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		<a href = "#" onclick = "addDeer()">Add deer!</a><br>
+		<a href = "#" onclick = "addTree()">Add tree!</a><br>
+		<a href = "#" onclick = "addElf()">Add elf!</a>
+		<div id = "info">
+			<h2 id = "typename"></h2>
+			<p>This is info box about object you're going to put in the yard</p>
+			<p>This will be invisible until object is selected from above</p>
+		</div>
+	</div>
+    </div>
+	<div id="success" title="">
+    <p>You have clicked an object! Object index: <p id = "oi"></p>Location: <p id = "ox"></p><p id = "oz"></p><p id = "distances"></p><button id = "remove" onclick = "removeObject()">Remove object</button></p>
+    </div>
+    <div id = "downpanel">
+    	<div id = "gallery"><h1><a href = "gallery.html">Gallery</a></h1></div>
+        <div id = "userbox">
+    	    <h2>Santa Claus</h2>
+    	    <div id ="myProgress">
+    	    	<div id = "myBar"></div>
+    	    </div>
+    	    <p>Immortal</p>
+    	    <p>Log out</p>
+        </div>
+        <div id = "points"><h1>2332 (+11 %)</h1></div>
+=======
 	function listIndexes() {
 		var indlist = objects.length + "<br>";
 		for (var i = 0; i < objects.length; i++) {
@@ -831,11 +653,5 @@
 	<div id="success" title="">
     <p>You have clicked an object! Object index: <p id = "oi"></p>Location: <p id = "ox"></p><p id = "oz"></p><button id = "remove" onclick = "removeObject()">Remove object</button></p>
     </div>
-    <div id = "details"></div>
-	<!--<div class = "incs">Click add cube to add cube to yard. Drag and drop it to the place you want<br>Delete cube by doubleclicking it</div>--><!--<button onclick = "addTree()">Add tree!</button></div>-->
-
-	<!--<div class = "pisteet">
-		<div id = "puut">0</div>
-	</div>-->
 </body>
 </html>
