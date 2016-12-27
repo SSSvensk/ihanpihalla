@@ -46,3 +46,8 @@ To do 15.12.16
   Changed the way how objects are added
 
   -Sami
+
+ Update 21.12.16
+ Possible to move real 3d objects
+ Added some functions to show distance, list of objects 
+ -Sami

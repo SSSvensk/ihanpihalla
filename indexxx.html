@@ -7,7 +7,7 @@
 	<!--Linking JavaScript and CSS-files-->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel = "stylesheet" href = "ihanpihallacss.css">
-    <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+  <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
 	<script src = "three.min.js"></script>
 	<script src = "OrbitControls.js"></script>
 	<script src = "OBJLoader.js"></script>
@@ -75,7 +75,9 @@
 		//camera.lookAt(scene.position);
 		camera.lookAt(new THREE.Vector3(50,0,0));
 
-        //Renderer stuff
+
+    //Renderer stuff
+
 		renderer = new THREE.WebGLRenderer();
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		document.body.appendChild(renderer.domElement);
@@ -92,40 +94,41 @@
 		renderer.shadowMapWidth = 1024;
 		renderer.shadowMapHeight = 1024;
 
-        //Building some block of flats
+
+    //Building some block of flats
 		var cubeWidth = 1;
-        var cubeHeight = 1;
-        var cubeDepth = 1;            
-        var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+    var cubeHeight = 1;
+    var cubeDepth = 1;            
+    var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
 		
 		//Instead of color, there can be a picture in cube's side
-        //var cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
-        var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
-        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+     //var cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
+    var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
+    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 	
 		//This function call will multiplay each vertex of cube. So cube dimensions are now
 		//Width: 15*1 = 15
 		//Height: 5*1 = 5
 		//Depth: 5*1 = 5
-        cube.scale.set( 5, 5, 15 );
+    cube.scale.set( 5, 5, 15 );
 		
 		//Giving position
-        //cube.position.y = 2.45;
-        //cube.position.x = -8;
-        //cube.position.z = 0.5; 
-        cube.position.set(-8, 2.45, 0.5);
-        cube.updateMatrix();
+    //cube.position.y = 2.45;
+    //cube.position.x = -8;
+    //cube.position.z = 0.5; 
+    cube.position.set(-8, 2.45, 0.5);
+    cube.updateMatrix();
 		
 		//Let there be shadow
-        cube.castShadow = true;
+    cube.castShadow = true;
 		cube.receiveShadow = true; 
 		cube.userData = {OBID: i, TYPE: "Building"};
 		
 		//Pushing object to array
 		objects.push(cube);
-        allObjects.push(cube); 
-        i++;       
-        scene.add(cube);
+    allObjects.push(cube); 
+    i++;       
+    scene.add(cube);
 		
 		//Repeating the same stuff for other cubes...
 
@@ -168,6 +171,7 @@
 		cube.userData = {OBID: i, TYPE: "Building"}; 
 		i++; 
 		objects.push(cube);
+
         allObjects.push(cube);
         scene.add(cube);
 
@@ -194,8 +198,8 @@
 		var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x080820, 0.8 );
 		scene.add( hemiLight );
 
-        //Adding event listeners to elements. Basically each action calls certain function. Parameter list is (mouse action, function and some boolean that I have no idea what it's meaning is:D)
-        renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    //Adding event listeners to elements. Basically each action calls certain function. Parameter list is (mouse action, function and some boolean that I have no idea what it's meaning is:D)
+    renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
 		renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
 		renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
 		renderer.domElement.addEventListener( 'click', onDocumentMouseClick, false );
@@ -205,6 +209,8 @@
 
         //Creating planeground for scene
         var geometry = new THREE.PlaneBufferGeometry( 300, 300, 32 );
+
+
 		
 		//Image to ground texture.
 		var texture = THREE.ImageUtils.loadTexture( "grass5.jpg" );
@@ -379,7 +385,8 @@
                         //child.material.ambient.setHex(0xFF0000);
                         child.material.color.setHex(0x996306);
                         child.castShadow = true;
-				        child.receiveShadow = true;
+				                child.receiveShadow = true;
+
                     }
                 } );
 				//object.matrixWorld(2,0,2);
@@ -397,6 +404,7 @@
 				document.getElementById('info').style.visibility = "visible";
 				//document.getElementById('details').innerHTML = object.userData.OBID;
 				document.getElementById('typename').innerHTML = object.userData.TYPE;
+
 			}
 		);
 
@@ -433,6 +441,7 @@
 				document.getElementById('info').style.visibility = "visible";
 				document.getElementById('details').innerHTML = object.userData.id;
 				document.getElementById('typename').innerHTML = object.userData.TYPE;
+
 			}
 		);
 
@@ -465,7 +474,9 @@
 				object.scale.set(4,6,4);
 				object.updateMatrix();
 				object.castShadow = true;
+
 				object.userData = { OBID: i, TYPE: "Tree"};
+
 				i++;
 				ADDED = object;
 				scene.add( object );
@@ -474,6 +485,7 @@
 				objects.push(object);
 				document.getElementById('info').style.visibility = "visible";
 				document.getElementById('typename').innerHTML = object.userData.TYPE;
+
 			}
 		);
 
@@ -581,6 +593,65 @@
     	    <p>Log out</p>
         </div>
         <div id = "points"><h1>2332 (+11 %)</h1></div>
+=======
+	function listIndexes() {
+		var indlist = objects.length + "<br>";
+		for (var i = 0; i < objects.length; i++) {
+			indlist += objects[i].userData.OBID + "<br>";
+		};
+		document.getElementById('details').innerHTML = indlist;
+	}
+
+	function getDistance() {
+		var dobjo = new THREE.Object3D();
+		var objoi = prompt("Index 1");
+		for (var i = 0; i < objects.length; i++) {
+			if (objects[i].userData.OBID == objoi) {
+				dobjo = objects[i];
+			}
+		};
+		var dobjt = new THREE.Object3D();
+		var objti = prompt("Index 2");
+		for (var i = 0; i < objects.length; i++) {
+			if (objects[i].userData.OBID == objti) {
+				dobjt = objects[i];
+			}
+		};
+
+		var xo = dobjo.position.x.toFixed(2);
+		var xt = dobjt.position.x.toFixed(2);
+		var xy = xo - xt;
+		if (xy < 0) {
+			xy = xy * (-1);
+		};
+		var zo = dobjo.position.z.toFixed(2);
+		var zt = dobjt.position.z.toFixed(2);
+		var zy = zo - zt;
+		if (zy < 0) {
+			zy = zy * (-1);
+		};
+
+		document.getElementById('details').innerHTML = Math.sqrt(Math.pow(xy, 2) + Math.pow(zy, 2)).toFixed(2);
+	}
+	
+	$(document).ready(function () {
+        $("#remove").click(function () {
+        	document.getElementById("success").title = "";
+            $(this).closest('.ui-dialog-content').dialog('close'); 
+        });
+    });
+
+	</script>
+	<div class = "takaisin"><a href = "mapstesti.html">Back to map</a></div>
+	<div class = "lisays">
+		<button id = "deer" onclick = "addDeer()"><span>Add deer!</span></button><br>
+		<button id = "tree" onclick = "addTree()"><span>Add tree!</span></button><br>
+		<button id = "elf" onclick = "addPeople()"><span>Add elf!</span></button><br>
+		<button id = "list" onclick = "listIndexes()"><span>List indexes</span></button><br>
+		<button id = "elf" onclick = "getDistance()"><span>Get distance!</span></button><br>
+    </div>
+	<div id="success" title="">
+    <p>You have clicked an object! Object index: <p id = "oi"></p>Location: <p id = "ox"></p><p id = "oz"></p><button id = "remove" onclick = "removeObject()">Remove object</button></p>
     </div>
 </body>
 </html>
