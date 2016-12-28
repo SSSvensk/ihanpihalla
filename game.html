@@ -1,0 +1,583 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Example Address 1</title>
+</head>
+<body>
+	<!--Linking JavaScript and CSS-files-->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel = "stylesheet" href = "css/ihanpihallacss.css">
+    <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+	<script src = "js/three.min.js"></script>
+	<script src = "js/OrbitControls.js"></script>
+	<script src = "js/OBJLoader.js"></script>
+	<script src = "js/dat.gui.min.js"></script>
+	<script src = "js/Cube.js"></script>
+	<script src = "js/mousefunctions.js"></script>
+	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script type = "text/javascript">
+
+	//Some variables
+	var scene, camera, renderer;
+	var mouse = new THREE.Vector2();
+
+	//Array to store all objects, including buildings
+	var allObjects = [];
+
+	//Array to store clickable objects
+	var objects = [];
+	var raycaster = new THREE.Raycaster();
+	var container;
+	var SELECTED;
+	var INTERSECTED;
+	var ADDED;
+	var intersection = new THREE.Vector3();
+	var offset = new THREE.Vector3();
+	var controls;
+	var trees = 0;
+	var plane = new THREE.Plane();
+
+	var directionalLight;
+
+	var i = 0;
+	var dragged = false;
+	var selectedId;
+	var borderX, borderY;
+	var borderXX, borderYY;
+
+	var previousX;
+	var previousZ;
+	var onTop;
+
+	init();
+	animate();
+
+        //Initializer-function to initialize the whole thing
+	function init() {
+
+		container = document.createElement( 'div' );
+		document.body.appendChild( container );
+
+		//Creating scene. Scene is where everything is added.
+		scene = new THREE.Scene();
+		scene.background = new THREE.Color( 0xC1FFFF );
+
+		//Creating camera and giving it its position.
+		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+		
+		//Camera is in position where x=30, y=20 and z=0
+		camera.position.set(30,20,0);
+		
+		//Camera looks to the centre of scene, (I guess it's point 0,0,0)
+		//camera.lookAt(scene.position);
+		camera.lookAt(new THREE.Vector3(50,0,0));
+
+        //Renderer stuff
+		renderer = new THREE.WebGLRenderer();
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		document.body.appendChild(renderer.domElement);
+
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapSoft = true;
+
+		renderer.shadowCameraNear = 3;
+		renderer.shadowCameraFar = camera.far;
+		renderer.shadowCameraFov = 50;
+
+		renderer.shadowMapBias = 0.0039;
+		renderer.shadowMapDarkness = 0.1;
+		renderer.shadowMapWidth = 1024;
+		renderer.shadowMapHeight = 1024;
+
+        //Building some block of flats
+		var cubeWidth = 1;
+        var cubeHeight = 1;
+        var cubeDepth = 1;            
+        var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+		
+		//Instead of color, there can be a picture in cube's side
+        //var cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
+        var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
+        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+	
+		//This function call will multiplay each vertex of cube. So cube dimensions are now
+		//Width: 15*1 = 15
+		//Height: 5*1 = 5
+		//Depth: 5*1 = 5
+        cube.scale.set( 5, 5, 15 );
+		
+		//Giving position
+        //cube.position.y = 2.45;
+        //cube.position.x = -8;
+        //cube.position.z = 0.5; 
+        cube.position.set(-8, 2.45, 0.5);
+        cube.updateMatrix();
+		
+		//Let there be shadow
+        cube.castShadow = true;
+		cube.receiveShadow = true; 
+		cube.userData = {OBID: i, TYPE: "Building"};
+		
+		//Pushing object to array
+		objects.push(cube);
+        allObjects.push(cube); 
+        i++;       
+        scene.add(cube);
+		
+		//Repeating the same stuff for other cubes...
+
+        cubeWidth = 1;
+        cubeHeight = 1;
+        cubeDepth = 1;            
+        cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+        //cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
+        cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
+        var newCube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        newCube.scale.set( 15, 5, 5 );
+        //newCube.position.y = 2.45;
+        //newCube.position.x = 3;
+        //newCube.position.z = 11;
+        newCube.position.set(3, 2.45, 11);
+        newCube.updateMatrix();
+        newCube.castShadow = true;
+		newCube.receiveShadow = true; 
+		newCube.userData = {OBID: i, TYPE: "Building"}
+		i++;
+		objects.push(newCube);
+        allObjects.push(newCube);
+        scene.add(newCube);
+
+        cubeWidth = 1;
+        cubeHeight = 1;
+        cubeDepth = 1;            
+        cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+        //cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
+        cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                  
+        cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cube.scale.set( 15, 5, 5 );
+        //cube.position.y = 2.45;
+        //cube.position.x = 3;
+        //cube.position.z = -11;
+        cube.position.set(3, 2.45, -11);
+        cube.updateMatrix();
+        cube.castShadow = true;
+		cube.receiveShadow = true; 
+		cube.userData = {OBID: i, TYPE: "Building"}; 
+		i++; 
+		objects.push(cube);
+        allObjects.push(cube);
+        scene.add(cube);
+
+        //Different lights. Pick your favourite
+/*
+        var light = new THREE.AmbientLight( 0x404040 ); // soft white light
+		scene.add( light );
+*/
+		directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+		directionalLight.position.set( 100, 10, 0 );
+		directionalLight.castShadow = true;
+		scene.add( directionalLight );
+
+		directionalLight.shadowCameraLeft = -30;
+        directionalLight.shadowCameraRight = 30;
+        directionalLight.shadowCameraTop = 35;
+        directionalLight.shadowCameraBottom = -30;
+/*
+		var pointLight = new THREE.PointLight( 0xffffff, 1.5, 40 );
+		pointLight.position.set( 0, 5, 0 );
+		pointLight.castShadow = true;
+		scene.add( pointLight );
+*/
+		var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x080820, 0.8 );
+		scene.add( hemiLight );
+
+        //Adding event listeners to elements. Basically each action calls certain function. Parameter list is (mouse action, function and some boolean that I have no idea what it's meaning is:D)
+        renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
+		renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
+		renderer.domElement.addEventListener( 'click', onDocumentMouseClick, false );
+
+		//Not sure if this was important...
+        ray = new THREE.Ray( camera.position, null );
+
+        //Creating planeground for scene
+        var geometry = new THREE.PlaneBufferGeometry( 300, 300, 32 );
+		
+		//Image to ground texture.
+		var texture = THREE.ImageUtils.loadTexture( "img/grass5.jpg" );
+
+		//Making texture spread in 2 directions. Without these, texture would look like bar code
+		texture.wrapS = THREE.RepeatWrapping; 
+		texture.wrapT = THREE.RepeatWrapping;
+
+		//Repeating texture, lower the number is, lower the quality is...
+		texture.repeat.set( 60, 60 ); 
+
+		//Settng texture as map for material
+		var material = new THREE.MeshLambertMaterial( {map:texture} );
+
+		//Creating plane
+		var planee = new THREE.Mesh( geometry, material );
+
+		//Just inserting coordinates of borders to variables
+		borderY = borderX = 15;
+		borderYY = borderXX = -15;
+
+		//Setting plane's position and rotation. If you remove minus in front of the rotation, the texture stays on the bottom
+		planee.position.y = 0;
+		planee.rotation.x = - Math.PI / 2;
+		planee.receiveShadow = true;
+
+		//Finally adding the plane to the scene
+		scene.add( planee );
+
+		//Setting vectors which define basically in which direction is the yard is and in which direction cubes move
+		var dir = new THREE.Vector3(0,200,0);
+		var centroid = new THREE.Vector3(0,0,0);
+		plane.setFromNormalAndCoplanarPoint(dir, centroid);
+
+		//Creating controls. Now it's possible to rotate the view and zoom
+		controls = new THREE.OrbitControls(camera, renderer.domElement);
+		controls.addEventListener( 'change', render );
+
+		//Setting limits to rotation and zoom.
+		//Vertical rotation is limited, so that it's not possible to look under the plane.
+		controls.minPolarAngle = - Math.PI;
+		controls.maxPolarAngle = Math.PI / 2 - 0.2;
+
+		//No limits for horizontal rotation
+		controls.minAzimuthAngle = -Infinity; // radians
+		controls.maxAzimuthAngle = Infinity; // radians
+
+		//Zoom limits
+		controls.minDistance = 25;
+		controls.maxDistance = 30;
+
+		//Adding event listener of window if window is resized
+		window.addEventListener( 'resize', onWindowResize, false );
+
+		//Render the scene together
+		render();
+	}
+
+	//When window is resized, this function is called resizing window automatically. Most of this is copypasted...
+	function onWindowResize() {
+
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+
+		renderer.setSize( window.innerWidth, window.innerHeight );
+
+		//Render after resize to show the change immediately
+		render();
+	}
+
+	function checkObjectsNotTopOfEachOther() {
+		if (SELECTED) {
+		var ind = allObjects.indexOf(SELECTED);
+		var sxo = SELECTED.position.x + (SELECTED.scale.x / 2);
+		var sxt = SELECTED.position.x - (SELECTED.scale.x / 2);
+		var szo = SELECTED.position.z + (SELECTED.scale.z / 2);
+		var szt = SELECTED.position.z - (SELECTED.scale.z / 2);
+
+		for (var i = 0; i < allObjects.length; i++) {
+			if (i != ind) {
+				var aoxo = allObjects[i].position.x + (allObjects[i].scale.x / 2);
+				var aoxt = allObjects[i].position.x - (allObjects[i].scale.x / 2);
+				var aozo = allObjects[i].position.z + (allObjects[i].scale.z / 2);
+				var aozt = allObjects[i].position.z - (allObjects[i].scale.z / 2);
+				if (((sxo >= aoxt) && (szo >= aozt) && (szt <= aozt) && (sxt <= aoxt)) || ((szo >= aozt) && (sxt <= aoxo) && (sxo >= aoxo) && (szt <= aozt)) || ((aoxo >= sxt) && (aozo >= szt) && (aozt <= szt) && (aoxt <= sxt)) || ((aozo >= szt) && (aoxt <= sxo) && (aoxo >= sxo) && (aozt <= szt))) {
+					onTop = 1;
+					break;
+				} else {
+					onTop = 0;
+				}
+			}
+		};
+		return onTop;
+	}
+	}
+
+	function removeObject() {
+		var ind = objects.indexOf(INTERSECTED.parent);
+		var indd = allObjects.indexOf(INTERSECTED.parent);
+		objects.splice(ind, 1);
+		allObjects.splice(indd, 1);
+		scene.remove(INTERSECTED.parent);
+		render();
+	}
+
+	function cancelDragAndDrop() {
+		scene.remove(SELECTED);
+		SELECTED.position.x = previousX;
+		SELECTED.position.z = previousZ;
+		scene.add(SELECTED);
+		SELECTED = null;
+	}
+
+	//Animation function. Not needed...
+	function animate() {
+		requestAnimationFrame( animate );
+		var timer = Date.now() * 0.005;
+		directionalLight.position.x = Math.cos( timer ) * 10;
+        directionalLight.position.z = Math.sin( timer ) * 10;
+		render();
+	}
+
+	//Rendering function
+	function render() {
+		var timer = Date.now() * 0.0005;
+		camera.lookAt( scene.position );
+		renderer.render(scene, camera);
+	}
+
+	//Function to add cubes
+	function addCube() {
+		//mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+		//mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+		var xco = 200;
+		var zco = 200;
+		var cubeWidth = 1;
+        var cubeHeight = 1;
+        var cubeDepth = 1;
+        var texture = new THREE.TextureLoader().load('brick.jpg');
+        var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
+        var cubeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
+        //var cubeMaterial = new THREE.MeshLambertMaterial({color: 0x00ff00, vertexColors: 'white', wireframeLinewidth: 3});                
+        cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cube.position.y = 0;
+        cube.position.x = xco;
+        cube.position.z = zco;
+        cube.userData.id = i;
+        ADDED = cube;
+        i++;
+        cube.castShadow = true;
+		cube.receiveShadow = true; 
+		var yCube = new Cube(cubeWidth, cubeHeight, cubeDepth, xco, zco);
+        objects.push(cube);
+        allObjects.push(cube);
+        //document.getElementById('details').innerHTML = "<center><img src = 'cube.png'></center><br>This is cube. Cube is cute and green but only that. It has no impacts whatsoever."
+          
+        scene.add(cube);
+        render();
+	}
+
+	function addDeer() {
+		var loader = new THREE.OBJLoader();
+		// load a resource
+		loader.load(
+			// resource URL
+			'objects/deer-obj/deer-obj/deer-obj.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material.color.setHex(0x996306);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				//object.matrixWorld(2,0,2);
+				object.scale.set(0.1,0.1,0.1);
+				object.updateMatrix();
+				object.castShadow = true;
+				object.receiveShadow = true;
+				object.userData = { OBID: i, TYPE: "Deer" };
+				ADDED = object;
+				scene.add( object );
+				render();
+				allObjects.push(object);
+				objects.push(object);
+				i++;
+				document.getElementById('info').style.visibility = "visible";
+				//document.getElementById('details').innerHTML = object.userData.OBID;
+				document.getElementById('typename').innerHTML = object.userData.TYPE;
+			}
+		);
+
+	}
+
+	function addElf() {
+		var loader = new THREE.OBJLoader();
+		// load a resource
+		loader.load(
+			// resource URL
+			'objects/landlord.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material.color.setHex(0xf2cf8a);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				//object.matrixWorld(2,0,2);
+				object.scale.set(1,1,1);
+				object.position.set(0,10,0);
+				object.updateMatrix();
+				object.castShadow = true;
+				object.userData = { OBID: i, TYPE: "Elf" };
+				ADDED = object;
+				scene.add( object );
+				render();
+				allObjects.push(object);
+				objects.push(object);
+				i++;
+				document.getElementById('info').style.visibility = "visible";
+				document.getElementById('typename').innerHTML = object.userData.TYPE;
+			}
+		);
+
+	}
+
+	function addTree() {
+		var loader = new THREE.OBJLoader();
+		var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        //normalMap: normalMap,
+        wrapAround: true,
+        needsUpdate: true
+    });
+		// load a resource
+		loader.load(
+			// resource URL
+			'objects/LS13_01.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0x08dd0f);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.position.set(20,0,20);
+				object.scale.set(4,6,4);
+				object.updateMatrix();
+				object.castShadow = true;
+				object.userData = { OBID: i, TYPE: "Tree"};
+				i++;
+				ADDED = object;
+				scene.add( object );
+				render();
+				allObjects.push(object);
+				objects.push(object);
+				document.getElementById('info').style.visibility = "visible";
+				document.getElementById('typename').innerHTML = object.userData.TYPE;
+			}
+		);
+
+	}
+	//Function to change background color of the game
+	function updateBackground() {
+		if (trees > 2) {
+			scene.background = new THREE.Color( 0xC1FFFF );
+			render();
+		}
+	}
+
+	function listIndexes() {
+		var indlist = "Amount: " + allObjects.length + "<br>Types of objects:<br>";
+		for (var i = 0; i < allObjects.length; i++) {
+			indlist += allObjects[i].userData.OBID + ": " + allObjects[i].userData.TYPE + "<br>";
+		};
+		document.getElementById('details').innerHTML = indlist;
+	}
+
+	function getDistance(objoi, objti) {
+		var dobjo = new THREE.Object3D();
+		for (var i = 0; i < objects.length; i++) {
+			if (objects[i].userData.OBID == objoi) {
+				dobjo = objects[i];
+			}
+		};
+		var dobjt = new THREE.Object3D();
+		for (var i = 0; i < objects.length; i++) {
+			if (objects[i].userData.OBID == objti) {
+				dobjt = objects[i];
+			}
+		};
+
+		var xo = dobjo.position.x.toFixed(2);
+		var xt = dobjt.position.x.toFixed(2);
+		var xy = xo - xt;
+		if (xy < 0) {
+			xy = xy * (-1);
+		};
+		var zo = dobjo.position.z.toFixed(2);
+		var zt = dobjt.position.z.toFixed(2);
+		var zy = zo - zt;
+		if (zy < 0) {
+			zy = zy * (-1);
+		};
+		//document.getElementById('details').innerHTML = Math.sqrt(Math.pow(xy, 2) + Math.pow(zy, 2)).toFixed(2);
+
+		//Returning distance with two decimals
+		return Math.sqrt(Math.pow(xy, 2) + Math.pow(zy, 2)).toFixed(2);
+	}
+	
+	$(document).ready(function () {
+        $("#remove").click(function () {
+        	document.getElementById("success").title = "";
+            $(this).closest('.ui-dialog-content').dialog('close'); 
+        });
+    });
+
+    function closeNav() {
+    	document.getElementById("mysideNav").style.width = "0px";
+    	document.getElementById("downpanel").style.width = "100%";
+    	document.getElementById("downpanel").style.left = "0%";
+    	document.getElementById("takaisin").style.visibility = 'visible';
+    }
+
+    function openNav() {
+    	document.getElementById("mysideNav").style.width = "20%";
+    	document.getElementById("downpanel").style.width = "80%";
+    	document.getElementById("downpanel").style.left = "20%";
+    	document.getElementById("takaisin").style.visibility = 'none';
+    	if (document.getElementById("mysideNav").style.width == "20%") {
+    		document.getElementById("sidenavcontain").style.visibility = 'visible';
+    	}
+    }
+
+	</script>
+	<a href = "javascript:history.back()" class="closegame">&times;</a>
+	<div id = "takaisin" class = "takaisin"><a onClick = "openNav()">Open panel</a></div>
+	<div id = "mysideNav" class = "sideNav">
+		<div id = "sidenavcontain">
+		<h2>Elements</h2>
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		<a href = "#" onclick = "addDeer()">Add deer!</a><br>
+		<a href = "#" onclick = "addTree()">Add tree!</a><br>
+		<a href = "#" onclick = "addElf()">Add elf!</a>
+		<div id = "info">
+			<h2 id = "typename"></h2>
+			<p>This is info box about object you're going to put in the yard</p>
+			<p>This will be invisible until object is selected from above</p>
+		</div>
+	</div>
+    </div>
+	<div id="success" title="">
+    <p>You have clicked an object! Object index: <p id = "oi"></p>Location: <p id = "ox"></p><p id = "oz"></p><p id = "distances"></p><button id = "remove" onclick = "removeObject()">Remove object</button></p>
+    </div>
+    <div id = "downpanel">
+    	<div id = "gallery"><h1><a href = "gallery.html">Gallery</a></h1></div>
+        <div id = "userbox">
+    	    <h2>Santa Claus</h2>
+    	    <div id ="myProgress">
+    	    	<div id = "myBar"></div>
+    	    </div>
+    	    <p>Immortal</p>
+    	    <p>Log out</p>
+        </div>
+        <div id = "points"><h1>2332 (+11 %)</h1></div>
+    </div>
+</body>
+</html>

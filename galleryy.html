@@ -6,10 +6,15 @@
 <body>
 	<link rel = "stylesheet" href = "css/gallerycss.css">
 	<link rel = "stylesheet" href = "css/ihanpihallacss.css">
+	<div id = "galnav" class = "sideNav">
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href = "mapstesti.html">Go back to map</a>
+	</div>
 
 	<div id = "gallerycon" class = "gallerycontain">
 	    <div id = "toppanel">
 		    <div id = "cont" class = "contain">
+			    <div id = "openmenu" class = "openmenu"><a onClick = "openNav()">Open panel</a></div>
 			    <div class = "osoite"><h2>Address 1</h2><FORM METHOD="LINK" ACTION="game.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Design yard!"></FORM></div>
 			    <div class = "aor">XX residents has marked this yard as their home yard</div>
 		    </div>
@@ -35,14 +40,7 @@
 
             <div id="You" class="tabcontent">
                 <h3>Your designs</h3>
-                <table id = "yourdesigns">
-                    <tr>
-                        <td>Moi</td>
-                        <td>Moi</td>
-                        <td>Moi</td>
-                        <td>Moi</td>
-                    </tr>
-                </table>
+                <p>List of your designs</p>
             </div>
 
             <div id="Best" class="tabcontent">
@@ -51,25 +49,25 @@
             </div>
 
             <div id="Residents" class="tabcontent">
-                <h3>Residents in this yard</h3>
-                <table>
-                    <tr>
-                        <td><img width = "100" height = "100" src = "img/jigglypuff.jpg"></td>
-                        <td>Pikachu</td>
-                    </tr>
-                    <tr>
-                        <td><img width = "100" height = "100" src = "img/jigglypuff.jpg"></td>
-                        <td>Jigglypuff</td>
-                    </tr>
-                    <tr>
-                        <td><img width = "100" height = "100" src = "img/jigglypuff.jpg"></td>
-                        <td>Meowth</td>
-                    </tr>
-                </table>
+                <h3>Residents</h3>
+                <p>List of users, who has marked the yard as their home yard</p>
             </div>
 	    </div>
     </div>
 	<script>
+	function closeNav() {
+    	document.getElementById("galnav").style.width = "0px";
+    	document.getElementById("gallerycon").style.width = "100%";
+    	document.getElementById("gallerycon").style.left = "0%";
+    	document.getElementById('openmenu').style.visibility = 'visible';
+    }
+
+    function openNav() {
+    	document.getElementById('openmenu').style.visibility = 'hidden';
+    	document.getElementById("galnav").style.width = "20%";
+    	document.getElementById("gallerycon").style.width = "80%";
+    	document.getElementById("gallerycon").style.left = "20%";
+    }
 
     function openCity(evt, cityName) {
     // Declare all variables
