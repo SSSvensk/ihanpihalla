@@ -19,7 +19,6 @@
 				//Not sure excatly what here happens, but apparently position of object is changing here
 				SELECTED.position.copy( intersection.sub( offset ) );
 				//SELECTED.updateMatrixWorld();
-				document.getElementById('details').innerHTML = SELECTED.position.x + ", " + SELECTED.position.z;
 
 				//Rendering changes to scene
 				render();
