@@ -1,0 +1,31 @@
+-#Learn JavaScript for Ihan Pihalla
+-
+-I thought to create this document to help learn JavaScript.
+-JavaScript is event-based language.
+-JavaScript doesn't require any compilers, servers etc. Just add JS to HTML-document inside <script>-tag and run it in browser.
+-Basically JavaScript is a language for front-end that can add functionality to basic HTML-pages, manipulate HTML-content, and apparently can create gamish applications too XD
+-
+-Some important notices:
+-There's now data types, JS is loosely-typed language. Every variable is defined by var, e.g var i = 0; var s = "string"; var o = new Object; etc.
+-But basically every basic stuff familiar from other languages applies in JS. Loops, if-else, 
+-
+-Great tutorial with lot of info here: http://www.w3schools.com/js/
+-
+-Some useful stuff for this game:
+-Get coordinates of object
+-var obj = new THREE.Object3d() //Creating instance of class THREE.Object3D
+-obj = exampleArrayContainingObjects[index]; //Getting some object from Object3D-array and placing it to obj
+-var xcoordinate = obj.parent.position.x; //getting xcoordinate from obj.
+-
+-Adding custom data to Object3D
+-obj.userData = {Country: "Seychelles", RndNumber: 123, Message: "Hiii!!"}
+-
+-Getting userData
+-obj.parent.userData.Country //Seychelles
+-
+-Printing text
+-if there was HTML-<div>-tag, we can with JS manipulate it's content by div-id.
+-<div id = "example"></div>
+-
+-In JS we would have script: document.getElementByID('example').innerHTML = "Hi";
+-So now we have <div id = "example">Hi</div>
