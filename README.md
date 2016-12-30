@@ -36,4 +36,4 @@ Update 21.12.16 Possible to move real 3d objects Added some functions to show di
 
 Update 28.12.16 Re-arranged GitHub repo. -Sami
 
-Update 29.12.16 thx to Maria, we have now real 3d-models! Removed all testing stuff from code. Upgraded gallery-page -Sami
+Update 29.12.16 thx to Maria, we have now real 3d-models! Removed all testing stuff from code. Upgraded gallery-page. Implemented "value 1" calculation somehow -Sami
