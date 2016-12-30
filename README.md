@@ -33,5 +33,7 @@ indexxx.html Changed the way how objects are added
 -Sami
 
 Update 21.12.16 Possible to move real 3d objects Added some functions to show distance, list of objects -Sami
-Update 28.12.16 Re-arranged GitHub repo.
-Update 29.12.16 thx to Maria, we have now real 3d-models! Removed all testing stuff from code. Upgraded gallery-page
+
+Update 28.12.16 Re-arranged GitHub repo. -Sami
+
+Update 29.12.16 thx to Maria, we have now real 3d-models! Removed all testing stuff from code. Upgraded gallery-page -Sami
