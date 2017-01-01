@@ -88,6 +88,7 @@
     </style>
     <!--<script src = "jsloginfile.js" type = "text/javascript"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/jsloginfile.js"></script>
     <link rel="stylesheet" href= "css/ihanpihallacss.css"></script>
   </head>
   <body>
@@ -96,7 +97,7 @@
     <div id = "downpanel">
 
         <div id = "userbox">
-          <h2>Santa Claus</h2>
+          <h2 id = "username"></h2>
           <div id ="myProgress">
             <div id = "myBar"></div>
           </div>
@@ -105,13 +106,14 @@
         </div>
 
     </div>
-    <!--
+    
     <div class="box">
       <fb:login-button id = "loginbutton" scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
       <img src = "" id = "profileImage" width = "50" height = "50">
       <div id = "status"></div>
       <div id = "logoutfb"><a onclick="FB.logout();" href="#">Logout</a></div>
     </div>
+    <!--
     <div id="pointz">
       <div id = "points">1</div>
       <div id = "subbut"><button>Submit!</button></div>
@@ -121,6 +123,8 @@
       var map;
       var marker, kmarker, lmarker, cmarker, hmarker;
       var iii = 1;
+
+      document.getElementById('username').innerHTML = localStorage.getItem("name");
 
       function initAutocomplete() {
          var myLatLng = {lat: 61.5040869, lng: 23.7806253};
@@ -198,7 +202,7 @@
 
          //map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
 
-         var contentString = '<h2>Tammela</h2><br>23 people has marked this as their home yard!<br><table style = "width: 100%"><tr><td><FORM METHOD="LINK" ACTION="game.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Design yard!"></FORM></td><td><a class = "maplink" href = "gallery.html">Gallery</a></td></tr></table>';
+         var contentString = '<h2>Tapionkatu 13</h2><br>23 people has marked this as their home yard!<br><table style = "width: 100%"><tr><td><FORM METHOD="LINK" ACTION="game.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Design yard!"></FORM></td><td><a class = "maplink" href = "gallery.html">Gallery</a></td></tr></table>';
          var contentStringK = '<h2>Kaleva</h2><br><table style = "width: 100%"><tr><td><FORM METHOD="LINK" ACTION="game.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Design yard!"></FORM></td><td><a class = "maplink" href = "gallery.html">Gallery</a></td></tr></table>';
          var contentStringL = '<h2>Linnainmaa</h2><br><table style = "width: 100%"><tr><td><FORM METHOD="LINK" ACTION="game.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Design yard!"></FORM></td><td><a class = "maplink" href = "gallery.html">Gallery</a></td></tr></table>';
          var contentStringC = '<h2>Keskusta</h2><br><table style = "width: 100%"><tr><td><FORM METHOD="LINK" ACTION="game.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Design yard!"></FORM></td><td><a class = "maplink" href = "gallery.html">Gallery</a></td></tr></table>';

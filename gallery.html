@@ -10,17 +10,29 @@
 	<div id = "gallerycon" class = "gallerycontain">
 	    <div id = "toppanel">
 		    <div id = "cont" class = "contain">
+                 <ul class="topnav" id="myTopnav">
+                    <li><a href="mapstesti.html">City Map</a></li>
+                    <li><a href="#news">Profile</a></li>
+                    <li><a href="#contact">something</a></li>
+                    <li><a href="#about">and again something</a></li>
+                    <li class="icon">
+                        <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+                    </li>
+                </ul>
 			    <div class = "osoite"><h2>Address 1</h2><FORM METHOD="LINK" ACTION="game.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Design yard!"></FORM></div>
 			    <div class = "aor">XX residents has marked this yard as their home yard</div>
 		    </div>
 	    </div>
 	    <div id = "galleryitself" class = "galleryitself">
-		    <ul class="tab">
+		    <ul class="tab" id = "tab">
 		    	<li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Thisyard')">This yard</a></li>
                 <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'New')">What's new</a></li>
                 <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'You')">Your designs</a></li>
                 <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Best')">Best designs</a></li>
                 <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'Residents')">Residents</a></li>
+                <li class="icon">
+                    <a href="javascript:void(0);" onclick="openTabs()">&#9776;</a>
+                </li>
             </ul>
 
             <div id="Thisyard" class="tabcontent">
@@ -45,9 +57,16 @@
                 </table>
             </div>
 
-            <div id="Best" class="tabcontent">
+            <div id="Best" class="tabcontent" style="overflow-x:auto;">
                 <h3>Best designs</h3>
-                <p>List of best designs</p>
+                <table class = "designs">
+                    <tr>
+                        <td><img width = "200" height = "200" src="img/smallyard.png"></td>
+                        <td><img width = "200" height = "200" src="img/smallyard.png"></td>
+                        <td><img width = "200" height = "200" src="img/smallyard.png"></td>
+                        <td><img width = "200" height = "200" src="img/smallyard.png"></td>
+                    </tr>
+                </table>
             </div>
 
             <div id="Residents" class="tabcontent">
@@ -90,6 +109,24 @@
     // Show the current tab, and add an "active" class to the link that opened the tab
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
+}
+    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+}
+
+function openTabs() {
+    var x = document.getElementById("tab");
+    if (x.className === "tab") {
+        x.className += " responsive";
+    } else {
+        x.className = "tab";
+    }
 }
 	</script>
 </body>
