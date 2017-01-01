@@ -25,6 +25,19 @@
 
 	//Array to store all objects, including buildings
 	var allObjects = [];
+	var value = 85000;
+	var appletrees = 0;
+	var trees = 0;
+	var benches = 0;
+	var tables = 0;
+	var optimalApples = 10;
+	var optimalTrees = 10;
+	var optimalBenches = 15;
+	var optimalTables = 10;
+	var beeMeter = 0;
+	var birdMeter = 0;
+	var wormMeter = 0;
+
 
 	//Array to store clickable objects
 	var objects = [];
@@ -51,8 +64,10 @@
 	var previousZ;
 	var onTop;
 
+	var totalpoints = 0;
+
 	init();
-	animate();
+	//animate();
 
         //Initializer-function to initialize the whole thing
 	function init() {
@@ -68,7 +83,7 @@
 		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
 		
 		//Camera is in position where x=30, y=20 and z=0
-		camera.position.set(30,20,0);
+		camera.position.set(-30,50,30);
 		
 		//Camera looks to the centre of scene, (I guess it's point 0,0,0)
 		//camera.lookAt(scene.position);
@@ -91,96 +106,188 @@
 		renderer.shadowMapWidth = 1024;
 		renderer.shadowMapHeight = 1024;
 
-        //Building some block of flats
-		var cubeWidth = 1;
-        var cubeHeight = 1;
-        var cubeDepth = 1;            
-        var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
-		
-		//Instead of color, there can be a picture in cube's side
-        //var cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
-        var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
-        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-	
-		//This function call will multiplay each vertex of cube. So cube dimensions are now
-		//Width: 15*1 = 15
-		//Height: 5*1 = 5
-		//Depth: 5*1 = 5
-        cube.scale.set( 5, 5, 15 );
-		
-		//Giving position
-        //cube.position.y = 2.45;
-        //cube.position.x = -8;
-        //cube.position.z = 0.5; 
-        cube.position.set(-8, 2.45, 0.5);
-        cube.updateMatrix();
-		
-		//Let there be shadow
-        cube.castShadow = true;
-		cube.receiveShadow = true; 
-		cube.userData = {OBID: i, TYPE: "Building"};
-		
-		//Pushing object to array
-		objects.push(cube);
-        allObjects.push(cube); 
-        i++;       
-        scene.add(cube);
-		
-		//Repeating the same stuff for other cubes...
+		var loader = new THREE.OBJLoader();
 
-        cubeWidth = 1;
-        cubeHeight = 1;
-        cubeDepth = 1;            
-        cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
-        //cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
-        cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                
-        var newCube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        newCube.scale.set( 15, 5, 5 );
-        //newCube.position.y = 2.45;
-        //newCube.position.x = 3;
-        //newCube.position.z = 11;
-        newCube.position.set(3, 2.45, 11);
-        newCube.updateMatrix();
-        newCube.castShadow = true;
-		newCube.receiveShadow = true; 
-		newCube.userData = {OBID: i, TYPE: "Building"}
-		i++;
-		objects.push(newCube);
-        allObjects.push(newCube);
-        scene.add(newCube);
+		loader.load(
+			// resource URL
+			'objects/models-detailed/model_C_building1.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                    	var material = new THREE.MeshPhongMaterial({
+                            color: 0xffffff,
+                            wrapAround: true,
+                            needsUpdate: true
+                        });
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0xffd72c);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.position.set(0,0,0);
+				object.rotateY(Math.PI / 2.8);
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.updateMatrix();
+				//object.castShadow = true;
+				object.userData = { OBID: i, TYPE: "Building", REX: -15.6, REZ: -7.6};
+				i++;
+				scene.add( object );
+				render();
+				allObjects.push(object);
+			}
+		);
 
-        cubeWidth = 1;
-        cubeHeight = 1;
-        cubeDepth = 1;            
-        cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
-        //cubeTexture = new THREE.TextureLoader().load('wooden.jpg');
-        cubeMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});                  
-        cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        cube.scale.set( 15, 5, 5 );
-        //cube.position.y = 2.45;
-        //cube.position.x = 3;
-        //cube.position.z = -11;
-        cube.position.set(3, 2.45, -11);
-        cube.updateMatrix();
-        cube.castShadow = true;
-		cube.receiveShadow = true; 
-		cube.userData = {OBID: i, TYPE: "Building"}; 
-		i++; 
-		objects.push(cube);
-        allObjects.push(cube);
-        scene.add(cube);
+        loader.load(
+			// resource URL
+			'objects/models-detailed/model_C_building2.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                    	var material = new THREE.MeshPhongMaterial({
+                            color: 0xffffff,
+                            wrapAround: true,
+                            needsUpdate: true
+                        });
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0xff8c00);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.position.set(0,0,0);
+				object.rotateY(Math.PI / 2.8);
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.updateMatrix();
+				object.castShadow = true;
+				object.userData = { OBID: i, TYPE: "Building", REX: 16.9, REZ: 5.2};
+				i++;
+				scene.add( object );
+				render();
+				allObjects.push(object);
+			}
+		);
+
+        loader.load(
+			// resource URL
+			'objects/models-detailed/model_C_building3.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                    	var material = new THREE.MeshPhongMaterial({
+                            color: 0xffffff,
+                            wrapAround: true,
+                            needsUpdate: true
+                        });
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0x1b8690);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.position.set(0,0,0);
+				object.rotateY(Math.PI / 2.8);
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.updateMatrix();
+				object.castShadow = true;
+				object.userData = { OBID: i, TYPE: "Building", REX: 11.9, REZ: 28.4};
+				i++;
+				scene.add( object );
+				render();
+				allObjects.push(object);
+			}
+		);
+
+        loader.load(
+			// resource URL
+			'objects/models-detailed/model_C_building4.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                    	var material = new THREE.MeshPhongMaterial({
+                            color: 0xffffff,
+                            wrapAround: true,
+                            needsUpdate: true
+                        });
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0xff443d);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.position.set(0,0,0);
+				object.rotateY(Math.PI / 2.8);
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.updateMatrix();
+				object.castShadow = true;
+				object.userData = { OBID: i, TYPE: "Building", REX: -19.6, REZ: 17};
+				i++;
+				scene.add( object );
+				render();
+				allObjects.push(object);
+			}
+		);
+/*
+        loader.load(
+			// resource URL
+			'objects/models-detailed/model_C_grass.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                    	var material = new THREE.MeshPhongMaterial({
+                            color: 0xffffff,
+                            wrapAround: true,
+                            needsUpdate: true
+                        });
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0xff443d);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.position.set(0,-100,0);
+				//object.rotateY(Math.PI / 2.8);
+				object.scale.set(0.05,5,0.05);
+				object.updateMatrix();
+				object.castShadow = true;
+				ADDED = object;
+				object.userData = { OBID: i, TYPE: "Building"};
+				i++;
+				scene.add( object );
+				render();
+				objects.push(object);
+				allObjects.push(object);
+			}
+		);
+*/
+		/*
+		0xffd72c
+		0xff8c00
+		0x1b8690
+		0xff443d
+		*/
 
         //Different lights. Pick your favourite
 /*
         var light = new THREE.AmbientLight( 0x404040 ); // soft white light
 		scene.add( light );
 */
-		directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
-		directionalLight.position.set( 100, 10, 0 );
+		directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
+		directionalLight.position.set( 40, 60, 45 );
 		directionalLight.castShadow = true;
 		scene.add( directionalLight );
 
-		directionalLight.shadowCameraLeft = -30;
+		directionalLight.shadowCameraLeft = -40;
         directionalLight.shadowCameraRight = 30;
         directionalLight.shadowCameraTop = 35;
         directionalLight.shadowCameraBottom = -30;
@@ -252,8 +359,8 @@
 		controls.maxAzimuthAngle = Infinity; // radians
 
 		//Zoom limits
-		controls.minDistance = 25;
-		controls.maxDistance = 30;
+		controls.minDistance = 0;
+		//controls.maxDistance = 30;
 
 		//Adding event listener of window if window is resized
 		window.addEventListener( 'resize', onWindowResize, false );
@@ -301,12 +408,86 @@
 	}
 
 	function removeObject() {
+		var removeType = INTERSECTED.parent.userData.TYPE;
+		if (removeType === "Tree") {
+			trees--;
+			totalpoints -= (optimalTrees - trees) * 100;
+			totalpoints -= checkLocation(INTERSECTED.parent.matrixWorld.getPosition().x + INTERSECTED.parent.userData.REX, INTERSECTED.parent.matrixWorld.getPosition().z + INTERSECTED.parent.userData.REZ);
+		} else if (removeType === "Apple tree") {
+			appletrees--;
+			totalpoints -= (optimalApples - appletrees) * 100;
+			totalpoints -= checkLocation(INTERSECTED.parent.matrixWorld.getPosition().x + INTERSECTED.parent.userData.REX, INTERSECTED.parent.matrixWorld.getPosition().z + INTERSECTED.parent.userData.REZ);
+		} else if (removeType === "Table bench") {
+			tables--;
+			totalpoints -= (optimalTables - tables) * 100;
+		} else if (removeType === "Bench") {
+			benches--;
+			totalpoints -= (optimalBenches - benches) * 100;
+		}
 		var ind = objects.indexOf(INTERSECTED.parent);
 		var indd = allObjects.indexOf(INTERSECTED.parent);
 		objects.splice(ind, 1);
 		allObjects.splice(indd, 1);
 		scene.remove(INTERSECTED.parent);
+		document.getElementById('points').innerHTML = "<center>" + totalpoints + "</center>";
 		render();
+	}
+
+	function calculatePoints( OBJECTP ) {
+		var appletrees = 0;
+	    var trees = 0;
+	    var benches = 0;
+	    var tables = 0;
+	    var optimalApples = 10;
+	    var optimalTrees = 10;
+	    var optimalBenches = 15;
+	    var optimalTables = 10;
+	    var apoints = 0;
+
+	    var objectType = OBJECTP.userData.TYPE;
+
+		for (var i = 0; i < objects.length; i++) {
+			var removeType = objects[i].userData.TYPE;
+		if (removeType === "Tree") {
+			trees++;
+		} else if (removeType === "Apple tree") {
+			appletrees++;
+		} else if (removeType === "Table bench") {
+			tables++;
+		} else if (removeType === "Bench") {
+			benches++;
+		}
+		};
+		if (objectType === "Tree") {
+			apoints = optimalTrees - trees + 1;
+			apoints = apoints * 100;
+			apoints += checkLocation(OBJECTP.matrixWorld.getPosition().x + OBJECTP.userData.REX, OBJECTP.matrixWorld.getPosition().z + OBJECTP.userData.REZ);
+		} else if (objectType === "Apple tree") {
+			apoints = optimalTrees - appletrees + 1;
+			apoints = apoints * 100;
+			apoints += checkLocation(OBJECTP.matrixWorld.getPosition().x + OBJECTP.userData.REX, OBJECTP.matrixWorld.getPosition().z + OBJECTP.userData.REZ);
+		} else if (objectType === "Table bench") {
+			apoints = optimalTables - tables + 1;
+			apoints = apoints * 100;
+		} else if (objectType === "Bench") {
+			apoints = optimalBenches - benches + 1;
+			apoints = apoints * 100;
+		}
+		totalpoints = totalpoints + apoints;
+		if (totalpoints < 0) {
+			totalpoints = 0;
+		}
+		document.getElementById('points').innerHTML = "<center>" + totalpoints + "</center>";
+	}
+
+	//Checks the distance between tree and building
+
+	function checkLocation(xc, zc) {
+		if ((xc <= 3.4 && xc >= -8) && (zc <= 14.7 && zc >= 3.3)) {
+			return 1000;
+		} else {
+			return 0;
+		}
 	}
 
 	function cancelDragAndDrop() {
@@ -333,79 +514,104 @@
 		renderer.render(scene, camera);
 	}
 
-	//Function to add cubes
-	function addCube() {
-		//mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-		//mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-		var xco = 200;
-		var zco = 200;
-		var cubeWidth = 1;
-        var cubeHeight = 1;
-        var cubeDepth = 1;
-        var texture = new THREE.TextureLoader().load('brick.jpg');
-        var cubeGeometry = new THREE.CubeGeometry(cubeWidth, cubeHeight, cubeDepth);
-        var cubeMaterial = new THREE.MeshLambertMaterial( { map: texture } );
-        //var cubeMaterial = new THREE.MeshLambertMaterial({color: 0x00ff00, vertexColors: 'white', wireframeLinewidth: 3});                
-        cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        cube.position.y = 0;
-        cube.position.x = xco;
-        cube.position.z = zco;
-        cube.userData.id = i;
-        ADDED = cube;
-        i++;
-        cube.castShadow = true;
-		cube.receiveShadow = true; 
-		var yCube = new Cube(cubeWidth, cubeHeight, cubeDepth, xco, zco);
-        objects.push(cube);
-        allObjects.push(cube);
-        //document.getElementById('details').innerHTML = "<center><img src = 'cube.png'></center><br>This is cube. Cube is cute and green but only that. It has no impacts whatsoever."
-          
-        scene.add(cube);
-        render();
-	}
-
-	function addDeer() {
+	function addApple() {
 		var loader = new THREE.OBJLoader();
+		var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        //normalMap: normalMap,
+        wrapAround: true,
+        needsUpdate: true
+        });
 		// load a resource
 		loader.load(
 			// resource URL
-			'objects/deer-obj/deer-obj/deer-obj.obj',
+			'objects/model_C_appletree.obj',
 			// Function when resource is loaded
 			function ( object ) {
 				object.traverse( function ( child ) {
                     if ( child instanceof THREE.Mesh ) {
                         //child.material.ambient.setHex(0xFF0000);
-                        child.material.color.setHex(0x996306);
+                        child.material = material;
+                        child.material.color.setHex(0xace02e);
                         child.castShadow = true;
 				        child.receiveShadow = true;
                     }
                 } );
-				//object.matrixWorld(2,0,2);
-				object.scale.set(0.1,0.1,0.1);
-				object.updateMatrix();
+				object.position.set(0,0,0);
+				object.scale.set(0.0005, 0.0005, 0.0005);
+				//object.updateMatrix();
 				object.castShadow = true;
 				object.receiveShadow = true;
-				object.userData = { OBID: i, TYPE: "Deer" };
+				object.userData = { OBID: i, TYPE: "Apple tree", REX: -32, REZ: 35 };
 				ADDED = object;
 				scene.add( object );
 				render();
 				allObjects.push(object);
 				objects.push(object);
 				i++;
+				appletrees++;
+				document.getElementById('info').innerHTML = "Apple tree attracts pollinators, which help the yard to be greener. It also attracts birds, that eat pests. And it's nice to collect fruits at the end of the summer.";
+				document.getElementById("typename").innerHTML = object.userData.TYPE;
+			}
+		);
+
+	}
+
+	function addTablebench() {
+		var loader = new THREE.OBJLoader();
+		var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        //normalMap: normalMap,
+        wrapAround: true,
+        needsUpdate: true
+        });
+		// load a resource
+		loader.load(
+			// resource URL
+			'objects/model_C_tablebenches.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0x996306);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.position.set(0,0,0);
+				object.scale.set(0.001,0.001,0.001);
+				//object.updateMatrix();
+				object.castShadow = true;
+				object.receiveShadow = true;
+				object.userData = { OBID: i, TYPE: "Table bench" , REX: -62, REZ: 50 };
+				ADDED = object;
+				scene.add( object );
+				render();
+				allObjects.push(object);
+				objects.push(object);
+				i++;
+				tables++;
 				document.getElementById('info').style.visibility = "visible";
-				//document.getElementById('details').innerHTML = object.userData.OBID;
 				document.getElementById('typename').innerHTML = object.userData.TYPE;
 			}
 		);
 
 	}
 
-	function addElf() {
+	function addBench() {
 		var loader = new THREE.OBJLoader();
+		var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        //normalMap: normalMap,
+        wrapAround: true,
+        needsUpdate: true
+        });
 		// load a resource
 		loader.load(
 			// resource URL
-			'objects/landlord.obj',
+			'objects/model_C_bench.obj',
 			// Function when resource is loaded
 			function ( object ) {
 				object.traverse( function ( child ) {
@@ -417,17 +623,18 @@
                     }
                 } );
 				//object.matrixWorld(2,0,2);
-				object.scale.set(1,1,1);
-				object.position.set(0,10,0);
-				object.updateMatrix();
+				object.scale.set(0.0008,0.0008,0.0008);
+				object.position.set(0,0,0);
+				//object.updateMatrix();
 				object.castShadow = true;
-				object.userData = { OBID: i, TYPE: "Elf" };
+				object.userData = { OBID: i, TYPE: "Bench" , REX: -50, REZ: 39};
 				ADDED = object;
 				scene.add( object );
 				render();
 				allObjects.push(object);
 				objects.push(object);
 				i++;
+				benches++;
 				document.getElementById('info').style.visibility = "visible";
 				document.getElementById('typename').innerHTML = object.userData.TYPE;
 			}
@@ -439,14 +646,13 @@
 		var loader = new THREE.OBJLoader();
 		var material = new THREE.MeshPhongMaterial({
         color: 0xffffff,
-        //normalMap: normalMap,
         wrapAround: true,
         needsUpdate: true
-    });
+        });
 		// load a resource
 		loader.load(
 			// resource URL
-			'objects/LS13_01.obj',
+			'objects/model_C_tree.obj',
 			// Function when resource is loaded
 			function ( object ) {
 				object.traverse( function ( child ) {
@@ -458,18 +664,19 @@
 				        child.receiveShadow = true;
                     }
                 } );
-				object.position.set(20,0,20);
-				object.scale.set(4,6,4);
-				object.updateMatrix();
+				object.position.set(0,0,0);
+				object.scale.set(0.0005,0.0005,0.0005);
 				object.castShadow = true;
-				object.userData = { OBID: i, TYPE: "Tree"};
+				object.userData = { OBID: i, TYPE: "Tree", REX: -5, REZ: 33 };
+				raycaster.ray.intersectPlane( plane, intersection );
 				i++;
+				trees++;
 				ADDED = object;
 				scene.add( object );
 				render();
 				allObjects.push(object);
 				objects.push(object);
-				document.getElementById('info').style.visibility = "visible";
+				document.getElementById('treeinfo').style.visibility = "visible";
 				document.getElementById('typename').innerHTML = object.userData.TYPE;
 			}
 		);
@@ -505,22 +712,21 @@
 			}
 		};
 
-		var xo = dobjo.position.x.toFixed(2);
-		var xt = dobjt.position.x.toFixed(2);
+		var xo = dobjo.position.x + dobjo.userData.REX;
+		var xt = dobjt.position.x + dobjt.userData.REX;
 		var xy = xo - xt;
 		if (xy < 0) {
 			xy = xy * (-1);
 		};
-		var zo = dobjo.position.z.toFixed(2);
-		var zt = dobjt.position.z.toFixed(2);
+		var zo = dobjo.position.z + dobjo.userData.REZ;
+		var zt = dobjt.position.z + dobjt.userData.REZ;
 		var zy = zo - zt;
 		if (zy < 0) {
 			zy = zy * (-1);
 		};
-		//document.getElementById('details').innerHTML = Math.sqrt(Math.pow(xy, 2) + Math.pow(zy, 2)).toFixed(2);
 
 		//Returning distance with two decimals
-		return Math.sqrt(Math.pow(xy, 2) + Math.pow(zy, 2)).toFixed(2);
+		return Math.sqrt(Math.pow(xy, 2) + Math.pow(zy, 2));
 	}
 	
 	$(document).ready(function () {
@@ -548,19 +754,21 @@
     }
 
 	</script>
+
 	<a href = "javascript:history.back()" class="closegame">&times;</a>
-	<div id = "takaisin" class = "takaisin"><a onClick = "openNav()">Open panel</a></div>
+	<div id = "takaisin" class = "takaisin"><a onClick = "openNav()">Elements</a></div>
 	<div id = "mysideNav" class = "sideNav">
 		<div id = "sidenavcontain">
 		<h2>Elements</h2>
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<a href = "#" onclick = "addDeer()">Add deer!</a><br>
+		<a href = "#" onclick = "addApple()">Add apple tree!</a><br>
 		<a href = "#" onclick = "addTree()">Add tree!</a><br>
-		<a href = "#" onclick = "addElf()">Add elf!</a>
+		<a href = "#" onclick = "addBench()">Add bench!</a><br>
+		<a href = "#" onclick = "addTablebench()">Add tablebench!</a>
 		<div id = "info">
 			<h2 id = "typename"></h2>
-			<p>This is info box about object you're going to put in the yard</p>
-			<p>This will be invisible until object is selected from above</p>
+			<p id = "info"></p>
+			<p id = "treeinfo">Tree attracts pollinators, which help the yard to be greener. It also attracts birds, that eat pests.</p>
 		</div>
 	</div>
     </div>
@@ -570,14 +778,14 @@
     <div id = "downpanel">
     	<div id = "gallery"><h1><a href = "gallery.html">Gallery</a></h1></div>
         <div id = "userbox">
-    	    <h2>Santa Claus</h2>
-    	    <div id ="myProgress">
-    	    	<div id = "myBar"></div>
-    	    </div>
-    	    <p>Immortal</p>
-    	    <p>Log out</p>
+        	<table>
+        		<tr><td><h2>Santa Claus</h2></td></tr>
+        		<tr><td><div id ="myProgress"><div id = "myBar"></div></div></td></tr>
+        		<tr><td>Immortal</td></tr>
+        		<tr><td>Log out</td></tr>
+        	</table>
         </div>
-        <div id = "points"><h1>2332 (+11 %)</h1></div>
+        <div id = "points"><center>0</center></div>
     </div>
 </body>
 </html>

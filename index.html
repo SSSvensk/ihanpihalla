@@ -6,12 +6,21 @@
 <body>
 	<link rel = "stylesheet" href = "css/bodycss.css">
 
-<center> <img src="img/ihanpihalla.png"><br>Name:<br><input type="text" name="firstname">
+<center> <img src="img/ihanpihalla.png"><br>Name:<br><input type="text" id = "name" name="firstname">
   <br>
   Password:<br>
   <input type="text" name="lastname">
-  <br><br><FORM METHOD="LINK" ACTION="mapstesti.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Login!"></FORM>
+  <br><br><INPUT TYPE="submit" onclick = "storeName()" class = "designbutton" VALUE="Login!">
   </center>
+  <div id = "kok"></div>
+
+  <script>
+  function storeName() {
+     var inputName = document.getElementById("name");
+     localStorage.setItem("name", inputName.value); 
+     window.location.href = "mapstesti.html";
+  }
+  </script>
 
 </body>
 </html>
