@@ -119,6 +119,8 @@
 
 		if ( SELECTED ) {
 			SELECTED = null;
+			checkOthers();
+			calculatePoints();
 		}
 
 		if ( dragged ) {
@@ -132,7 +134,7 @@
 				points += getDistance(objects[i].userData.OBID, objects[j].userData.OBID);
 			};
 	    };
-	    calculatePoints();
+	    //calculatePoints(SELECTED);
 	    //document.getElementById('points').innerHTML = points.toFixed(0);
 		render();
 
@@ -147,13 +149,8 @@
 			calculatePoints( ADDED );
 			SELECTED = null;
 			ADDED = null;
-			var points = 0;
-			for (var i = 0; i < objects.length; i++) {
-			    for (var j = i+1; j < objects.length; j++) {
-				    points += getDistance(objects[i].userData.OBID, objects[j].userData.OBID);
-			    };
-		    };
 		    calculatePoints();
+		    checkOthers();
 	        //document.getElementById('points').innerHTML = points.toFixed(0);
 			render();
 			//return;
@@ -172,14 +169,13 @@
 			    document.getElementById('ox').innerHTML = xco;
 			    document.getElementById('oz').innerHTML = zco;
 			    var listOfDistances = "Distances to other objects<br>";
-			    for (var i = 0; i < allObjects.length; i++) {
-			    	if (obidi != allObjects[i].userData.OBID) {
-			    		listOfDistances += allObjects[i].userData.TYPE + ": " + getDistance(obidi, allObjects[i].userData.OBID) + "<br>";
-			    	};
+
+			    for (var i = 0; i < INTERSECTED.parent.userData.adjacentObjects.length; i++) {
+			    	listOfDistances += INTERSECTED.parent.userData.adjacentObjects[i].edgeLength.toFixed(2) + "<br>";
 			    };
 			    document.getElementById('distances').innerHTML = listOfDistances;
 			    $('#success').dialog({
-				    height: 150,
+				    height: 350,
 				    width: 350,
 				    modal: true,
     			    resizable: false,
