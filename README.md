@@ -42,6 +42,9 @@ TODO 2017:
 
 -Continue building ev/point system
 
+  - "Worm meter" is calculated like this: green area / (total area - building areas) where green area is sum of area of lawn in the yard and total area is pre-defined area restricted by coordinates.
+  - "Bird meter" and "Bee meter" would depend on amount of trees and bushes
+
 -Visualize actions
 
 -Pass data between pages?? (JS has localStorage-method for this! No server-side needed for this!)
