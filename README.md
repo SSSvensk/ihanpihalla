@@ -49,4 +49,7 @@ TODO 2017:
 
 -Pass data between pages?? (JS has localStorage-method for this! No server-side needed for this!)
 
+Update 2.1.17: Improved ev.system
+TODO --> Making it reasonable
+
 Week left, let's do it!

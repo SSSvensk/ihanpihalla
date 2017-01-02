@@ -378,11 +378,25 @@
 
 	function removeObject() {
 		var removeType = INTERSECTED.parent.userData.TYPE;
-
-		for (var i = 0; i < objects.length; i++) {
-			objects[i]
-		};
-
+		if (removeType === "Tree") {
+			trees--;
+			totalpoints -= (optimalTrees - trees) * 100;
+			totalpoints -= checkLocation(INTERSECTED.parent.matrixWorld.getPosition().x + INTERSECTED.parent.userData.REX, INTERSECTED.parent.matrixWorld.getPosition().z + INTERSECTED.parent.userData.REZ);
+		} else if (removeType === "Apple tree") {
+			appletrees--;
+			totalpoints -= (optimalApples - appletrees) * 100;
+			totalpoints -= checkLocation(INTERSECTED.parent.matrixWorld.getPosition().x + INTERSECTED.parent.userData.REX, INTERSECTED.parent.matrixWorld.getPosition().z + INTERSECTED.parent.userData.REZ);
+		} else if (removeType === "Table bench") {
+			tables--;
+			totalpoints -= (optimalTables - tables) * 100;
+		} else if (removeType === "Bench") {
+			benches--;
+			totalpoints -= (optimalBenches - benches) * 100;
+		}
+		else if (removeType === "Lawn") {
+			greenarea -= 25;
+			updateWormmeter();
+		}
 		var ind = objects.indexOf(INTERSECTED.parent);
 		var indd = allObjects.indexOf(INTERSECTED.parent);
 		objects.splice(ind, 1);
@@ -452,25 +466,25 @@
 				var distancepoints = 0;
 			    if (dist <= objects[i].userData.RADIUS) {
 				    if (objects[i].userData.TYPE === "Tree" && objects[j].userData.TYPE === "Tree") {
-				    	distancepoints = (10 - dist);
+				    	distancepoints = (10 - dist) * 100;
 				    } else if ((objects[i].userData.TYPE === "Tree" && objects[j].userData.TYPE === "Apple tree") || (objects[i].userData.TYPE === "Apple tree" && objects[j].userData.TYPE === "Tree")) {
-				    	distancepoints = (10 - dist);
+				    	distancepoints = (10 - dist) * 100;
 				    } else if ((objects[i].userData.TYPE === "Tree" && objects[j].userData.TYPE === "Bench") || (objects[i].userData.TYPE === "Bench" && objects[j].userData.TYPE === "Tree")) {
-				    	distancepoints = (10 - dist);
+				    	distancepoints = (10 - dist) * 100;
 				    } else if ((objects[i].userData.TYPE === "Tree" && objects[j].userData.TYPE === "Table bench") || (objects[i].userData.TYPE === "Table bench" && objects[j].userData.TYPE === "Tree")) {
-				    	distancepoints = (10 - dist);
+				    	distancepoints = (10 - dist) * 100;
 				    } else if (objects[i].userData.TYPE === "Apple tree" && objects[j].userData.TYPE === "Apple tree") {
-				    	distancepoints = (10 - dist);
+				    	distancepoints = (10 - dist) * 100;
 				    } else if ((objects[i].userData.TYPE === "Apple tree" && objects[j].userData.TYPE === "Bench") || (objects[i].userData.TYPE === "Bench" && objects[j].userData.TYPE === "Apple tree")) {
-				    	distancepoints = (10 - dist);
+				    	distancepoints = (10 - dist) * 100;
 				    } else if ((objects[i].userData.TYPE === "Apple tree" && objects[j].userData.TYPE === "Table bench") || (objects[i].userData.TYPE === "Table bench" && objects[j].userData.TYPE === "Apple tree")) {
-				    	distancepoints = (10 - dist);
+				    	distancepoints = (10 - dist) * 100;
 				    } else if (objects[i].userData.TYPE === "Bench" && objects[j].userData.TYPE === "Bench") {
-				    	distancepoints = (5 - dist);
+				    	distancepoints = (5 - dist) * 100;
 				    } else if ((objects[i].userData.TYPE === "Bench" && objects[j].userData.TYPE === "Table bench") || (objects[i].userData.TYPE === "Table bench" && objects[j].userData.TYPE === "Bench")) {
-				    	distancepoints = (5 - dist);
+				    	distancepoints = (5 - dist) * 100;
 				    } else if (objects[i].userData.TYPE === "Table bench" && objects[j].userData.TYPE === "Table bench") {
-				    	distancepoints = (5 - dist);
+				    	distancepoints = (5 - dist) * 100;
 				    }
 			    }
 				if (distancepoints < 0) {
