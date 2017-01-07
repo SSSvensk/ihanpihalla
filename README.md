@@ -1,6 +1,9 @@
 # residentialyardgame
 Repo for RYDG project
 
+Current game found in following address:
+http://people.uta.fi/~ss98607/ihanpihalla/
+
 This repository contains code used for Residential Yard Design Game.
 
 Now this contains indexxx.html, mapstesti.html and some JS-files from Three JS-package. Full Three JS-package can be downloaded for your computer on following address: https://threejs.org/ or GitHub https://github.com/mrdoob/three.js/
@@ -53,5 +56,6 @@ Update 2.1.17: Improved ev.system (now it's accurate to what was decided in dev-
 TODO --> Making it more reasonable, adding eco-evaluation
 
 Update 7.1.17: https://github.com/SSSvensk/residentialyardgame/pull/10
+Now I'm going to Ilves's match and be back in the evening
 
 Week left, let's do it!
