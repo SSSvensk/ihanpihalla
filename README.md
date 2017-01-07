@@ -52,4 +52,6 @@ TODO 2017:
 Update 2.1.17: Improved ev.system (now it's accurate to what was decided in dev-meeting)
 TODO --> Making it more reasonable, adding eco-evaluation
 
+Update 7.1.17: https://github.com/SSSvensk/residentialyardgame/pull/10
+
 Week left, let's do it!
