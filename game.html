@@ -7,10 +7,12 @@
 	<!--Linking JavaScript and CSS-files-->
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel = "stylesheet" href = "css/ihanpihallacss.css">
+	<link rel = "stylesheet" href = "css/gamestyles.css">
     <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
 	<script src = "js/three.min.js"></script>
 	<script src = "js/OrbitControls.js"></script>
 	<script src = "js/OBJLoader.js"></script>
+	<script src = "js/MTLLoader.js"></script>
 	<script src = "js/dat.gui.min.js"></script>
 	<script src = "js/Cube.js"></script>
 	<script src = "js/Edge.js"></script>
@@ -25,10 +27,7 @@
 	var scene, camera, renderer;
 	var mouse = new THREE.Vector2();
 
-	var value = 85000;
-	var beeMeter = 0;
-	var birdMeter = 0;
-	var wormMeter = 0;
+	var value = 1816;
 
 	//Array to store clickable objects
 	var objects = [];
@@ -71,6 +70,7 @@
 
 		//Creating scene. Scene is where everything is added.
 		scene = new THREE.Scene();
+		//scene.fog = new THREE.Fog( 0xcce0ff, 30, 150 );
 		scene.background = new THREE.Color( 0xC1FFFF );
 
 		//Creating camera and giving it its position.
@@ -101,27 +101,86 @@
 		renderer.shadowMapHeight = 1024;
 
 		var loader = new THREE.OBJLoader();
+/*
+		var mtlLoader = new THREE.MTLLoader();
+		
+mtlLoader.setPath('objects/buildings/');
+mtlLoader.load('Greenbuilding.mtl', function(materials) {
+  materials.preload();
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials(materials);
+  objLoader.setPath('objects/buildings/');
+  objLoader.load('Greenbuilding.obj', function(object) {
+  	object.scale.set(0.0005,0.0005,0.0005);
+  	object.position.set(52,0,50);
+  	objects.push(object);
+    scene.add(object);
+  }, onProgress, onError);
+});
+
+mtlLoader.setPath('objects/buildings/');
+mtlLoader.load('Yellowbuilding.mtl', function(materials) {
+  materials.preload();
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials(materials);
+  objLoader.setPath('objects/buildings/');
+  objLoader.load('Yellowbuilding.obj', function(object) {
+  	object.scale.set(0.0005,0.0005,0.0005);
+  	object.position.set(52,0,50);
+  	objects.push(object);
+    scene.add(object);
+  }, onProgress, onError);
+});
+
+mtlLoader.setPath('objects/buildings/');
+mtlLoader.load('Redbuilding.mtl', function(materials) {
+  materials.preload();
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials(materials);
+  objLoader.setPath('objects/buildings/');
+  objLoader.load('Redbuilding.obj', function(object) {
+  	object.scale.set(0.0005,0.0005,0.0005);
+  	object.position.set(52,0,50);
+  	objects.push(object);
+    scene.add(object);
+  }, onProgress, onError);
+});
+
+mtlLoader.setPath('objects/buildings/');
+mtlLoader.load('Orangebuilding.mtl', function(materials) {
+  materials.preload();
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials(materials);
+  objLoader.setPath('objects/buildings/');
+  objLoader.load('Orangebuilding.obj', function(object) {
+  	object.scale.set(0.0005,0.0005,0.0005);
+  	object.position.set(52,0,50);
+  	objects.push(object);
+    scene.add(object);
+  }, onProgress, onError);
+});
+*/
 
 		loader.load(
 			// resource URL
-			'objects/models-detailed/model_C_building1.obj',
+			'objects/buildings/Yellowbuilding.obj',
 			// Function when resource is loaded
 			function ( object ) {
 				object.traverse( function ( child ) {
                     if ( child instanceof THREE.Mesh ) {
                     	var material = new THREE.MeshPhongMaterial({
-                            color: 0xffffff,
-                            wrapAround: true,
-                            needsUpdate: true
+                            color: 0xffffff
                         });
                         //child.material.ambient.setHex(0xFF0000);
+                        
                         child.material = material;
                         child.material.color.setHex(0xffd72c);
                         child.castShadow = true;
 				        child.receiveShadow = true;
+				        
                     }
                 } );
-				object.position.set(0,0,0);
+				object.position.set(52,0,50);
 				object.rotateY(Math.PI / 2.8);
 				object.scale.set(0.0005,0.0005,0.0005);
 				object.updateMatrix();
@@ -135,15 +194,13 @@
 
         loader.load(
 			// resource URL
-			'objects/models-detailed/model_C_building2.obj',
+			'objects/buildings/Orangebuilding.obj',
 			// Function when resource is loaded
 			function ( object ) {
 				object.traverse( function ( child ) {
                     if ( child instanceof THREE.Mesh ) {
                     	var material = new THREE.MeshPhongMaterial({
-                            color: 0xffffff,
-                            wrapAround: true,
-                            needsUpdate: true
+                            color: 0xffffff
                         });
                         //child.material.ambient.setHex(0xFF0000);
                         child.material = material;
@@ -152,7 +209,7 @@
 				        child.receiveShadow = true;
                     }
                 } );
-				object.position.set(0,0,0);
+				object.position.set(52,0,50);
 				object.rotateY(Math.PI / 2.8);
 				object.scale.set(0.0005,0.0005,0.0005);
 				object.updateMatrix();
@@ -166,15 +223,13 @@
 
         loader.load(
 			// resource URL
-			'objects/models-detailed/model_C_building3.obj',
+			'objects/buildings/Redbuilding.obj',
 			// Function when resource is loaded
 			function ( object ) {
 				object.traverse( function ( child ) {
                     if ( child instanceof THREE.Mesh ) {
                     	var material = new THREE.MeshPhongMaterial({
-                            color: 0xffffff,
-                            wrapAround: true,
-                            needsUpdate: true
+                            color: 0xffffff
                         });
                         //child.material.ambient.setHex(0xFF0000);
                         child.material = material;
@@ -183,7 +238,7 @@
 				        child.receiveShadow = true;
                     }
                 } );
-				object.position.set(0,0,0);
+				object.position.set(52,0,50);
 				object.rotateY(Math.PI / 2.8);
 				object.scale.set(0.0005,0.0005,0.0005);
 				object.updateMatrix();
@@ -197,15 +252,13 @@
 
         loader.load(
 			// resource URL
-			'objects/models-detailed/model_C_building4.obj',
+			'objects/buildings/Greenbuilding.obj',
 			// Function when resource is loaded
 			function ( object ) {
 				object.traverse( function ( child ) {
                     if ( child instanceof THREE.Mesh ) {
                     	var material = new THREE.MeshPhongMaterial({
-                            color: 0xffffff,
-                            wrapAround: true,
-                            needsUpdate: true
+                            color: 0xffffff
                         });
                         //child.material.ambient.setHex(0xFF0000);
                         child.material = material;
@@ -214,7 +267,7 @@
 				        child.receiveShadow = true;
                     }
                 } );
-				object.position.set(0,0,0);
+				object.position.set(52,0,50);
 				object.rotateY(Math.PI / 2.8);
 				object.scale.set(0.0005,0.0005,0.0005);
 				object.updateMatrix();
@@ -226,6 +279,39 @@
 			}
 		);
 
+        loader.load(
+			// resource URL
+			'objects/buildings/Grass(base).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                    	var material = new THREE.MeshPhongMaterial({
+                            //color: 0xffffff,
+                            wrapAround: true,
+                            needsUpdate: true
+                        });
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0xff443d);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.position.set(52,-0.15,50);
+				object.rotateY(Math.PI / 2.8);
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.updateMatrix();
+				object.castShadow = true;
+				object.userData = { OBID: i, TYPE: "Building", REX: -19.6, REZ: 17};
+				i++;
+				scene.add( object );
+				render();
+			}
+		);
+
+        var onProgress = function(xhr) {};
+        var onError = function(xhr) {};
 		/*
 		0xffd72c
 		0xff8c00
@@ -234,10 +320,10 @@
 		*/
 
         //Different lights. Pick your favourite
-/*
-        var light = new THREE.AmbientLight( 0x404040 ); // soft white light
-		scene.add( light );
-*/
+
+        //var ambilight = new THREE.AmbientLight( 0x404040 ); // soft white light
+		//scene.add( ambilight );
+
 		directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
 		directionalLight.position.set( 40, 60, 45 );
 		directionalLight.castShadow = true;
@@ -282,7 +368,8 @@
 		var material = new THREE.MeshLambertMaterial( {map:texture} );
 
 		//Creating plane
-		var planee = new THREE.Mesh( geometry, material );
+		var planee = new THREE.Mesh(new THREE.PlaneBufferGeometry(300, 300, 32), new THREE.MeshPhongMaterial({specular: '#fff',fog: true,color: '#327B21',shininess: 0 }));
+		//var planee = new THREE.Mesh( geometry, material );
 
 		//Just inserting coordinates of borders to variables
 		borderY = borderX = 15;
@@ -379,11 +466,9 @@
 		scene.remove(INTERSECTED.parent);
 		checkOthers();
 		calculatePoints();
-		//document.getElementById('points').innerHTML = "<center>" + totalpoints + "</center>";
+		closeWindow();
 		render();
 	}
-
-	
 
 	function cancelDragAndDrop() {
 		scene.remove(SELECTED);
@@ -415,53 +500,96 @@
 
 	function addApple() {
 		var loader = new THREE.OBJLoader();
+		var bigObject = new THREE.Object3D();
 		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        //normalMap: normalMap,
-        wrapAround: true,
-        needsUpdate: true
+        color: 0xffffff
         });
 		// load a resource
 		loader.load(
 			// resource URL
-			'objects/model_C_appletree.obj',
+			'objects/Elements/Trees/AppleTree_wood(orange).obj',
 			// Function when resource is loaded
 			function ( object ) {
 				object.traverse( function ( child ) {
                     if ( child instanceof THREE.Mesh ) {
                         //child.material.ambient.setHex(0xFF0000);
                         child.material = material;
-                        child.material.color.setHex(0xace02e);
+                        child.material.color.setHex(0x95673f);
                         child.castShadow = true;
 				        child.receiveShadow = true;
                     }
                 } );
+				//object.matrixWorld(2,0,2);
+				object.scale.set(0.0005,0.0005,0.0005);
 				object.position.set(0,0,0);
-				object.scale.set(0.0005, 0.0005, 0.0005);
 				//object.updateMatrix();
 				object.castShadow = true;
-				object.receiveShadow = true;
-				var arr = [];
-				object.userData = { OBID: i, TYPE: "Apple tree", REX: -32, REZ: 35, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10};
-				ADDED = object;
-				scene.add( object );
+				bigObject.add(object);
 				render();
-				objects.push(object);
-				i++;
-				document.getElementById('info').innerHTML = "Apple tree attracts pollinators, which help the yard to be greener. It also attracts birds, that eat pests. And it's nice to collect fruits at the end of the summer.";
-				document.getElementById('typename').innerHTML = object.userData.TYPE;
 			}
 		);
+        var leafmaterial = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+        loader.load(
+			// resource URL
+			'objects/Elements/Trees/AppleTree_leaves(green).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = leafmaterial;
+                        child.material.color.setHex(0x1ebd12);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				//object.matrixWorld(2,0,2);
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				//object.updateMatrix();
+				object.castShadow = true;
+				bigObject.add(object);
+			}
+		);
+		var fruitmaterial = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+        loader.load(
+			// resource URL
+			'objects/Elements/Trees/AppleTree_apples(red).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = fruitmaterial;
+                        child.material.color.setHex(0xf83043);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				object.castShadow = true;
+				bigObject.add(object);
+			}
+		);
+        var arr = [];
+		bigObject.userData = { OBID: i, TYPE: "Apple tree" , REX: 34.25, REZ: -30.17, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
+		i++;
+		ADDED = bigObject;
+		scene.add(bigObject);
+		render();
+		objects.push(bigObject);
 
 	}
 
 	function addTablebench() {
 		var loader = new THREE.OBJLoader();
 		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        //normalMap: normalMap,
-        wrapAround: true,
-        needsUpdate: true
+        color: 0xffffff
         });
 		// load a resource
 		loader.load(
@@ -480,7 +608,6 @@
                 } );
 				object.position.set(0,0,0);
 				object.scale.set(0.001,0.001,0.001);
-				//object.updateMatrix();
 				object.castShadow = true;
 				object.receiveShadow = true;
 				var arr = [];
@@ -490,8 +617,6 @@
 				render();
 				objects.push(object);
 				i++;
-				document.getElementById('info').style.visibility = "visible";
-				document.getElementById('typename').innerHTML = object.userData.TYPE;
 			}
 		);
 
@@ -500,10 +625,7 @@
 	function addBench() {
 		var loader = new THREE.OBJLoader();
 		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        //normalMap: normalMap,
-        wrapAround: true,
-        needsUpdate: true
+        color: 0xffffff
         });
 		// load a resource
 		loader.load(
@@ -513,8 +635,75 @@
 			function ( object ) {
 				object.traverse( function ( child ) {
                     if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
                         child.material.color.setHex(0xf2cf8a);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.scale.set(0.0008,0.0008,0.0008);
+				object.position.set(0,0,0);
+				object.castShadow = true;
+				var arr = [];
+				object.userData = { OBID: i, TYPE: "Bench" , REX: -50, REZ: 39, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 5 };
+				ADDED = object;
+				scene.add( object );
+				render();
+				objects.push(object);
+				i++;
+			}
+		);
+
+	}
+
+	function addBarbeque() {
+		var loader = new THREE.OBJLoader();
+		var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+		// load a resource
+		loader.load(
+			// resource URL
+			'objects/Elements/Furniture/Barbeque.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0x0000c3);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.scale.set(0.0008,0.0008,0.0008);
+				object.position.set(0,0,0);
+				object.castShadow = true;
+				var arr = [];
+				object.userData = { OBID: i, TYPE: "Barbeque" , REX: 9.29, REZ: -77.62, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 5 };
+				ADDED = object;
+				scene.add( object );
+				render();
+				objects.push(object);
+				i++;
+			}
+		);
+	}
+
+	function addSunshade() {
+		var loader = new THREE.OBJLoader();
+		var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+		// load a resource
+		loader.load(
+			// resource URL
+			'objects/Elements/Furniture/SunShade.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        child.material = material;
+                        child.material.color.setHex(0xffffff);
                         child.castShadow = true;
 				        child.receiveShadow = true;
                     }
@@ -525,16 +714,358 @@
 				//object.updateMatrix();
 				object.castShadow = true;
 				var arr = [];
-				object.userData = { OBID: i, TYPE: "Bench" , REX: -50, REZ: 39, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 5 };
+				object.userData = { OBID: i, TYPE: "Sun shade" , REX: 7.6, REZ: -71.87, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 5 };
 				ADDED = object;
 				scene.add( object );
 				render();
 				objects.push(object);
 				i++;
-				document.getElementById('info').style.visibility = "visible";
-				document.getElementById('typename').innerHTML = object.userData.TYPE;
 			}
 		);
+	}
+
+	function addBenchwithFlowers() {
+		var loader = new THREE.OBJLoader();
+		var bigObject = new THREE.Object3D();
+		var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+		// load a resource
+		loader.load(
+			// resource URL
+			'objects/Elements/Furniture/BenchWithFlowers.obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0x95673f);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.scale.set(0.0008,0.0008,0.0008);
+				object.position.set(0,0,0);
+				//object.updateMatrix();
+				object.castShadow = true;
+				bigObject.add(object);
+				render();
+			}
+		);
+        var flowermaterial = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+        loader.load(
+			// resource URL
+			'objects/Elements/Furniture/BenchWithFlowers_flowers(red).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = flowermaterial;
+                        child.material.color.setHex(0xfd0309);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.scale.set(0.0008,0.0008,0.0008);
+				object.position.set(0,0,0);
+				object.castShadow = true;
+				bigObject.add(object);
+			}
+		);
+		var leafmaterial = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+        loader.load(
+			// resource URL
+			'objects/Elements/Furniture/BenchWithFlowers_leaves(green).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = leafmaterial;
+                        child.material.color.setHex(0x4adc0a);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				//object.matrixWorld(2,0,2);
+				object.scale.set(0.0008,0.0008,0.0008);
+				object.position.set(0,0,0);
+				//object.updateMatrix();
+				object.castShadow = true;
+				bigObject.add(object);
+			}
+		);
+        var arr = [];
+		bigObject.userData = { OBID: i, TYPE: "Green bench" , REX: 2.49, REZ: -75.11, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 5 };
+		i++;
+		ADDED = bigObject;
+		scene.add(bigObject);
+		render();
+		objects.push(bigObject);
+
+	}
+
+	function addPinetree() {
+		var loader = new THREE.OBJLoader();
+		var bigObject = new THREE.Object3D();
+		var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+		// load a resource
+		loader.load(
+			// resource URL
+			'objects/Elements/Trees/Pinetree_wood(orange).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0xffa500);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				object.castShadow = true;
+				bigObject.add(object);
+				render();
+			}
+		);
+        var leafmaterial = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+        loader.load(
+			// resource URL
+			'objects/Elements/Trees/Pinetree_leaves(R0G80B0).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = leafmaterial;
+                        child.material.color.setHex(0x1ebd12);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				//object.matrixWorld(2,0,2);
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				//object.updateMatrix();
+				object.castShadow = true;
+				bigObject.add(object);
+			}
+		);
+        var arr = [];
+		bigObject.userData = { OBID: i, TYPE: "Pine tree" , REX: 51.68, REZ: -38.27, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
+		i++;
+		ADDED = bigObject;
+		scene.add(bigObject);
+		render();
+		objects.push(bigObject);
+
+	}
+
+	function addLilac() {
+		var loader = new THREE.OBJLoader();
+		var bigObject = new THREE.Object3D();
+		var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+		// load a resource
+		loader.load(
+			// resource URL
+			'objects/Elements/Trees/Lilac_tree(orange).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0xffa500);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				//object.matrixWorld(2,0,2);
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				//object.updateMatrix();
+				object.castShadow = true;
+				bigObject.add(object);
+				render();
+			}
+		);
+        var leafmaterial = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+        loader.load(
+			// resource URL
+			'objects/Elements/Trees/Lilac_leaves(R154G145B219).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = leafmaterial;
+                        child.material.color.setHex(0x1ebd12);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				//object.matrixWorld(2,0,2);
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				//object.updateMatrix();
+				object.castShadow = true;
+				bigObject.add(object);
+			}
+		);
+        var arr = [];
+		bigObject.userData = { OBID: i, TYPE: "Lilac" , REX: 36.22, REZ: -25.96, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
+		i++;
+		ADDED = bigObject;
+		scene.add(bigObject);
+		render();
+		objects.push(bigObject);
+
+	}
+
+	function addCanadianMaple() {
+		var loader = new THREE.OBJLoader();
+		var bigObject = new THREE.Object3D();
+		var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+		// load a resource
+		loader.load(
+			// resource URL
+			'objects/Elements/Trees/CanadianMaple_wood(orange).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0xffa500);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				//object.matrixWorld(2,0,2);
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				//object.updateMatrix();
+				object.castShadow = true;
+				bigObject.add(object);
+				render();
+			}
+		);
+        var leafmaterial = new THREE.MeshPhongMaterial({
+        color: 0xffffff
+        });
+        loader.load(
+			// resource URL
+			'objects/Elements/Trees/CanadianMaple_leaves(green).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = leafmaterial;
+                        child.material.color.setHex(0x1ebd12);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				//object.matrixWorld(2,0,2);
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				//object.updateMatrix();
+				object.castShadow = true;
+				bigObject.add(object);
+			}
+		);
+        var arr = [];
+		bigObject.userData = { OBID: i, TYPE: "Canadian maple" , REX: 37.64, REZ: -36, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
+		i++;
+		ADDED = bigObject;
+		scene.add(bigObject);
+		render();
+		objects.push(bigObject);
+
+	}
+
+	function addWillow() {
+		var loader = new THREE.OBJLoader();
+		var bigObject = new THREE.Object3D();
+		var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        wrapAround: true,
+        needsUpdate: true
+        });
+		// load a resource
+		loader.load(
+			// resource URL
+			'objects/Elements/Trees/Willow_wood(orange).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        child.material = material;
+                        child.material.color.setHex(0xffa500);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				object.castShadow = true;
+				bigObject.add(object);
+				render();
+			}
+		);
+        var leafmaterial = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        //normalMap: normalMap,
+        wrapAround: true,
+        needsUpdate: true
+        });
+        loader.load(
+			// resource URL
+			'objects/Elements/Trees/Willow_leaves(R0G80B0).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = leafmaterial;
+                        child.material.color.setHex(0x1ebd12);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				object.castShadow = true;
+				bigObject.add(object);
+			}
+		);
+        var arr = [];
+		bigObject.userData = { OBID: i, TYPE: "Willow" , REX: 38.84, REZ: -22.45, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
+		i++;
+		ADDED = bigObject;
+		scene.add(bigObject);
+		render();
+		objects.push(bigObject);
 
 	}
 
@@ -548,7 +1079,7 @@
 		// load a resource
 		loader.load(
 			// resource URL
-			'objects/model_C_tree.obj',
+			'objects/LS13_01.obj',
 			// Function when resource is loaded
 			function ( object ) {
 				object.traverse( function ( child ) {
@@ -561,130 +1092,461 @@
                     }
                 } );
 				object.position.set(0,0,0);
-				object.scale.set(0.0005,0.0005,0.0005);
+				object.scale.set(4,4,4);
 				object.castShadow = true;
 				var arr = [];
-				object.userData = { OBID: i, TYPE: "Tree", REX: -5, REZ: 33, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
-				raycaster.ray.intersectPlane( plane, intersection );
+				object.userData = { OBID: i, TYPE: "Tree", REX: 0, REZ: 0, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
 				i++;
-				ADDED = object;
+				//ADDED = object;
 				scene.add( object );
 				render();
 				objects.push(object);
-				document.getElementById('treeinfo').style.visibility = "visible";
-				document.getElementById('typename').innerHTML = object.userData.TYPE;
 			}
 		);
     }
 
-    function addLawn() {
-    	var dir = new THREE.Vector3(0,200,0);
-		var centroid = new THREE.Vector3(0,0.1,0);
-		plane.setFromNormalAndCoplanarPoint(dir, centroid);
-		var xco = 200;
-		var zco = 200;
-		var geometry = new THREE.PlaneBufferGeometry( 5, 5, 32 );
-		//Image to ground texture.
-		var texture = THREE.ImageUtils.loadTexture( "img/grass5.jpg" );
-		//Making texture spread in 2 directions. Without these, texture would look like bar code
-		texture.wrapS = THREE.RepeatWrapping; 
-		texture.wrapT = THREE.RepeatWrapping;
-		//Repeating texture, lower the number is, lower the quality is...
-		texture.repeat.set( 6, 6 ); 
-
-		//Settng texture as map for material
-		var material = new THREE.MeshLambertMaterial( {map:texture} );
-
-		//Creating plane
-		var planee = new THREE.Mesh( geometry, material );
-
-		//Just inserting coordinates of borders to variables
-		borderY = borderX = 15;
-		borderYY = borderXX = -15;
-
-		//Setting plane's position and rotation. If you remove minus in front of the rotation, the texture stays on the bottom
-		//planee.position.y = 2;
-		planee.rotation.x = - Math.PI / 2;
-		planee.receiveShadow = true;
-
-		//Finally adding the plane to the scene
-		var object = new THREE.Object3D();
-		object.userData = { OBID: i, TYPE: "Lawn", REX: 0, REZ: 0, ReceivedPoints: 0 };
-		object.add(planee);
-        ADDED = object;
-        objects.push(object);
-        i++;
-        greenarea += 25;
-        scene.add( object );
-        render();
-
-	}
-	//Function to change background color of the game
-	function updateBackground() {
-		if (trees > 2) {
-			scene.background = new THREE.Color( 0xC1FFFF );
-			render();
-		}
-	}
-	
-	$(document).ready(function () {
-        $("#remove").click(function () {
-        	document.getElementById("success").title = "";
-            $(this).closest('.ui-dialog-content').dialog('close'); 
+    function addRowan() {
+		var loader = new THREE.OBJLoader();
+		var bigObject = new THREE.Object3D();
+		var material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        //normalMap: normalMap,
+        wrapAround: true,
+        needsUpdate: true
         });
-    });
+		// load a resource
+		loader.load(
+			// resource URL
+			'objects/Elements/Trees/Rowan_tree(orange).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = material;
+                        child.material.color.setHex(0x95673f);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				//object.matrixWorld(2,0,2);
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				//object.updateMatrix();
+				object.castShadow = true;
+				//var arr = [];
+				//object.userData = { OBID: i, TYPE: "Sun shade" , REX: -50, REZ: 39, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 5 };
+				//ADDED = object;
+				//scene.add( object );
+				bigObject.add(object);
+				render();
+				//objects.push(object);
+				//i++;
+				//document.getElementById('info').style.visibility = "visible";
+				//document.getElementById('typename').innerHTML = object.userData.TYPE;
+			}
+		);
+        var leafmaterial = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        //normalMap: normalMap,
+        wrapAround: true,
+        needsUpdate: true
+        });
+        loader.load(
+			// resource URL
+			'objects/Elements/Trees/Rowan_leaves(green).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = leafmaterial;
+                        child.material.color.setHex(0x1ebd12);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				object.castShadow = true;
+				bigObject.add(object);
+			}
+		);
+		var fruitmaterial = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        wrapAround: true,
+        needsUpdate: true
+        });
+        loader.load(
+			// resource URL
+			'objects/Elements/Trees/Rowan_berries(red).obj',
+			// Function when resource is loaded
+			function ( object ) {
+				object.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        //child.material.ambient.setHex(0xFF0000);
+                        child.material = fruitmaterial;
+                        child.material.color.setHex(0xf83043);
+                        child.castShadow = true;
+				        child.receiveShadow = true;
+                    }
+                } );
+				object.scale.set(0.0005,0.0005,0.0005);
+				object.position.set(0,0,0);
+				object.castShadow = true;
+				bigObject.add(object);
+			}
+		);
+        var arr = [];
+		bigObject.userData = { OBID: i, TYPE: "Rowan" , REX: 44.24, REZ: -29.02, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
+		i++;
+		ADDED = bigObject;
+		scene.add(bigObject);
+		render();
+		objects.push(bigObject);
 
-    function closeNav() {
-    	document.getElementById("mysideNav").style.width = "0px";
-    	document.getElementById("downpanel").style.width = "100%";
-    	document.getElementById("downpanel").style.left = "0%";
-    	document.getElementById("takaisin").style.visibility = 'visible';
-    }
-
-    function openNav() {
-    	document.getElementById("mysideNav").style.width = "20%";
-    	document.getElementById("downpanel").style.width = "80%";
-    	document.getElementById("downpanel").style.left = "20%";
-    	document.getElementById("takaisin").style.visibility = 'none';
-    	if (document.getElementById("mysideNav").style.width == "20%") {
-    		document.getElementById("sidenavcontain").style.visibility = 'visible';
-    	}
-    }
+	}
 
 	</script>
+        <div id = "background">
+			<div id="EcoHappinessEconomic"><img src="images/EcoHappinessEconomic.png"></div>
+			<div id="RoundedRectangle4cop"><img src="images/RoundedRectangle4cop.png"></div>
+			<div id="Yardstatistics"><img src="images/Yardstatistics.png"></div>
+			<div id="points">0</div>
+			<div id="clear"><img src="images/clear.png"></div>
+			<div id="clearicon"><img src="images/clearicon.png"></div>
+			<div id="Undoredoicon"><img src="images/Undoredoicon.png"></div>
+			<div id="undoredo"><img src="images/undoredo.png"></div>
+			<div id="Saveicon"><img src="images/Saveicon.png"></div>
+			<div id="Facebookicon"><img src="images/Facebookicon.png"></div>
+			<div id="VilleKoponen">Username</div>
+			<div id="progressbar"><img src="galleryimages/progressbar.png"></div>
+			<div id="bar"><img src="galleryimages/progress.png"></div>
+			<div id="MapGameGalleryProfil">
+				<table id = "mggp">
+					<tr>
+						<td><a href = "mapstesti.html">Map</a></td>
+						<td>Game</td>
+						<td><a href = "gallery.html">Gallery</a></td>
+						<td>Profile</td>
+						<td><a href = "index.html">Log out</a></td>
+					</tr>
+				</table>
+			</div>
+			<div id="Logo"><img src="images/SmallLogo.png"></div>
 
-	<a href = "javascript:history.back()" class="closegame">&times;</a>
-	<div id = "takaisin" class = "takaisin"><a onClick = "openNav()">Elements</a></div>
-	<div id = "mysideNav" class = "sideNav">
-		<div id = "sidenavcontain">
-		<h2>Elements</h2>
-		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<a href = "#" onclick = "addApple()">Add apple tree!</a><br>
-		<a href = "#" onclick = "addTree()">Add tree!</a><br>
-		<a href = "#" onclick = "addBench()">Add bench!</a><br>
-		<a href = "#" onclick = "addTablebench()">Add tablebench!</a><br>
-		<a href = "#" onclick = "addLawn()">Add lawn!</a>
-		<div id = "info">
-			<h2 id = "typename"></h2>
-			<p id = "info"></p>
-			<p id = "treeinfo">Tree attracts pollinators, which help the yard to be greener. It also attracts birds, that eat pests.</p>
-		</div>
-	</div>
-    </div>
-	<div id="success" title="">
-    <p>You have clicked an object! Object index: <p id = "oi"></p>Location: <p id = "ox"></p><p id = "oz"></p><p id = "distances"></p><button id = "remove" onclick = "removeObject()">Remove object</button></p>
-    </div>
-    <div id = "downpanel">
-    	<div id = "gallery"><h1><a href = "gallery.html">Gallery</a></h1></div>
-        <div id = "userbox">
-        	<table>
-        		<tr><td><h2>Santa Claus</h2></td></tr>
-        		<tr><td><div id ="myProgress"><div id = "myBar"></div></div></td></tr>
-        		<tr><td>Immortal</td></tr>
-        		<tr><td>Log out</td></tr>
-        	</table>
+			<div class = "elementmenu">
+
+<button class="accordion"><div class = "butaccontain"><img src="images/Trees.png"><img src="images/Rectangle5.png"></div></button>
+<div class="panel">
+    <table class = "elementtable">
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addPinetree()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addApple()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Pine tree</center></td>
+            <td><center><img src="images/AppleTree.png"></center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addLilac()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addRowan()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Lilac</center></td>
+            <td><center>Rowan</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addCanadianMaple()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addWillow()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Canadian<br>Maple</center></td>
+            <td><center>Willow</center></td>
+        </tr>
+    </table>
+</div>
+
+<button class="accordion"><div class = "butaccontain"><img src="images/Flowers.png"><img src="images/Rectangle5.png"></div></button>
+<div class="panel">
+	<table class = "elementtable">
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTree()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Test</center></td>
+            <td><center>Loose strife</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Tea rose</center></td>
+            <td><center>Crocus</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Aquilegia</center></td>
+            <td><center>Dutch Iris</center></td>
+        </tr>
+    </table>
+</div>
+
+<button class="accordion"><div class = "butaccontain"><img src="images/Paving.png"><img src="images/Rectangle5.png"></div></button>
+<div class="panel">
+	<table class = "elementtable">
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Asphalt</center></td>
+            <td><center>Charcoal<br>stones</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Grass block</center></td>
+            <td><center>Lawn</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Paving brick</center></td>
+            <td><center>Sandstone</center></td>
+        </tr>
+    </table>
+</div>
+
+<button class="accordion"><div class = "butaccontain"><img src="images/Furniture.png"><img src="images/Rectangle5.png"></div></button>
+<div class="panel">
+	<table class = "elementtable">
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Bench</center></td>
+            <td><center>Table bench</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBarbeque()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addSunshade()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Barbeque</center></td>
+            <td><center>Sun Shade</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="images/RoundedRectangle2cop.png">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBenchwithFlowers()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Trash bin</center></td>
+            <td><center>Benches<br>with<br>greenery</center></td>
+        </tr>
+    </table>
+</div>
+
+<button class="accordion"><div class = "butaccontain"><img src="images/Sport.png"><img src="images/Rectangle5.png"></div></button>
+<div class="panel">
+	<p>MOI</p>
+</div>
+
+<button class="accordion"><div class = "butaccontain"><img src="images/Buildings.png"><img src="images/Rectangle5.png"></div></button>
+<div class="panel">
+	<p>MOI</p>
+</div>
+</div>
         </div>
-        <div id = "points"><center>0</center></div>
-    </div>
+        <div id = "infotree">
+		<div class = "right">
+			<img src="images/Rectangle10copy2.png">
+			<p class = "text">Lilac</p>
+			<p class = "desc">Lilac is attracting divers animals like moths, butterflies, birds, larvae and caterpillars. They are working as pollinators. Pollinators are important for agricultural economies and food supply. Also birds are eating pest too.</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="lilac1"><img src="images/VectorSmartObject.png"></div>
+			<div id="lilac2"><img src="images/VectorSmartObject_0.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="images/Rectangle11.png">
+        	<img class = "eci" src="images/Ecoimpact.png">
+        </div>
+
+        <div id = "infoapple">
+		<div class = "right">
+			<img src="images/Rectangle10copy2.png">
+			<p class = "text">Rowan</p>
+			<p class = "desc">Rowan’s berries are working as food for pollinators. Rowan attracts diverse pollinators. Pollinators are important for agricultural economies and food supply.</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="rowan1"><img src="images/VectorSmartObject_0.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="images/Rectangle11.png">
+        	<img class = "eci" src="images/Ecoimpact.png">
+        </div>
+        <div id = "infoother">
+		<div class = "right">
+			<img src="images/Rectangle10copy2.png">
+			<p class = "text">Social object!</p>
+			<p class = "desc">This improves social wellbeing and brings happiness to your house!</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="images/Rectangle11.png">
+        	<img class = "eci" src="images/Ecoimpact.png">
+        </div>
+	</div>
+    <script>
+    function closeWindow() {
+    	document.getElementById('infotree').style.visibility = "hidden";
+    	document.getElementById('infoapple').style.visibility = "hidden";
+    	document.getElementById('infoother').style.visibility = "hidden";
+    }
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        this.classList.toggle("active");
+        this.nextElementSibling.classList.toggle("show");
+  }
+}
+</script>
 </body>
 </html>

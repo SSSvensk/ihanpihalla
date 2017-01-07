@@ -1,0 +1,19 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl M_0053_Ivory
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 0.941176
+Ks 0.330000 0.330000 0.330000
+
+newmtl ForegroundColor
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl Metal_Rough
+Ka 0.000000 0.000000 0.000000
+Kd 0.819608 0.686275 0.627451
+Ks 0.330000 0.330000 0.330000
+

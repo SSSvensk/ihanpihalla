@@ -96,9 +96,13 @@
 			//Not able to rotate the view or zoom while mousedown on object
 			//Only focusing on clicked object now...
 			controls.enabled = false;
+			if (intersects[0].object.parent.userData.TYPE === "Bench" || intersects[0].object.parent.userData.TYPE === "Table bench" || intersects[0].object.parent.userData.TYPE === "Sun shade" || intersects[0].object.parent.userData.TYPE === "Barbeque") {
+				SELECTED = intersects[ 0 ].object.parent;
+			} else {
+				SELECTED = intersects[ 0 ].object.parent.parent;
+			}
 
 			//Picking selected object
-			SELECTED = intersects[ 0 ].object.parent;
 			previousZ = SELECTED.position.z;
 			previousX = SELECTED.position.x;
 
@@ -160,27 +164,22 @@
 		    raycaster.setFromCamera( mouse, camera );
 		    var intersects = raycaster.intersectObjects( objects, true );
 		    if (INTERSECTED && !dragged) {
-			    var xco = INTERSECTED.parent.matrixWorld.getPosition().x + INTERSECTED.parent.userData.REX; 
-			    var zco = INTERSECTED.parent.matrixWorld.getPosition().z + INTERSECTED.parent.userData.REZ;
-			    var obidi = INTERSECTED.parent.userData.OBID;
-			    document.getElementById('oi').innerHTML = obidi;
-			    document.getElementById('success').title = INTERSECTED.parent.userData.TYPE;
-			    selectedId = INTERSECTED.userData.id;
-			    document.getElementById('ox').innerHTML = xco;
-			    document.getElementById('oz').innerHTML = zco;
-			    var listOfDistances = "Distances to other objects<br>";
-
-			    for (var i = 0; i < INTERSECTED.parent.userData.adjacentObjects.length; i++) {
-			    	listOfDistances += INTERSECTED.parent.userData.adjacentObjects[i].edgeLength.toFixed(2) + "<br>";
+			    var xco = INTERSECTED.parent.parent.position.x + INTERSECTED.parent.parent.userData.REX; 
+			    var zco = INTERSECTED.parent.parent.position.z + INTERSECTED.parent.parent.userData.REZ;
+			    var obidi = INTERSECTED.parent.parent.userData.OBID;
+			    console.log(xco);
+			    console.log(zco);
+			    for (var i = 0; i < INTERSECTED.parent.parent.userData.adjacentObjects.length; i++) {
+			    	console.log(INTERSECTED.parent.parent.userData.adjacentObjects[i].edgeLength);
 			    };
-			    document.getElementById('distances').innerHTML = listOfDistances;
-			    $('#success').dialog({
-				    height: 350,
-				    width: 350,
-				    modal: true,
-    			    resizable: false,
-				    dialogClass: 'no-close success-dialog'
-			    });
+
+			    if (INTERSECTED.parent.userData.TYPE === "Tree") {
+			    	document.getElementById('infotree').style.visibility = "visible";
+			    } else if (INTERSECTED.parent.userData.TYPE === "Apple tree") {
+			    	document.getElementById('infoapple').style.visibility = "visible";
+			    } else {
+			    	document.getElementById('infoother').style.visibility = "visible";
+			    }
 		    }
 	    }
 	}
