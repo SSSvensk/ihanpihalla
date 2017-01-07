@@ -1,0 +1,592 @@
+ body {
+	margin: 0;
+	padding: 0;
+ }
+ 
+ #background 
+{ 
+	 left: 0px; 
+	 top: 0px; 
+	 margin-left: auto; 
+	 margin-right: auto; 
+	 width: 100%;
+	 height: 100%; 
+	 overflow: hidden;
+	 z-index:1;
+} 
+#mggp {
+	width: 170%;
+	color: #FFFFFF;
+	font-size: 70%;
+}
+
+#progressbar {
+	position: absolute;
+	top: 6%;
+	left: 79%;
+}
+
+#bar {
+    position: absolute;
+	top: 6%;
+	left: 79%;	
+}
+
+#MapGameGalleryProfil {
+	position: absolute;
+	top: 9%;
+	left: 79%;
+	width: 10%;
+}
+
+ #EcoHappinessEconomic 
+{ 
+	 left: 15%; 
+	 top: 90%; 
+	 position: absolute; 
+	 width: 56px;
+	 height: 38px;
+	 z-index:3;
+} 
+
+ #RoundedRectangle4cop 
+{ 
+	 left: 12%; 
+	 top: 90%; 
+	 position: absolute; 
+	 width: 9px;
+	 height: 195px;
+	 z-index:4;
+} 
+
+ #Yardstatistics 
+{ 
+	 left: 4%; 
+	 top: 90%; 
+	 position: absolute; 
+	 width: 70px;
+	 height: 27px;
+	 z-index:5;
+} 
+
+ #points 
+{ 
+	 left: 86%; 
+	 top: 92%; 
+	 position: absolute; 
+	 font-size: 200%;
+	 color: #FFFFFF;
+	 z-index:6;
+} 
+
+ #layer_2354 
+{ 
+	 left: 86%; 
+	 top: 92%; 
+	 position: absolute; 
+	 color: #FFFFFF;
+	 font-size: 200%;
+	 z-index:7;
+	 font-family: Arial, Helvetica, sans-serif;
+} 
+
+ #clear 
+{ 
+	 left: 92%; 
+	 top: 85.9%; 
+	 position: absolute; 
+	 width: 25px;
+	 height: 7px;
+	 z-index:8;
+} 
+
+ #clearicon 
+{ 
+	 left: 92.2%; 
+	 top: 84%; 
+	 position: absolute; 
+	 width: 16px;
+	 height: 17px;
+	 z-index:9;
+} 
+
+ #Undoredoicon 
+{ 
+	 left: 86.5%; 
+	 top: 84%; 
+	 position: absolute; 
+	 width: 41px;
+	 height: 7px;
+	 z-index:10;
+} 
+
+ #undoredo 
+{ 
+	 left: 86%; 
+	 top: 86%; 
+	 position: absolute; 
+	 width: 53px;
+	 height: 8px;
+	 z-index:11;
+} 
+
+ #Saveicon 
+{ 
+	 left: 79%; 
+	 top: 85%; 
+	 position: absolute; 
+	 width: 18px;
+	 height: 19px;
+	 z-index:12;
+} 
+
+ #Facebookicon 
+{ 
+	 left: 81.5%; 
+	 top: 85%; 
+	 position: absolute; 
+	 width: 10px;
+	 height: 19px;
+	 z-index:13;
+} 
+
+ #LogoutProfile 
+{ 
+	 left: 86%; 
+	 top: 10%; 
+	 position: absolute; 
+	 width: 32px;
+	 height: 23px;
+	 z-index:14;
+} 
+
+ #Levelbeginner 
+{ 
+	 left: 86%; 
+	 top: 108px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 9px;
+	 z-index:15;
+} 
+
+ #MapProfile 
+{ 
+	 left: 90%; 
+	 top: 12%; 
+	 position: absolute; 
+	 width: 16px;
+	 height: 9px;
+	 z-index:16;
+} 
+
+ #VilleKoponen 
+{ 
+	 left: 79%; 
+	 top: 4%; 
+	 position: absolute; 
+	 width: 96px;
+	 height: 13px;
+	 z-index:17;
+} 
+
+ #RoundedRectangle4cop_0 
+{ 
+	 left: 86%; 
+	 top: 93px; 
+	 position: absolute; 
+	 width: 98px;
+	 height: 9px;
+	 z-index:18;
+} 
+
+ #RoundedRectangle4cop_1 
+{ 
+	 left: 86%; 
+	 top: 93px; 
+	 position: absolute; 
+	 width: 51px;
+	 height: 9px;
+	 z-index:19;
+} 
+
+ #VectorSmartObjectcop 
+{ 
+	 left: 11.5%; 
+	 top: 62%; 
+	 position: absolute; 
+	 width: 12px;
+	 height: 7px;
+	 z-index:20;
+} 
+
+ #Rectangle5copy 
+{ 
+	 left: 4%; 
+	 top: 64%; 
+	 position: absolute; 
+	 width: 114px;
+	 height: 4px;
+	 z-index:21;
+} 
+
+ #Flowers 
+{ 
+	 left: 4%; 
+	 top: 62%; 
+	 position: absolute; 
+	 width: 54px;
+	 height: 10px;
+	 z-index:22;
+} 
+
+ #VectorSmartObjectcop_0 
+{ 
+	 left: 11.5%; 
+	 top: 66%; 
+	 position: absolute; 
+	 width: 12px;
+	 height: 7px;
+	 z-index:23;
+} 
+
+ #Rectangle5copy4 
+{ 
+	 left: 4%; 
+	 top: 68%; 
+	 position: absolute; 
+	 width: 114px;
+	 height: 4px;
+	 z-index:24;
+} 
+
+ #Paving 
+{ 
+	 left: 4%; 
+	 top: 66.5%; 
+	 position: absolute; 
+	 width: 44px;
+	 height: 13px;
+	 z-index:25;
+} 
+
+ #VectorSmartObjectcop_1 
+{ 
+	 left: 11.5%; 
+	 top: 70%; 
+	 position: absolute; 
+	 width: 12px;
+	 height: 7px;
+	 z-index:26;
+} 
+
+ #Rectangle5copy2 
+{ 
+	 left: 4%; 
+	 top: 72%; 
+	 position: absolute; 
+	 width: 114px;
+	 height: 4px;
+	 z-index:27;
+} 
+
+ #Furniture 
+{ 
+	 left: 4%; 
+	 top: 70%; 
+	 position: absolute; 
+	 width: 64px;
+	 height: 10px;
+	 z-index:28;
+} 
+
+ #VectorSmartObjectcop_2 
+{ 
+	 left: 11.5%; 
+	 top: 74%; 
+	 position: absolute; 
+	 width: 12px;
+	 height: 7px;
+	 z-index:29;
+} 
+
+ #Rectangle5copy3 
+{ 
+	 left: 4%; 
+	 top: 76%; 
+	 position: absolute; 
+	 width: 114px;
+	 height: 4px;
+	 z-index:30;
+} 
+
+ #Sport 
+{ 
+	 left: 4%; 
+	 top: 74.5%; 
+	 position: absolute; 
+	 width: 38px;
+	 height: 13px;
+	 z-index:31;
+} 
+
+ #VectorSmartObjectcop_3 
+{ 
+	 left: 11.5%; 
+	 top: 78%; 
+	 position: absolute; 
+	 width: 12px;
+	 height: 7px;
+	 z-index:32;
+} 
+
+ #Rectangle5copy6 
+{ 
+	 left: 4%; 
+	 top: 80%; 
+	 position: absolute; 
+	 width: 114px;
+	 height: 4px;
+	 z-index:33;
+} 
+
+ #Buildings 
+{ 
+	 left: 4%; 
+	 top: 78.5%; 
+	 position: absolute; 
+	 width: 62px;
+	 height: 13px;
+	 z-index:34;
+} 
+
+ #VectorSmartObjectcop_4 
+{ 
+	 left: 11.5%; 
+	 top: 6%; 
+	 position: absolute; 
+	 width: 12px;
+	 height: 7px;
+	 z-index:35;
+} 
+
+ #Trees 
+{ 
+	 left: 4%; 
+	 top: 6%; 
+	 position: absolute; 
+	 width: 37px;
+	 height: 10px;
+	 z-index:36;
+} 
+
+ #Rectangle5 
+{ 
+	 left: 4%; 
+	 top: 7%; 
+	 position: absolute; 
+	 width: 115px;
+	 height: 3px;
+	 z-index:37;
+} 
+
+ #AppleTree 
+{ 
+	 left: 9%; 
+	 top: 18%; 
+	 position: absolute; 
+	 width: 48px;
+	 height: 9px;
+	 z-index:38;
+} 
+
+ #RoundedRectangle2cop 
+{ 
+	 left: 9%; 
+	 top: 10%; 
+	 position: absolute; 
+	 width: 52px;
+	 height: 53px;
+	 z-index:39;
+} 
+
+ #AppleTree_0 
+{ 
+	 left: 9%; 
+	 top: 30%; 
+	 position: absolute; 
+	 width: 48px;
+	 height: 9px;
+	 z-index:40;
+} 
+
+ #RoundedRectangle2cop_0 
+{ 
+	 left: 9%; 
+	 top: 22%; 
+	 position: absolute; 
+	 width: 52px;
+	 height: 53px;
+	 z-index:41;
+} 
+
+ #CanadianMaple 
+{ 
+	 left: 4.5%; 
+	 top: 43%; 
+	 position: absolute; 
+	 width: 40px;
+	 height: 19px;
+	 z-index:42;
+} 
+
+ #RoundedRectangle2cop_1 
+{ 
+	 left: 4%; 
+	 top: 35%; 
+	 position: absolute; 
+	 width: 52px;
+	 height: 53px;
+	 z-index:43;
+} 
+
+ #CanadianMaple_0 
+{ 
+	 left: 4.5%; 
+	 top: 30%; 
+	 position: absolute; 
+	 width: 40px;
+	 height: 19px;
+	 z-index:44;
+} 
+
+ #RoundedRectangle2cop_2 
+{ 
+	 left: 4%; 
+	 top: 22%; 
+	 position: absolute; 
+	 width: 52px;
+	 height: 53px;
+	 z-index:45;
+} 
+
+ #AppleTree_1 
+{ 
+	 left: 9%; 
+	 top: 43%; 
+	 position: absolute; 
+	 width: 48px;
+	 height: 9px;
+	 z-index:46;
+} 
+
+ #RoundedRectangle2cop_3 
+{ 
+	 left: 9%; 
+	 top: 35%; 
+	 position: absolute; 
+	 width: 52px;
+	 height: 53px;
+	 z-index:47;
+} 
+
+ #VectorSmartObjectcop_5 
+{ 
+	 left: 4.7%; 
+	 top: 36.5%; 
+	 position: absolute; 
+	 width: 31px;
+	 height: 31px;
+	 z-index:48;
+} 
+
+ #CanadianMaple_1 
+{ 
+	 left: 4.5%; 
+	 top: 56%; 
+	 position: absolute; 
+	 width: 40px;
+	 height: 19px;
+	 z-index:49;
+} 
+
+ #RoundedRectangle2cop_4 
+{ 
+	 left: 4%; 
+	 top: 47.5%; 
+	 position: absolute; 
+	 width: 52px;
+	 height: 53px;
+	 z-index:50;
+} 
+
+ #VectorSmartObjectcop_6 
+{ 
+	 left: 9.7%; 
+	 top: 49%; 
+	 position: absolute; 
+	 width: 31px;
+	 height: 31px;
+	 z-index:51;
+} 
+
+ #AppleTree_2 
+{ 
+	 left: 9%; 
+	 top: 56%; 
+	 position: absolute; 
+	 width: 48px;
+	 height: 9px;
+	 z-index:52;
+} 
+
+ #RoundedRectangle2cop_5 
+{ 
+	 left: 9%; 
+	 top: 47.5%; 
+	 position: absolute; 
+	 width: 52px;
+	 height: 53px;
+	 z-index:53;
+} 
+
+ #VectorSmartObjectcop_7 
+{ 
+	 left: 4.7%; 
+	 top: 49%; 
+	 position: absolute; 
+	 width: 31px;
+	 height: 31px;
+	 z-index:54;
+} 
+
+ #CanadianMaple_2 
+{ 
+	 left: 4.3%; 
+	 top: 18%; 
+	 position: absolute; 
+	 width: 40px;
+	 height: 19px;
+	 z-index:55;
+} 
+
+ #RoundedRectangle2 
+{ 
+	 
+	 left: 4%; 
+	 top: 10%; 
+	 position: absolute; 
+	 width: 51px;
+	 height: 53px;
+	 z-index:56;
+} 
+
+ #Logo 
+{ 
+	 left: 41%; 
+	 top: 4%; 
+	 position: absolute; 
+	 width: 161px;
+	 height: 12px;
+	 z-index:57;
+} 

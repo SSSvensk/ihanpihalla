@@ -1,31 +1,29 @@
 function calculatePoints() {
-		var appletrees = 0;
 	    var trees = 0;
-	    var benches = 0;
-	    var tables = 0;
-	    var optimalApples = 10;
-	    var optimalTrees = 10;
-	    var optimalBenches = 10;
-	    var optimalTables = 10;
+	    var socialObjects = 0;
+	    var optimalTrees = 20;
+	    var optimalSObjects = 15;
+	    var optimalShades = 2;
+	    var shades = 0;
 	    var totalpoints = 0;
 	    var apoints = 0;
+	    var value = 1815;
 
 		for (var i = 0; i < objects.length; i++) {
 			var removeType = objects[i].userData.TYPE;
-		    if (removeType === "Tree") {
+		    if (removeType === "Pine tree" || removeType === "Apple tree" || removeType === "Rowan" || removeType === "Lilac" || removeType === "Canadian maple" || removeType === "Willow") {
 		    	trees++;
 			    apoints += (optimalTrees - trees + 1) * 100;
 			    apoints += checkLocation((objects[i].position.x + objects[i].userData.REX),(objects[i].position.z + objects[i].userData.REZ));
-		    } else if (removeType === "Apple tree") {
-			    appletrees++;
-			    apoints += (optimalApples - appletrees + 1) * 100;
-			    apoints += checkLocation((objects[i].position.x + objects[i].userData.REX),(objects[i].position.z + objects[i].userData.REZ));
-		    } else if (removeType === "Table bench") {
-			    tables++;
-			    apoints += (optimalTables - tables + 1) * 100;
-		    } else if (removeType === "Bench") {
-			    benches++;
-			    apoints += (optimalBenches - benches + 1) * 100;
+                value *= 1.01;
+		    } else if (removeType === "Table bench" || removeType === "Bench" || removeType === "Barbeque" || removeType === "Green bench") {
+			    socialObjects++;
+			    apoints += (optimalSObjects - socialObjects + 1) * 100;
+			    value *= 1.03;
+		    } else if (removeType === "Sun shade") {
+			    shades++;
+			    apoints += (optimalShades - shades + 1) * 100;
+			    value *= 1.03;
 		    }
 		};
 		totalpoints = totalpoints + apoints;
@@ -33,6 +31,7 @@ function calculatePoints() {
 			totalpoints = 0;
 		}
 		totalpoints += calculatePointsByDistance();
+		console.log(value);
 		document.getElementById('points').innerHTML = "<center>" + totalpoints.toFixed(0) + "</center>";
 	}
 

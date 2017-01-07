@@ -1,0 +1,1052 @@
+ body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+ }
+ 
+ #background 
+{ 
+	 left: 0px; 
+	 top: 0px; 
+	 position: absolute; 
+	 margin-left: auto; 
+	 margin-right: auto; 
+	 background-color: #00AF8E;
+	 width: 100%;
+	 height: 100%; 
+	 overflow: hidden;
+	 z-index:0;
+	} 
+
+ #Kullervonkatu14 
+{ 
+	 left: 369px; 
+	 top: 34px; 
+	 position: absolute; 
+	 width: 200px;
+	 height: 17px;
+	 z-index:3;
+} 
+
+ #Moredesigns 
+{ 
+	 left: 767px; 
+	 top: 947px; 
+	 position: absolute; 
+	 width: 71px;
+	 height: 10px;
+	 z-index:4;
+} 
+
+ #Rectangle12 
+{ 
+	 left: 793px; 
+	 top: 962px; 
+	 position: absolute; 
+	 width: 13px;
+	 height: 6px;
+	 z-index:5;
+} 
+
+#VilleKoponen {
+	left: 1050px;
+	top: 13px;
+	position: absolute;
+}
+
+ #RoundedRectangle4cop 
+{ 
+	 left: 1050px; 
+	 top: 29px; 
+	 position: absolute; 
+	 width: 561px;
+	 height: 8px;
+	 z-index:6;
+} 
+
+#RoundedRectangle4copbar {
+	left: 1050px;
+	top: 29px;
+	position: absolute;
+}
+
+ #MapGameGalleryProfil 
+{ 
+	 left: 1052px; 
+	 top: 44px; 
+	 position: absolute; 
+	 width: 194px;
+	 height: 9px;
+	 z-index:7;
+} 
+
+ #Topscore 
+{ 
+	 left: 367px; 
+	 top: 83px; 
+	 position: absolute; 
+	 width: 69px;
+	 height: 13px;
+	 z-index:8;
+} 
+
+ #VectorSmartObject 
+{ 
+	 left: 444px; 
+	 top: 84px; 
+	 position: absolute; 
+	 width: 10px;
+	 height: 10px;
+	 z-index:9;
+} 
+
+ #VectorSmartObject_0 
+{ 
+	 left: 581px; 
+	 top: 34px; 
+	 position: absolute; 
+	 width: 16px;
+	 height: 16px;
+	 z-index:10;
+} 
+
+ #RoundedRectangle1cop 
+{ 
+	 left: 383px; 
+	 top: 337px; 
+	 position: absolute; 
+	 width: 122px;
+	 height: 26px;
+	 z-index:11;
+} 
+
+ #Moreinfocopy 
+{ 
+	 left: 412px; 
+	 top: 344px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 10px;
+	 z-index:12;
+} 
+
+ #Score2300UserVilleLa 
+{ 
+	 left: 393px; 
+	 top: 297px; 
+	 position: absolute; 
+	 width: 103px;
+	 height: 23px;
+	 z-index:13;
+} 
+
+ #RoundedRectangle2cop 
+{ 
+	 left: 365px; 
+	 top: 125px; 
+	 position: absolute; 
+	 width: 157px;
+	 height: 162px;
+	 z-index:14;
+} 
+
+ #RoundedRectangle2cop_0 
+{ 
+	 left: 367px; 
+	 top: 260px; 
+	 position: absolute; 
+	 width: 154px;
+	 height: 26px;
+	 z-index:15;
+} 
+
+ #Orivedenkatu8 
+{ 
+	 left: 390px; 
+	 top: 267px; 
+	 position: absolute; 
+	 width: 108px;
+	 height: 10px;
+	 z-index:16;
+} 
+
+ #VectorSmartObjectcop 
+{ 
+	 left: 361px; 
+	 top: 161px; 
+	 position: absolute; 
+	 width: 165px;
+	 height: 90px;
+	 z-index:17;
+} 
+
+ #RoundedRectangle1cop_0 
+{ 
+	 left: 621px; 
+	 top: 337px; 
+	 position: absolute; 
+	 width: 122px;
+	 height: 26px;
+	 z-index:18;
+} 
+
+ #Moreinfocopy2 
+{ 
+	 left: 650px; 
+	 top: 344px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 10px;
+	 z-index:19;
+} 
+
+ #Score2300UserTaaviSd 
+{ 
+	 left: 619px; 
+	 top: 297px; 
+	 position: absolute; 
+	 width: 127px;
+	 height: 23px;
+	 z-index:20;
+} 
+
+ #RoundedRectangle2cop_1 
+{ 
+	 left: 603px; 
+	 top: 125px; 
+	 position: absolute; 
+	 width: 157px;
+	 height: 162px;
+	 z-index:21;
+} 
+
+ #RoundedRectangle2cop_2 
+{ 
+	 left: 605px; 
+	 top: 260px; 
+	 position: absolute; 
+	 width: 154px;
+	 height: 26px;
+	 z-index:22;
+} 
+
+ #Orivedenkatu8copy 
+{ 
+	 left: 628px; 
+	 top: 267px; 
+	 position: absolute; 
+	 width: 108px;
+	 height: 10px;
+	 z-index:23;
+} 
+
+ #VectorSmartObjectcop_0 
+{ 
+	 left: 585px; 
+	 top: 161px; 
+	 position: absolute; 
+	 width: 165px;
+	 height: 90px;
+	 z-index:24;
+} 
+
+ #RoundedRectangle1cop_1 
+{ 
+	 left: 860px; 
+	 top: 337px; 
+	 position: absolute; 
+	 width: 122px;
+	 height: 26px;
+	 z-index:25;
+} 
+
+ #Moreinfocopy3 
+{ 
+	 left: 889px; 
+	 top: 344px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 10px;
+	 z-index:26;
+} 
+
+ #Score1987UserMinaKop 
+{ 
+	 left: 862px; 
+	 top: 297px; 
+	 position: absolute; 
+	 width: 119px;
+	 height: 25px;
+	 z-index:27;
+} 
+
+ #RoundedRectangle2cop_3 
+{ 
+	 left: 842px; 
+	 top: 125px; 
+	 position: absolute; 
+	 width: 157px;
+	 height: 162px;
+	 z-index:28;
+} 
+
+ #RoundedRectangle2cop_4 
+{ 
+	 left: 844px; 
+	 top: 260px; 
+	 position: absolute; 
+	 width: 154px;
+	 height: 26px;
+	 z-index:29;
+} 
+
+ #Orivedenkatu8copy2 
+{ 
+	 left: 867px; 
+	 top: 267px; 
+	 position: absolute; 
+	 width: 108px;
+	 height: 10px;
+	 z-index:30;
+} 
+
+ #VectorSmartObjectcop_1 
+{ 
+	 left: 838px; 
+	 top: 161px; 
+	 position: absolute; 
+	 width: 165px;
+	 height: 90px;
+	 z-index:31;
+} 
+
+ #RoundedRectangle1cop_2 
+{ 
+	 left: 1098px; 
+	 top: 337px; 
+	 position: absolute; 
+	 width: 122px;
+	 height: 26px;
+	 z-index:32;
+} 
+
+ #Moreinfocopy3_0 
+{ 
+	 left: 1127px; 
+	 top: 344px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 10px;
+	 z-index:33;
+} 
+
+ #Score2300UserVilleLa_0 
+{ 
+	 left: 1108px; 
+	 top: 297px; 
+	 position: absolute; 
+	 width: 103px;
+	 height: 23px;
+	 z-index:34;
+} 
+
+ #RoundedRectangle2cop_5 
+{ 
+	 left: 1080px; 
+	 top: 125px; 
+	 position: absolute; 
+	 width: 157px;
+	 height: 162px;
+	 z-index:35;
+} 
+
+ #RoundedRectangle2cop_6 
+{ 
+	 left: 1082px; 
+	 top: 260px; 
+	 position: absolute; 
+	 width: 154px;
+	 height: 26px;
+	 z-index:36;
+} 
+
+ #Orivedenkatu8copy2_0 
+{ 
+	 left: 1105px; 
+	 top: 267px; 
+	 position: absolute; 
+	 width: 108px;
+	 height: 10px;
+	 z-index:37;
+} 
+
+ #VectorSmartObjectcop_2 
+{ 
+	 left: 1062px; 
+	 top: 161px; 
+	 position: absolute; 
+	 width: 165px;
+	 height: 90px;
+	 z-index:38;
+} 
+
+ #RoundedRectangle1cop_3 
+{ 
+	 left: 383px; 
+	 top: 609px; 
+	 position: absolute; 
+	 width: 122px;
+	 height: 26px;
+	 z-index:39;
+} 
+
+ #Moreinfocopy4 
+{ 
+	 left: 412px; 
+	 top: 616px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 10px;
+	 z-index:40;
+} 
+
+ #Score2300UserVilleLa_1 
+{ 
+	 left: 393px; 
+	 top: 569px; 
+	 position: absolute; 
+	 width: 103px;
+	 height: 23px;
+	 z-index:41;
+} 
+
+ #RoundedRectangle2cop_7 
+{ 
+	 left: 365px; 
+	 top: 397px; 
+	 position: absolute; 
+	 width: 157px;
+	 height: 162px;
+	 z-index:42;
+} 
+
+ #RoundedRectangle2cop_8 
+{ 
+	 left: 367px; 
+	 top: 532px; 
+	 position: absolute; 
+	 width: 154px;
+	 height: 26px;
+	 z-index:43;
+} 
+
+ #Orivedenkatu8copy3 
+{ 
+	 left: 390px; 
+	 top: 539px; 
+	 position: absolute; 
+	 width: 108px;
+	 height: 10px;
+	 z-index:44;
+} 
+
+ #VectorSmartObjectcop_3 
+{ 
+	 left: 361px; 
+	 top: 433px; 
+	 position: absolute; 
+	 width: 165px;
+	 height: 90px;
+	 z-index:45;
+} 
+
+ #RoundedRectangle1cop_4 
+{ 
+	 left: 621px; 
+	 top: 609px; 
+	 position: absolute; 
+	 width: 122px;
+	 height: 26px;
+	 z-index:46;
+} 
+
+ #Moreinfocopy4_0 
+{ 
+	 left: 650px; 
+	 top: 616px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 10px;
+	 z-index:47;
+} 
+
+ #Score2300UserVilleLa_2 
+{ 
+	 left: 631px; 
+	 top: 569px; 
+	 position: absolute; 
+	 width: 103px;
+	 height: 23px;
+	 z-index:48;
+} 
+
+ #RoundedRectangle2cop_9 
+{ 
+	 left: 603px; 
+	 top: 397px; 
+	 position: absolute; 
+	 width: 157px;
+	 height: 162px;
+	 z-index:49;
+} 
+
+ #RoundedRectangle2cop_10 
+{ 
+	 left: 605px; 
+	 top: 532px; 
+	 position: absolute; 
+	 width: 154px;
+	 height: 26px;
+	 z-index:50;
+} 
+
+ #Orivedenkatu8copy3_0 
+{ 
+	 left: 628px; 
+	 top: 539px; 
+	 position: absolute; 
+	 width: 108px;
+	 height: 10px;
+	 z-index:51;
+} 
+
+ #VectorSmartObjectcop_4 
+{ 
+	 left: 585px; 
+	 top: 433px; 
+	 position: absolute; 
+	 width: 165px;
+	 height: 90px;
+	 z-index:52;
+} 
+
+ #RoundedRectangle1cop_5 
+{ 
+	 left: 860px; 
+	 top: 609px; 
+	 position: absolute; 
+	 width: 122px;
+	 height: 26px;
+	 z-index:53;
+} 
+
+ #Moreinfocopy4_1 
+{ 
+	 left: 889px; 
+	 top: 616px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 10px;
+	 z-index:54;
+} 
+
+ #Score2300UserVilleLa_3 
+{ 
+	 left: 870px; 
+	 top: 569px; 
+	 position: absolute; 
+	 width: 103px;
+	 height: 23px;
+	 z-index:55;
+} 
+
+ #RoundedRectangle2cop_11 
+{ 
+	 left: 842px; 
+	 top: 397px; 
+	 position: absolute; 
+	 width: 157px;
+	 height: 162px;
+	 z-index:56;
+} 
+
+ #RoundedRectangle2cop_12 
+{ 
+	 left: 844px; 
+	 top: 532px; 
+	 position: absolute; 
+	 width: 154px;
+	 height: 26px;
+	 z-index:57;
+} 
+
+ #Orivedenkatu8copy3_1 
+{ 
+	 left: 867px; 
+	 top: 539px; 
+	 position: absolute; 
+	 width: 108px;
+	 height: 10px;
+	 z-index:58;
+} 
+
+ #VectorSmartObjectcop_5 
+{ 
+	 left: 838px; 
+	 top: 433px; 
+	 position: absolute; 
+	 width: 165px;
+	 height: 90px;
+	 z-index:59;
+} 
+
+ #RoundedRectangle1cop_6 
+{ 
+	 left: 1098px; 
+	 top: 609px; 
+	 position: absolute; 
+	 width: 122px;
+	 height: 26px;
+	 z-index:60;
+} 
+
+ #Moreinfocopy4_2 
+{ 
+	 left: 1127px; 
+	 top: 616px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 10px;
+	 z-index:61;
+} 
+
+ #Score2300UserVilleLa_4 
+{ 
+	 left: 1108px; 
+	 top: 569px; 
+	 position: absolute; 
+	 width: 103px;
+	 height: 23px;
+	 z-index:62;
+} 
+
+ #RoundedRectangle2cop_13 
+{ 
+	 left: 1080px; 
+	 top: 397px; 
+	 position: absolute; 
+	 width: 157px;
+	 height: 162px;
+	 z-index:63;
+} 
+
+ #RoundedRectangle2cop_14 
+{ 
+	 left: 1082px; 
+	 top: 532px; 
+	 position: absolute; 
+	 width: 154px;
+	 height: 26px;
+	 z-index:64;
+} 
+
+ #Orivedenkatu8copy3_2 
+{ 
+	 left: 1105px; 
+	 top: 539px; 
+	 position: absolute; 
+	 width: 108px;
+	 height: 10px;
+	 z-index:65;
+} 
+
+ #VectorSmartObjectcop_6 
+{ 
+	 left: 1062px; 
+	 top: 433px; 
+	 position: absolute; 
+	 width: 165px;
+	 height: 90px;
+	 z-index:66;
+} 
+
+ #RoundedRectangle1cop_7 
+{ 
+	 left: 383px; 
+	 top: 883px; 
+	 position: absolute; 
+	 width: 122px;
+	 height: 26px;
+	 z-index:67;
+} 
+
+ #Moreinfocopy5 
+{ 
+	 left: 412px; 
+	 top: 890px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 10px;
+	 z-index:68;
+} 
+
+ #Score2300UserVilleLa_5 
+{ 
+	 left: 393px; 
+	 top: 843px; 
+	 position: absolute; 
+	 width: 103px;
+	 height: 23px;
+	 z-index:69;
+} 
+
+ #RoundedRectangle2cop_15 
+{ 
+	 left: 365px; 
+	 top: 671px; 
+	 position: absolute; 
+	 width: 157px;
+	 height: 162px;
+	 z-index:70;
+} 
+
+ #RoundedRectangle2cop_16 
+{ 
+	 left: 367px; 
+	 top: 806px; 
+	 position: absolute; 
+	 width: 154px;
+	 height: 26px;
+	 z-index:71;
+} 
+
+ #Orivedenkatu8copy4 
+{ 
+	 left: 390px; 
+	 top: 813px; 
+	 position: absolute; 
+	 width: 108px;
+	 height: 10px;
+	 z-index:72;
+} 
+
+ #VectorSmartObjectcop_7 
+{ 
+	 left: 361px; 
+	 top: 707px; 
+	 position: absolute; 
+	 width: 165px;
+	 height: 90px;
+	 z-index:73;
+} 
+
+ #RoundedRectangle1cop_8 
+{ 
+	 left: 621px; 
+	 top: 883px; 
+	 position: absolute; 
+	 width: 122px;
+	 height: 26px;
+	 z-index:74;
+} 
+
+ #Moreinfocopy5_0 
+{ 
+	 left: 650px; 
+	 top: 890px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 10px;
+	 z-index:75;
+} 
+
+ #Score2300UserVilleLa_6 
+{ 
+	 left: 631px; 
+	 top: 843px; 
+	 position: absolute; 
+	 width: 103px;
+	 height: 23px;
+	 z-index:76;
+} 
+
+ #RoundedRectangle2cop_17 
+{ 
+	 left: 603px; 
+	 top: 671px; 
+	 position: absolute; 
+	 width: 157px;
+	 height: 162px;
+	 z-index:77;
+} 
+
+ #RoundedRectangle2cop_18 
+{ 
+	 left: 605px; 
+	 top: 806px; 
+	 position: absolute; 
+	 width: 154px;
+	 height: 26px;
+	 z-index:78;
+} 
+
+ #Orivedenkatu8copy4_0 
+{ 
+	 left: 628px; 
+	 top: 813px; 
+	 position: absolute; 
+	 width: 108px;
+	 height: 10px;
+	 z-index:79;
+} 
+
+ #VectorSmartObjectcop_8 
+{ 
+	 left: 585px; 
+	 top: 707px; 
+	 position: absolute; 
+	 width: 165px;
+	 height: 90px;
+	 z-index:80;
+} 
+
+ #RoundedRectangle1cop_9 
+{ 
+	 left: 860px; 
+	 top: 883px; 
+	 position: absolute; 
+	 width: 122px;
+	 height: 26px;
+	 z-index:81;
+} 
+
+ #Moreinfocopy5_1 
+{ 
+	 left: 889px; 
+	 top: 890px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 10px;
+	 z-index:82;
+} 
+
+ #Score2300UserVilleLa_7 
+{ 
+	 left: 870px; 
+	 top: 843px; 
+	 position: absolute; 
+	 width: 103px;
+	 height: 23px;
+	 z-index:83;
+} 
+
+ #RoundedRectangle2cop_19 
+{ 
+	 left: 842px; 
+	 top: 671px; 
+	 position: absolute; 
+	 width: 157px;
+	 height: 162px;
+	 z-index:84;
+} 
+
+ #RoundedRectangle2cop_20 
+{ 
+	 left: 844px; 
+	 top: 806px; 
+	 position: absolute; 
+	 width: 154px;
+	 height: 26px;
+	 z-index:85;
+} 
+
+ #Orivedenkatu8copy4_1 
+{ 
+	 left: 867px; 
+	 top: 813px; 
+	 position: absolute; 
+	 width: 108px;
+	 height: 10px;
+	 z-index:86;
+} 
+
+ #VectorSmartObjectcop_9 
+{ 
+	 left: 838px; 
+	 top: 707px; 
+	 position: absolute; 
+	 width: 165px;
+	 height: 90px;
+	 z-index:87;
+} 
+
+ #RoundedRectangle1cop_10 
+{ 
+	 left: 1098px; 
+	 top: 883px; 
+	 position: absolute; 
+	 width: 122px;
+	 height: 26px;
+	 z-index:88;
+} 
+
+ #Moreinfocopy5_2 
+{ 
+	 left: 1127px; 
+	 top: 890px; 
+	 position: absolute; 
+	 width: 67px;
+	 height: 10px;
+	 z-index:89;
+} 
+
+ #Score2300UserVilleLa_8 
+{ 
+	 left: 1108px; 
+	 top: 843px; 
+	 position: absolute; 
+	 width: 103px;
+	 height: 23px;
+	 z-index:90;
+} 
+
+ #RoundedRectangle2cop_21 
+{ 
+	 left: 1080px; 
+	 top: 671px; 
+	 position: absolute; 
+	 width: 157px;
+	 height: 162px;
+	 z-index:91;
+} 
+
+ #RoundedRectangle2cop_22 
+{ 
+	 left: 1082px; 
+	 top: 806px; 
+	 position: absolute; 
+	 width: 154px;
+	 height: 26px;
+	 z-index:92;
+} 
+
+ #Orivedenkatu8copy4_2 
+{ 
+	 left: 1105px; 
+	 top: 813px; 
+	 position: absolute; 
+	 width: 108px;
+	 height: 10px;
+	 z-index:93;
+} 
+
+ #VectorSmartObjectcop_10 
+{ 
+	 left: 1062px; 
+	 top: 707px; 
+	 position: absolute; 
+	 width: 165px;
+	 height: 90px;
+	 z-index:94;
+} 
+
+ #popup 
+{ 
+	 left: 366px; 
+	 top: 95px; 
+	 position: absolute; 
+	 width: 162px;
+	 height: 121px;
+	 z-index:95;
+} 
+
+ #TopScoreMostApprecia 
+{ 
+	 left: 405px; 
+	 top: 137px; 
+	 position: absolute; 
+	 width: 99px;
+	 height: 56px;
+	 z-index:96;
+} 
+
+ #VIewedicon 
+{ 
+	 left: 384px; 
+	 top: 184px; 
+	 position: absolute; 
+	 width: 15px;
+	 height: 9px;
+	 z-index:97;
+} 
+
+ #Topicon 
+{ 
+	 left: 384px; 
+	 top: 134px; 
+	 position: absolute; 
+	 width: 14px;
+	 height: 16px;
+	 z-index:98;
+} 
+
+ #Likeicon 
+{ 
+	 left: 384px; 
+	 top: 158px; 
+	 position: absolute; 
+	 width: 14px;
+	 height: 14px;
+	 z-index:99;
+} 
+
+ #Sortby 
+{ 
+	 left: 385px; 
+	 top: 114px; 
+	 position: absolute; 
+	 width: 43px;
+	 height: 10px;
+	 z-index:100;
+} 
+
+ #popup_0 
+{ 
+	 left: 526px; 
+	 top: 58px; 
+	 position: absolute; 
+	 width: 175px;
+	 height: 173px;
+	 z-index:101;
+} 
+
+ #Kullervonkatu14Vihil 
+{ 
+	 left: 565px; 
+	 top: 100px; 
+	 position: absolute; 
+	 width: 111px;
+	 height: 106px;
+	 z-index:102;
+} 
+
+ #VectorSmartObject_1 
+{ 
+	 left: 544px; 
+	 top: 100px; 
+	 position: absolute; 
+	 width: 12px;
+	 height: 8px;
+	 z-index:103;
+} 
+
+ #Chooseyard 
+{ 
+	 left: 545px; 
+	 top: 77px; 
+	 position: absolute; 
+	 width: 73px;
+	 height: 10px;
+	 z-index:104;
+} 
