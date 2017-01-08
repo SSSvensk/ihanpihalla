@@ -1,0 +1,129 @@
+#map {
+        height: 82%;
+        display: block;
+      }
+      #toppanel {
+        width: 100%;
+        height: 18%;
+        background-color: #00AF8E;
+      }
+      /*
+      #yellowstripe {
+        background-color: #ECE819;
+        height: 1%;
+        width: 100%;
+      }
+
+      #downpanel {
+        background-color: #00AF8E;
+        height: 21%;
+        width: 100%;
+      }
+      */
+      #mapslogo {
+        position: absolute;
+        display: block;
+        top: 4%;
+        left: 24%;
+      }
+      #findyour {
+        position: absolute;
+        display: block;
+        top: 7%;
+        left: 42%;
+      }
+      #VilleKoponen 
+{ 
+   left: 79%; 
+   top: 4%; 
+   position: absolute; 
+   width: 96px;
+   height: 13px;
+   z-index:17;
+} 
+#progressbar {
+  position: absolute;
+  top: 6%;
+  left: 79%;
+}
+
+#bar {
+    position: absolute;
+  top: 6%;
+  left: 79%;  
+}
+#MapGameGalleryProfil {
+  position: absolute;
+  top: 9%;
+  left: 79%;
+  width: 10%;
+  color: #FFFFFF;
+}
+#mggp {
+  width: 170%;
+  color: #FFFFFF;
+  font-size: 70%;
+}
+
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      a {
+    text-decoration: none;
+  }
+  .inffo {
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 34%;
+    left: 55%;
+    width: 240px;
+  }
+  .bimage {
+    text-align: center;
+  }
+  .middle {
+    background-color: #21949F;
+  }
+  .areaaddress {
+    width: 100%;
+    text-align: center;
+    font-size: 120%;
+    color: #FFFFFF;
+  }
+  .actionmenu {
+    text-align: center;
+    width: 100%;
+  }
+  .startgame {
+    background-color: #000000;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 10px;
+    color: #FFFFFF;
+  }
+  .gogallery {
+    background-color: #FFFFFF;
+    border: 2px solid black;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 10px;
+    color: #000000;
+  }
+  .gogallery a {
+    color: #000000;
+  }
+  .sg {
+    width: 50%;
+  }
+  .gg {
+    width: 50%;
+    color: #000000;
+  }

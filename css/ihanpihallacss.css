@@ -12,8 +12,9 @@ body {
 	}
 	a {
 		text-decoration: none;
-		color: white;
+        color: #FFFFFF;
 	}
+
 	@font-face {
         font-family: ApercuPro;
         src: url("ApercuPro-Medium.otf") format("opentype");

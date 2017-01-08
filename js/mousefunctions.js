@@ -155,29 +155,32 @@
 			ADDED = null;
 		    calculatePoints();
 		    checkOthers();
-	        //document.getElementById('points').innerHTML = points.toFixed(0);
 			render();
-			//return;
 		} else {
 		    event.preventDefault();		
 			//Getting objects that are penetrated by ray
 		    raycaster.setFromCamera( mouse, camera );
 		    var intersects = raycaster.intersectObjects( objects, true );
 		    if (INTERSECTED && !dragged) {
-			    var xco = INTERSECTED.parent.parent.position.x + INTERSECTED.parent.parent.userData.REX; 
-			    var zco = INTERSECTED.parent.parent.position.z + INTERSECTED.parent.parent.userData.REZ;
-			    var obidi = INTERSECTED.parent.parent.userData.OBID;
-			    console.log(xco);
-			    console.log(zco);
-			    for (var i = 0; i < INTERSECTED.parent.parent.userData.adjacentObjects.length; i++) {
-			    	console.log(INTERSECTED.parent.parent.userData.adjacentObjects[i].edgeLength);
-			    };
-
-			    if (INTERSECTED.parent.userData.TYPE === "Tree") {
-			    	document.getElementById('infotree').style.visibility = "visible";
-			    } else if (INTERSECTED.parent.userData.TYPE === "Apple tree") {
-			    	document.getElementById('infoapple').style.visibility = "visible";
+		    	if (intersects[0].object.parent.userData.TYPE === "Bench" || intersects[0].object.parent.userData.TYPE === "Table bench" || intersects[0].object.parent.userData.TYPE === "Sun shade" || intersects[0].object.parent.userData.TYPE === "Barbeque") {
+		    		var xco = INTERSECTED.parent.position.x + INTERSECTED.parent.userData.REX; 
+			        var zco = INTERSECTED.parent.position.z + INTERSECTED.parent.userData.REZ;
+			        var obidi = INTERSECTED.parent.userData.OBID;
+			        indd = objects.indexOf(INTERSECTED.parent);
+			        rType = INTERSECTED.parent.userData.TYPE;
+			        console.log(xco);
+			        console.log(zco);
+			        console.log(rType);
+			    	document.getElementById('infoother').style.visibility = "visible";
 			    } else {
+			    	var xco = INTERSECTED.parent.parent.position.x + INTERSECTED.parent.parent.userData.REX; 
+			        var zco = INTERSECTED.parent.parent.position.z + INTERSECTED.parent.parent.userData.REZ;
+			        var obidi = INTERSECTED.parent.parent.userData.OBID;
+			        indd = objects.indexOf(INTERSECTED.parent.parent);
+			        rType = INTERSECTED.parent.parent.userData.TYPE;
+			        console.log(xco);
+			        console.log(zco);
+			        console.log(rType);
 			    	document.getElementById('infoother').style.visibility = "visible";
 			    }
 		    }

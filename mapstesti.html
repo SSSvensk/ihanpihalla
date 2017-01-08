@@ -7,119 +7,44 @@
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
-        height: 100%;
-        display: block;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      div.box {
-        float: right;
-        top: 3%;
-        right: 3%;
-        position: fixed;
-        background-color: #FFFFFF;
-        /*height: 10%;*/
-        width: 200px;
-        border-radius: 10px;
-      }
-      div#status {
-        font-size: 150%;
-        padding-left: 10px;
-      }
-      img#profileImage {
-        padding-top: 10px;
-        padding-left: 10px;
-      }
-      div#pointz {
-        float: right;
-        top: 33%;
-        right: 3%;
-        position: fixed;
-        background-color: #FFFFFF;
-        /*height: 10%;*/
-        width: 200px;
-        border-radius: 10px;
-      }
-      div.logo {
-        position: fixed;
-        top: 1%;
-        right: 5%;
-      }
-      #pac-input {
-        background-color: #fff;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 15px;
-        font-weight: 300;
-        margin-left: 12px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 300px;
-        top: 35%;
-      }
-
-      #pac-input:focus {
-        border-color: #4d90fe;
-      }
-
-      .pac-container {
-        font-family: Roboto;
-      }
-
-      #type-selector {
-        color: #fff;
-        background-color: #4d90fe;
-        padding: 5px 11px 0px 11px;
-      }
-
-      #type-selector label {
-        font-family: Roboto;
-        font-size: 13px;
-        font-weight: 300;
-      }
-      #target {
-        width: 345px;
-      }
 
     </style>
     <!--<script src = "jsloginfile.js" type = "text/javascript"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="js/jsloginfile.js"></script>
-    <link rel="stylesheet" href= "css/ihanpihallacss.css"></script>
+    <!--<script src="js/jsloginfile.js"></script>-->
+    <link rel="stylesheet" href= "css/ihanpihallacss.css">
+    <link rel="stylesheet" href= "css/mapscss.css"></script>
   </head>
   <body>
+    <div id = "toppanel">
+      <div id = "mapslogo"><img src="images/mapslogo.png"></div>
+      <div id = "findyour"><img src="images/Findyouryardandstart.png"></div>
+      <div id = "VilleKoponen"></div>
+      <div id = "progressbar"><img src="galleryimages/progressbar.png"></div>
+      <div id = "bar"><img src="galleryimages/progress.png"></div>
+      <div id = "MapGameGalleryProfil">
+        <table id = "mggp">
+          <tr>
+            <td><a href = "mapstesti.html">Map</a></td>
+            <td><a href = "game.html">Game</a></td>
+            <td><a href = "gallery.html">Gallery</a></td>
+            <td>Profile</td>
+            <td><a href = "index.html">Log out</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
     <div id="map"></div>
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-    <div id = "downpanel">
+    <!--<input id="pac-input" class="controls" type="text" placeholder="Search Box">-->
+    <div id = "yellowstripe"></div>
+    <div id = "downpanel"></div>
 
-        <div id = "userbox">
-          <h2 id = "username"></h2>
-          <div id ="myProgress">
-            <div id = "myBar"></div>
-          </div>
-          <p>Immortal</p>
-          <p>Log out</p>
-        </div>
-
-    </div>
-<!--
-    <div class="box">
-      <fb:login-button id = "loginbutton" scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-      <img src = "" id = "profileImage" width = "50" height = "50">
-      <div id = "status"></div>
-      <div id = "logoutfb"><a onclick="FB.logout();" href="#">Logout</a></div>
-    </div>
--->
     <script>
       var map;
       var marker, kmarker, lmarker, cmarker, hmarker;
       var iii = 1;
 
-      document.getElementById('username').innerHTML = localStorage.getItem("name");
+      document.getElementById('VilleKoponen').innerHTML = localStorage.getItem("name");
 
       function initAutocomplete() {
          var myLatLng = {lat: 61.5040869, lng: 23.7806253};
@@ -194,63 +119,70 @@
           map.fitBounds(bounds);
         });
 
-
-         //map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
-
-         var contentString = '<h2>Tapionkatu 13</h2><br>23 people has marked this as their home yard!<br><table style = "width: 100%"><tr><td><FORM METHOD="LINK" ACTION="game.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Design yard!"></FORM></td><td><a class = "maplink" href = "gallery.html">Gallery</a></td></tr></table>';
-         var contentStringK = '<h2>Kaleva</h2><br><table style = "width: 100%"><tr><td><FORM METHOD="LINK" ACTION="game.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Design yard!"></FORM></td><td><a class = "maplink" href = "gallery.html">Gallery</a></td></tr></table>';
-         var contentStringL = '<h2>Linnainmaa</h2><br><table style = "width: 100%"><tr><td><FORM METHOD="LINK" ACTION="game.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Design yard!"></FORM></td><td><a class = "maplink" href = "gallery.html">Gallery</a></td></tr></table>';
-         var contentStringC = '<h2>Keskusta</h2><br><table style = "width: 100%"><tr><td><FORM METHOD="LINK" ACTION="game.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Design yard!"></FORM></td><td><a class = "maplink" href = "gallery.html">Gallery</a></td></tr></table>';
-         var contentStringH = '<h2>Hervanta</h2><br><table style = "width: 100%"><tr><td><FORM METHOD="LINK" ACTION="game.html"><INPUT TYPE="submit" class = "designbutton" VALUE="Design yard!"></FORM></td><td><a class = "maplink" href = "gallery.html">Gallery</a></td></tr></table>';
+         var contentString = '<div class = "bimage"><img src="images/VectorSmartObject_2.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Hervanta</td><td>|</td><td>Opiskelijankatu 34</td></tr></table></div><div>It used to be forest in 1970. Since that time, it has become an multi-cultural area and area for students.</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Start game</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentStringK = '<div class = "bimage"><img src="images/tammela.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Tammela</td><td>|</td><td>Kullervonkatu 14</td></tr></table></div><div>One of the oldest suburbans of Tampere has nowadays ugly buildings with too much parking space</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Start game</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentStringL = '<div class = "bimage"><img src="images/hatanpaa.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Hatanpää</td><td>|</td><td>Vihilahdenkatu 2</td></tr></table></div><div>Old countryside landscape has changed rapidly in the late 20th century. Nice location near the lake Pyhäjärvi and Hatanpää Arboretum</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Start game</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentStringC = '<div class = "bimage"><img src="images/amuri.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Amuri</td><td>|</td><td>Amurinkatu 43</td></tr></table></div><div>Old factory worker-neighbourhood faced massive change in 70s, when old tight wooden buildings were replaces by ugly concrete architecture. Piece of Kouvola in the middle of Tampere</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Start game</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentStringH = '<div class = "bimage"><img src="images/amuri.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Hervanta</td><td>|</td><td>Opiskelijankatu 34</td></tr></table></div><div>Old factory worker-neighbourhood faced massive change in 70s, when old tight wooden buildings were replaces by ugly concrete architecture. Piece of Kouvola in the middle of Tampere</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Start game</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
 
          var infowindow = new google.maps.InfoWindow({
-            content: contentString
+            content: contentString,
+            maxWidth: 265
          });
          var infowindowK = new google.maps.InfoWindow({
-            content: contentStringK
+            content: contentStringK,
+            maxWidth: 265
          });
          var infowindowL = new google.maps.InfoWindow({
-            content: contentStringL
+            content: contentStringL,
+            maxWidth: 265
          });
          var infowindowC = new google.maps.InfoWindow({
-            content: contentStringC
+            content: contentStringC,
+            maxWidth: 265
          });
          var infowindowH = new google.maps.InfoWindow({
-            content: contentStringH
+            content: contentString,
+            maxWidth: 265
          });
 
          marker = new google.maps.Marker({
-            position: myLatLng,
+            position: {lat: 61.4508166, lng: 23.8330702},
             draggable: false,
             map: map,
+            icon: 'images/Ellipse1.png',
             title: 'Tammela'
          });
 
          kmarker = new google.maps.Marker({
-            position: {lat: 61.5016926, lng: 23.7963967},
+            position: {lat: 61.5029378, lng: 23.777303},
             draggable: false,
             map: map,
-            title: 'Kaleva'
+            icon: 'images/Ellipse1.png',
+            title: 'Tammela'
          });
 
          lmarker = new google.maps.Marker({
-            position: {lat: 61.494423, lng: 23.886347},
+            position: {lat: 61.4792277, lng: 23.7607302},
             draggable: false,
             map: map,
-            title: 'Linnainmaa'
+            icon: 'images/Ellipse1.png',
+            title: 'Hatanpää'
          });
 
          cmarker = new google.maps.Marker({
-            position: {lat: 61.4920351, lng: 23.7522534},
+            position: {lat: 61.5001054, lng: 23.7425518},
             draggable: false,
             map: map,
-            title: 'Keskusta'
+            icon: 'images/Ellipse1.png',
+            title: 'Amuri'
          });
 
          hmarker = new google.maps.Marker({
-            position: {lat: 61.449500, lng: 23.849099},
+            position: {lat: 61.4508166, lng: 23.8330702},
             draggable: false,
             map: map,
+            icon: 'images/Ellipse1.png',
             title: 'Hervanta'
          });
 
