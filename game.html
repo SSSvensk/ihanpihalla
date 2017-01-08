@@ -23,7 +23,26 @@
     <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type = "text/javascript">
 
-	//Some variables
+	//Ceremony
+	console.log("Residential Yard Design Game-team proudly presents");
+	console.log("--------------------------------------------------");
+	console.log("                    Ihan pihalla                  ");
+	console.log("--------------------------------------------------");
+	console.log("Ending texts and credits");
+	console.log("Project manager:                Yunjung 'Pronounce the name again' Ji");
+	console.log("Designers:                      Maria '' Pastukh, Sampo");
+	console.log("Developers:                     Sami-Santeri 'biggest Ilves-fan of the team' Svensk, Catherine 'Cat' Fait");
+	console.log("Researcher and master graduate: Tapio 'Elf' Rintala");
+	console.log("Our facilitator:                Heikki 'Santa Claus' Viitanen");
+	console.log("--------------------------------------------------");
+	console.log("Countless cups of coffee and tea were needed");
+	console.log("6.7 whole notebooks were filled with cryptic notes");
+	console.log("25% of meetings ended with everyone being hungry, cos we forgot to have something to eat.");
+	console.log("On the rest 75% of meetings we didn't realize we had forgotten to eat");
+	console.log("808 songs during this project, 432 during development phase");
+	console.log("We visited habbo.fi, but what not to do for this project?");
+	console.log("No animals were harmed or killed during this demo!");
+
 	var scene, camera, renderer;
 	var mouse = new THREE.Vector2();
 
@@ -39,20 +58,19 @@
 	var intersection = new THREE.Vector3();
 	var offset = new THREE.Vector3();
 	var controls;
-	var trees = 0;
 	var plane = new THREE.Plane();
-
-	var directionalLight;
 
 	var i = 0;
 	var dragged = false;
 	var selectedId;
+	var rType;
 	var borderX, borderY;
 	var borderXX, borderYY;
 
 	var previousX;
 	var previousZ;
 	var onTop;
+	var indd;
 
 	var area = 3867
 	var greenarea = 0;
@@ -101,65 +119,6 @@
 		renderer.shadowMapHeight = 1024;
 
 		var loader = new THREE.OBJLoader();
-/*
-		var mtlLoader = new THREE.MTLLoader();
-		
-mtlLoader.setPath('objects/buildings/');
-mtlLoader.load('Greenbuilding.mtl', function(materials) {
-  materials.preload();
-  var objLoader = new THREE.OBJLoader();
-  objLoader.setMaterials(materials);
-  objLoader.setPath('objects/buildings/');
-  objLoader.load('Greenbuilding.obj', function(object) {
-  	object.scale.set(0.0005,0.0005,0.0005);
-  	object.position.set(52,0,50);
-  	objects.push(object);
-    scene.add(object);
-  }, onProgress, onError);
-});
-
-mtlLoader.setPath('objects/buildings/');
-mtlLoader.load('Yellowbuilding.mtl', function(materials) {
-  materials.preload();
-  var objLoader = new THREE.OBJLoader();
-  objLoader.setMaterials(materials);
-  objLoader.setPath('objects/buildings/');
-  objLoader.load('Yellowbuilding.obj', function(object) {
-  	object.scale.set(0.0005,0.0005,0.0005);
-  	object.position.set(52,0,50);
-  	objects.push(object);
-    scene.add(object);
-  }, onProgress, onError);
-});
-
-mtlLoader.setPath('objects/buildings/');
-mtlLoader.load('Redbuilding.mtl', function(materials) {
-  materials.preload();
-  var objLoader = new THREE.OBJLoader();
-  objLoader.setMaterials(materials);
-  objLoader.setPath('objects/buildings/');
-  objLoader.load('Redbuilding.obj', function(object) {
-  	object.scale.set(0.0005,0.0005,0.0005);
-  	object.position.set(52,0,50);
-  	objects.push(object);
-    scene.add(object);
-  }, onProgress, onError);
-});
-
-mtlLoader.setPath('objects/buildings/');
-mtlLoader.load('Orangebuilding.mtl', function(materials) {
-  materials.preload();
-  var objLoader = new THREE.OBJLoader();
-  objLoader.setMaterials(materials);
-  objLoader.setPath('objects/buildings/');
-  objLoader.load('Orangebuilding.obj', function(object) {
-  	object.scale.set(0.0005,0.0005,0.0005);
-  	object.position.set(52,0,50);
-  	objects.push(object);
-    scene.add(object);
-  }, onProgress, onError);
-});
-*/
 
 		loader.load(
 			// resource URL
@@ -287,9 +246,7 @@ mtlLoader.load('Orangebuilding.mtl', function(materials) {
 				object.traverse( function ( child ) {
                     if ( child instanceof THREE.Mesh ) {
                     	var material = new THREE.MeshPhongMaterial({
-                            //color: 0xffffff,
-                            wrapAround: true,
-                            needsUpdate: true
+                            color: 0xffffff
                         });
                         //child.material.ambient.setHex(0xFF0000);
                         child.material = material;
@@ -312,27 +269,21 @@ mtlLoader.load('Orangebuilding.mtl', function(materials) {
 
         var onProgress = function(xhr) {};
         var onError = function(xhr) {};
-		/*
-		0xffd72c
-		0xff8c00
-		0x1b8690
-		0xff443d
-		*/
 
         //Different lights. Pick your favourite
 
         //var ambilight = new THREE.AmbientLight( 0x404040 ); // soft white light
 		//scene.add( ambilight );
 
-		directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
+		var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
 		directionalLight.position.set( 40, 60, 45 );
 		directionalLight.castShadow = true;
 		scene.add( directionalLight );
 
-		directionalLight.shadowCameraLeft = -40;
-        directionalLight.shadowCameraRight = 30;
-        directionalLight.shadowCameraTop = 35;
-        directionalLight.shadowCameraBottom = -30;
+		directionalLight.shadow.camera.left = -40;
+        directionalLight.shadow.camera.right = 30;
+        directionalLight.shadow.camera.top = 35;
+        directionalLight.shadow.camera.bottom = -30;
 /*
 		var pointLight = new THREE.PointLight( 0xffffff, 1.5, 40 );
 		pointLight.position.set( 0, 5, 0 );
@@ -350,22 +301,6 @@ mtlLoader.load('Orangebuilding.mtl', function(materials) {
 
 		//Not sure if this was important...
         ray = new THREE.Ray( camera.position, null );
-
-        //Creating planeground for scene
-        var geometry = new THREE.PlaneBufferGeometry( 300, 300, 32 );
-		
-		//Image to ground texture.
-		var texture = THREE.ImageUtils.loadTexture( "img/pavement.jpg" );
-
-		//Making texture spread in 2 directions. Without these, texture would look like bar code
-		texture.wrapS = THREE.RepeatWrapping; 
-		texture.wrapT = THREE.RepeatWrapping;
-
-		//Repeating texture, lower the number is, lower the quality is...
-		texture.repeat.set( 60, 60 ); 
-
-		//Settng texture as map for material
-		var material = new THREE.MeshLambertMaterial( {map:texture} );
 
 		//Creating plane
 		var planee = new THREE.Mesh(new THREE.PlaneBufferGeometry(300, 300, 32), new THREE.MeshPhongMaterial({specular: '#fff',fog: true,color: '#327B21',shininess: 0 }));
@@ -455,15 +390,21 @@ mtlLoader.load('Orangebuilding.mtl', function(materials) {
 
     //Function to remove object
 	function removeObject() {
-		var removeType = INTERSECTED.parent.userData.TYPE;
-
-		for (var i = 0; i < objects.length; i++) {
-			objects[i]
-		};
-
-		var ind = objects.indexOf(INTERSECTED.parent);
-		objects.splice(ind, 1);
-		scene.remove(INTERSECTED.parent);
+		/*
+        if (rType === "Bench" || rType === "Table bench" || rType === "Sun shade" || rType === "Barbeque") {
+		    var ind = objects.indexOf(INTERSECTED.parent);
+		    objects.splice(ind, 1);
+		    scene.remove(INTERSECTED.parent);
+	    } else {
+		    var ind = objects.indexOf(INTERSECTED.parent.parent);
+		    objects.splice(ind, 1);
+		    scene.remove(INTERSECTED.parent.parent);
+	    }
+	    */
+	    var removeO = new THREE.Object3D();
+	    removeO = objects[indd];
+	    objects.splice(indd, 1);
+	    scene.remove(removeO);
 		checkOthers();
 		calculatePoints();
 		closeWindow();
@@ -1008,9 +949,7 @@ mtlLoader.load('Orangebuilding.mtl', function(materials) {
 		var loader = new THREE.OBJLoader();
 		var bigObject = new THREE.Object3D();
 		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        wrapAround: true,
-        needsUpdate: true
+        color: 0xffffff
         });
 		// load a resource
 		loader.load(
@@ -1034,10 +973,7 @@ mtlLoader.load('Orangebuilding.mtl', function(materials) {
 			}
 		);
         var leafmaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        //normalMap: normalMap,
-        wrapAround: true,
-        needsUpdate: true
+        color: 0xffffff
         });
         loader.load(
 			// resource URL
@@ -1072,9 +1008,7 @@ mtlLoader.load('Orangebuilding.mtl', function(materials) {
 	function addTree() {
 		var loader = new THREE.OBJLoader();
 		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        wrapAround: true,
-        needsUpdate: true
+        color: 0xffffff
         });
 		// load a resource
 		loader.load(
@@ -1109,10 +1043,7 @@ mtlLoader.load('Orangebuilding.mtl', function(materials) {
 		var loader = new THREE.OBJLoader();
 		var bigObject = new THREE.Object3D();
 		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        //normalMap: normalMap,
-        wrapAround: true,
-        needsUpdate: true
+        color: 0xffffff
         });
 		// load a resource
 		loader.load(
@@ -1129,28 +1060,16 @@ mtlLoader.load('Orangebuilding.mtl', function(materials) {
 				        child.receiveShadow = true;
                     }
                 } );
-				//object.matrixWorld(2,0,2);
 				object.scale.set(0.0005,0.0005,0.0005);
 				object.position.set(0,0,0);
-				//object.updateMatrix();
 				object.castShadow = true;
-				//var arr = [];
-				//object.userData = { OBID: i, TYPE: "Sun shade" , REX: -50, REZ: 39, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 5 };
-				//ADDED = object;
-				//scene.add( object );
 				bigObject.add(object);
 				render();
-				//objects.push(object);
-				//i++;
-				//document.getElementById('info').style.visibility = "visible";
-				//document.getElementById('typename').innerHTML = object.userData.TYPE;
+
 			}
 		);
         var leafmaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        //normalMap: normalMap,
-        wrapAround: true,
-        needsUpdate: true
+        color: 0xffffff
         });
         loader.load(
 			// resource URL
@@ -1173,9 +1092,7 @@ mtlLoader.load('Orangebuilding.mtl', function(materials) {
 			}
 		);
 		var fruitmaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        wrapAround: true,
-        needsUpdate: true
+        color: 0xffffff
         });
         loader.load(
 			// resource URL
@@ -1219,7 +1136,7 @@ mtlLoader.load('Orangebuilding.mtl', function(materials) {
 			<div id="undoredo"><img src="images/undoredo.png"></div>
 			<div id="Saveicon"><img src="images/Saveicon.png"></div>
 			<div id="Facebookicon"><img src="images/Facebookicon.png"></div>
-			<div id="VilleKoponen">Username</div>
+			<div id="VilleKoponen"></div>
 			<div id="progressbar"><img src="galleryimages/progressbar.png"></div>
 			<div id="bar"><img src="galleryimages/progress.png"></div>
 			<div id="MapGameGalleryProfil">
@@ -1547,6 +1464,7 @@ for (i = 0; i < acc.length; i++) {
         this.nextElementSibling.classList.toggle("show");
   }
 }
+document.getElementById('VilleKoponen').innerHTML = localStorage.getItem("name");
 </script>
 </body>
 </html>

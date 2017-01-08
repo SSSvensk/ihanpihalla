@@ -9,6 +9,8 @@ function calculatePoints() {
 	    var apoints = 0;
 	    var value = 1815;
 
+	    //-1^2 + 20 
+
 		for (var i = 0; i < objects.length; i++) {
 			var removeType = objects[i].userData.TYPE;
 		    if (removeType === "Pine tree" || removeType === "Apple tree" || removeType === "Rowan" || removeType === "Lilac" || removeType === "Canadian maple" || removeType === "Willow") {
