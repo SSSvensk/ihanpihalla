@@ -4,11 +4,10 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Login - Ihan Pihalla</title>
 		<link href="css/styles.css" rel="stylesheet" type="text/css">
-		<script src = "js/jsloginfile.js"></script>
 	</head>
 	<body>
 		<div id="background">
-			<div id="Layer5"><img id ="rightside" src="images/Layer5.png"></div>
+			<div id="Layer5"><img id ="background" src="images/Layer5.png"></div>
 			<div id="Rectangle1copy3"><img id = "leftpanel" src="images/Rectangle1copy3.png"></div>
 			<div id="RoundedRectangle4"><img src="images/RoundedRectangle4.png"></div>
 			<div id="illustration"><img src="images/illustration.png"></div>
@@ -28,25 +27,17 @@
 			<div id="Rectangle1copy4"><input type="text" placeholder = "Username or email" id = "name" name="firstname"></div>
 			<!--<div id="UsernameorEmail"><img src="images/UsernameorEmail.png"></div>-->
 			<div id="or"><img src="images/or.png"></div>
-			<div id="Facebook"><input type = "image" id = "fblogin" src="images/Facebook.png"></div>
+			<div id="Facebook"><img src="images/Facebook.png"></div>
 			<div id="Twitter"><img src="images/Twitter.png"></div>
 			<div id="Googleicon"><img src="images/Googleicon.png"></div>
 			<div id="Loginwith"><img src="images/Loginwith.png"></div>
 		</div>
 		<script>
-            function storeName() {
-                var inputName = document.getElementById("name");
-                localStorage.setItem("name", inputName.value); 
-                window.location.href = "mapstesti.html";
-            }
-            /*
-            function storeFBName() {
-            	var passName;
-            	testAPI();
-            	localStorage("name", passName);
-            	window.location.href = "mapstesti.html";
-            }
-            */
+  function storeName() {
+     var inputName = document.getElementById("name");
+     localStorage.setItem("name", inputName.value); 
+     window.location.href = "mapstesti.html";
+  }
 		</script>
  </body>
  </html>

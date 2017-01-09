@@ -2,8 +2,33 @@
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	height: 100%;
+	color: #FFFFFF;
  }
+
+ .expl:hover {
+		color: #13AE8F;
+	}
+	#popup {
+		position: absolute;
+		top: 10%;
+		left: 25%;
+		z-index: 0;
+		visibility: hidden;
+		z-index: 100;
+		color: #000000;
+	}
+	#popupbg {
+		position: absolute;
+		top: 0px;
+		left: 2px;
+		z-index: 1;
+		font-size: 80%;
+	}
+	#cont {
+		position: absolute;
+		top: 0px;
+		left: 2px;
+	}
  
  #background 
 { 
@@ -14,19 +39,20 @@
 	 margin-right: auto; 
 	 background-color: #00AF8E;
 	 width: 100%;
-	 height: 100%; 
+	 height: 1000px; 
 	 overflow: hidden;
 	 z-index:0;
 	} 
 
  #Kullervonkatu14 
 { 
-	 left: 369px; 
+	 left: 20%; 
 	 top: 34px; 
 	 position: absolute; 
 	 width: 200px;
 	 height: 17px;
 	 z-index:3;
+	 font-size: 150%;
 } 
 
  #Moredesigns 
@@ -49,12 +75,6 @@
 	 z-index:5;
 } 
 
-#VilleKoponen {
-	left: 1050px;
-	top: 13px;
-	position: absolute;
-}
-
  #RoundedRectangle4cop 
 { 
 	 left: 1050px; 
@@ -71,19 +91,9 @@
 	position: absolute;
 }
 
- #MapGameGalleryProfil 
-{ 
-	 left: 1052px; 
-	 top: 44px; 
-	 position: absolute; 
-	 width: 194px;
-	 height: 9px;
-	 z-index:7;
-} 
-
  #Topscore 
 { 
-	 left: 367px; 
+	 left: 20%; 
 	 top: 83px; 
 	 position: absolute; 
 	 width: 69px;
@@ -93,7 +103,7 @@
 
  #VectorSmartObject 
 { 
-	 left: 444px; 
+	 left: 27%; 
 	 top: 84px; 
 	 position: absolute; 
 	 width: 10px;
@@ -103,7 +113,7 @@
 
  #VectorSmartObject_0 
 { 
-	 left: 581px; 
+	 left: 37%; 
 	 top: 34px; 
 	 position: absolute; 
 	 width: 16px;
@@ -113,7 +123,7 @@
 
  #RoundedRectangle1cop 
 { 
-	 left: 383px; 
+	 left: 22%; 
 	 top: 337px; 
 	 position: absolute; 
 	 width: 122px;
@@ -123,7 +133,7 @@
 
  #Moreinfocopy 
 { 
-	 left: 412px; 
+	 left: 24%; 
 	 top: 344px; 
 	 position: absolute; 
 	 width: 67px;
@@ -133,7 +143,7 @@
 
  #Score2300UserVilleLa 
 { 
-	 left: 393px; 
+	 left: 22%; 
 	 top: 297px; 
 	 position: absolute; 
 	 width: 103px;
@@ -143,7 +153,7 @@
 
  #RoundedRectangle2cop 
 { 
-	 left: 365px; 
+	 left: 20%; 
 	 top: 125px; 
 	 position: absolute; 
 	 width: 157px;
@@ -153,7 +163,7 @@
 
  #RoundedRectangle2cop_0 
 { 
-	 left: 367px; 
+	 left: 20.1%; 
 	 top: 260px; 
 	 position: absolute; 
 	 width: 154px;
@@ -163,7 +173,7 @@
 
  #Orivedenkatu8 
 { 
-	 left: 390px; 
+	 left: 22%; 
 	 top: 267px; 
 	 position: absolute; 
 	 width: 108px;
@@ -173,7 +183,7 @@
 
  #VectorSmartObjectcop 
 { 
-	 left: 361px; 
+	 left: 20%; 
 	 top: 161px; 
 	 position: absolute; 
 	 width: 165px;
@@ -183,7 +193,7 @@
 
  #RoundedRectangle1cop_0 
 { 
-	 left: 621px; 
+	 left: 39%; 
 	 top: 337px; 
 	 position: absolute; 
 	 width: 122px;
@@ -193,7 +203,7 @@
 
  #Moreinfocopy2 
 { 
-	 left: 650px; 
+	 left: 41%; 
 	 top: 344px; 
 	 position: absolute; 
 	 width: 67px;
@@ -203,7 +213,7 @@
 
  #Score2300UserTaaviSd 
 { 
-	 left: 619px; 
+	 left: 39%; 
 	 top: 297px; 
 	 position: absolute; 
 	 width: 127px;
@@ -213,7 +223,7 @@
 
  #RoundedRectangle2cop_1 
 { 
-	 left: 603px; 
+	 left: 37%; 
 	 top: 125px; 
 	 position: absolute; 
 	 width: 157px;
@@ -223,7 +233,7 @@
 
  #RoundedRectangle2cop_2 
 { 
-	 left: 605px; 
+	 left: 37.1%; 
 	 top: 260px; 
 	 position: absolute; 
 	 width: 154px;
@@ -233,7 +243,7 @@
 
  #Orivedenkatu8copy 
 { 
-	 left: 628px; 
+	 left: 39%; 
 	 top: 267px; 
 	 position: absolute; 
 	 width: 108px;
@@ -243,7 +253,7 @@
 
  #VectorSmartObjectcop_0 
 { 
-	 left: 585px; 
+	 left: 37%; 
 	 top: 161px; 
 	 position: absolute; 
 	 width: 165px;
@@ -253,7 +263,7 @@
 
  #RoundedRectangle1cop_1 
 { 
-	 left: 860px; 
+	 left: 56%; 
 	 top: 337px; 
 	 position: absolute; 
 	 width: 122px;
@@ -263,7 +273,7 @@
 
  #Moreinfocopy3 
 { 
-	 left: 889px; 
+	 left: 58%; 
 	 top: 344px; 
 	 position: absolute; 
 	 width: 67px;
@@ -273,7 +283,7 @@
 
  #Score1987UserMinaKop 
 { 
-	 left: 862px; 
+	 left: 56%; 
 	 top: 297px; 
 	 position: absolute; 
 	 width: 119px;
@@ -283,7 +293,7 @@
 
  #RoundedRectangle2cop_3 
 { 
-	 left: 842px; 
+	 left: 54%; 
 	 top: 125px; 
 	 position: absolute; 
 	 width: 157px;
@@ -293,7 +303,7 @@
 
  #RoundedRectangle2cop_4 
 { 
-	 left: 844px; 
+	 left: 54.1%; 
 	 top: 260px; 
 	 position: absolute; 
 	 width: 154px;
@@ -303,7 +313,7 @@
 
  #Orivedenkatu8copy2 
 { 
-	 left: 867px; 
+	 left: 56%; 
 	 top: 267px; 
 	 position: absolute; 
 	 width: 108px;
@@ -313,7 +323,7 @@
 
  #VectorSmartObjectcop_1 
 { 
-	 left: 838px; 
+	 left: 54%; 
 	 top: 161px; 
 	 position: absolute; 
 	 width: 165px;
@@ -323,7 +333,7 @@
 
  #RoundedRectangle1cop_2 
 { 
-	 left: 1098px; 
+	 left: 73%; 
 	 top: 337px; 
 	 position: absolute; 
 	 width: 122px;
@@ -333,7 +343,7 @@
 
  #Moreinfocopy3_0 
 { 
-	 left: 1127px; 
+	 left: 75%; 
 	 top: 344px; 
 	 position: absolute; 
 	 width: 67px;
@@ -343,7 +353,7 @@
 
  #Score2300UserVilleLa_0 
 { 
-	 left: 1108px; 
+	 left: 73%; 
 	 top: 297px; 
 	 position: absolute; 
 	 width: 103px;
@@ -353,7 +363,7 @@
 
  #RoundedRectangle2cop_5 
 { 
-	 left: 1080px; 
+	 left: 71%; 
 	 top: 125px; 
 	 position: absolute; 
 	 width: 157px;
@@ -363,7 +373,7 @@
 
  #RoundedRectangle2cop_6 
 { 
-	 left: 1082px; 
+	 left: 71.1%; 
 	 top: 260px; 
 	 position: absolute; 
 	 width: 154px;
@@ -373,7 +383,7 @@
 
  #Orivedenkatu8copy2_0 
 { 
-	 left: 1105px; 
+	 left: 73%; 
 	 top: 267px; 
 	 position: absolute; 
 	 width: 108px;
@@ -383,7 +393,7 @@
 
  #VectorSmartObjectcop_2 
 { 
-	 left: 1062px; 
+	 left: 71%; 
 	 top: 161px; 
 	 position: absolute; 
 	 width: 165px;
@@ -393,7 +403,7 @@
 
  #RoundedRectangle1cop_3 
 { 
-	 left: 383px; 
+	 left: 22%; 
 	 top: 609px; 
 	 position: absolute; 
 	 width: 122px;
@@ -403,7 +413,7 @@
 
  #Moreinfocopy4 
 { 
-	 left: 412px; 
+	 left: 24%; 
 	 top: 616px; 
 	 position: absolute; 
 	 width: 67px;
@@ -413,7 +423,7 @@
 
  #Score2300UserVilleLa_1 
 { 
-	 left: 393px; 
+	 left: 22%; 
 	 top: 569px; 
 	 position: absolute; 
 	 width: 103px;
@@ -423,7 +433,7 @@
 
  #RoundedRectangle2cop_7 
 { 
-	 left: 365px; 
+	 left: 20%; 
 	 top: 397px; 
 	 position: absolute; 
 	 width: 157px;
@@ -433,7 +443,7 @@
 
  #RoundedRectangle2cop_8 
 { 
-	 left: 367px; 
+	 left: 20.1%; 
 	 top: 532px; 
 	 position: absolute; 
 	 width: 154px;
@@ -443,7 +453,7 @@
 
  #Orivedenkatu8copy3 
 { 
-	 left: 390px; 
+	 left: 22%; 
 	 top: 539px; 
 	 position: absolute; 
 	 width: 108px;
@@ -453,7 +463,7 @@
 
  #VectorSmartObjectcop_3 
 { 
-	 left: 361px; 
+	 left: 20%; 
 	 top: 433px; 
 	 position: absolute; 
 	 width: 165px;
@@ -463,7 +473,7 @@
 
  #RoundedRectangle1cop_4 
 { 
-	 left: 621px; 
+	 left: 39%; 
 	 top: 609px; 
 	 position: absolute; 
 	 width: 122px;
@@ -473,7 +483,7 @@
 
  #Moreinfocopy4_0 
 { 
-	 left: 650px; 
+	 left: 41%; 
 	 top: 616px; 
 	 position: absolute; 
 	 width: 67px;
@@ -483,7 +493,7 @@
 
  #Score2300UserVilleLa_2 
 { 
-	 left: 631px; 
+	 left: 39%; 
 	 top: 569px; 
 	 position: absolute; 
 	 width: 103px;
@@ -493,7 +503,7 @@
 
  #RoundedRectangle2cop_9 
 { 
-	 left: 603px; 
+	 left: 37%; 
 	 top: 397px; 
 	 position: absolute; 
 	 width: 157px;
@@ -503,7 +513,7 @@
 
  #RoundedRectangle2cop_10 
 { 
-	 left: 605px; 
+	 left: 37.1%; 
 	 top: 532px; 
 	 position: absolute; 
 	 width: 154px;
@@ -513,7 +523,7 @@
 
  #Orivedenkatu8copy3_0 
 { 
-	 left: 628px; 
+	 left: 39%; 
 	 top: 539px; 
 	 position: absolute; 
 	 width: 108px;
@@ -523,7 +533,7 @@
 
  #VectorSmartObjectcop_4 
 { 
-	 left: 585px; 
+	 left: 37%; 
 	 top: 433px; 
 	 position: absolute; 
 	 width: 165px;
@@ -533,7 +543,7 @@
 
  #RoundedRectangle1cop_5 
 { 
-	 left: 860px; 
+	 left: 56%; 
 	 top: 609px; 
 	 position: absolute; 
 	 width: 122px;
@@ -543,7 +553,7 @@
 
  #Moreinfocopy4_1 
 { 
-	 left: 889px; 
+	 left: 58%; 
 	 top: 616px; 
 	 position: absolute; 
 	 width: 67px;
@@ -553,7 +563,7 @@
 
  #Score2300UserVilleLa_3 
 { 
-	 left: 870px; 
+	 left: 56%; 
 	 top: 569px; 
 	 position: absolute; 
 	 width: 103px;
@@ -563,7 +573,7 @@
 
  #RoundedRectangle2cop_11 
 { 
-	 left: 842px; 
+	 left: 54%; 
 	 top: 397px; 
 	 position: absolute; 
 	 width: 157px;
@@ -573,7 +583,7 @@
 
  #RoundedRectangle2cop_12 
 { 
-	 left: 844px; 
+	 left: 54.1%; 
 	 top: 532px; 
 	 position: absolute; 
 	 width: 154px;
@@ -583,7 +593,7 @@
 
  #Orivedenkatu8copy3_1 
 { 
-	 left: 867px; 
+	 left: 56%; 
 	 top: 539px; 
 	 position: absolute; 
 	 width: 108px;
@@ -593,7 +603,7 @@
 
  #VectorSmartObjectcop_5 
 { 
-	 left: 838px; 
+	 left: 54%; 
 	 top: 433px; 
 	 position: absolute; 
 	 width: 165px;
@@ -603,7 +613,7 @@
 
  #RoundedRectangle1cop_6 
 { 
-	 left: 1098px; 
+	 left: 73%; 
 	 top: 609px; 
 	 position: absolute; 
 	 width: 122px;
@@ -613,7 +623,7 @@
 
  #Moreinfocopy4_2 
 { 
-	 left: 1127px; 
+	 left: 75%; 
 	 top: 616px; 
 	 position: absolute; 
 	 width: 67px;
@@ -623,7 +633,7 @@
 
  #Score2300UserVilleLa_4 
 { 
-	 left: 1108px; 
+	 left: 73%; 
 	 top: 569px; 
 	 position: absolute; 
 	 width: 103px;
@@ -633,7 +643,7 @@
 
  #RoundedRectangle2cop_13 
 { 
-	 left: 1080px; 
+	 left: 71%; 
 	 top: 397px; 
 	 position: absolute; 
 	 width: 157px;
@@ -643,7 +653,7 @@
 
  #RoundedRectangle2cop_14 
 { 
-	 left: 1082px; 
+	 left: 71.1%; 
 	 top: 532px; 
 	 position: absolute; 
 	 width: 154px;
@@ -653,7 +663,7 @@
 
  #Orivedenkatu8copy3_2 
 { 
-	 left: 1105px; 
+	 left: 73%; 
 	 top: 539px; 
 	 position: absolute; 
 	 width: 108px;
@@ -663,7 +673,7 @@
 
  #VectorSmartObjectcop_6 
 { 
-	 left: 1062px; 
+	 left: 71%; 
 	 top: 433px; 
 	 position: absolute; 
 	 width: 165px;
@@ -673,7 +683,7 @@
 
  #RoundedRectangle1cop_7 
 { 
-	 left: 383px; 
+	 left: 22%; 
 	 top: 883px; 
 	 position: absolute; 
 	 width: 122px;
@@ -683,7 +693,7 @@
 
  #Moreinfocopy5 
 { 
-	 left: 412px; 
+	 left: 24%; 
 	 top: 890px; 
 	 position: absolute; 
 	 width: 67px;
@@ -693,7 +703,7 @@
 
  #Score2300UserVilleLa_5 
 { 
-	 left: 393px; 
+	 left: 22%; 
 	 top: 843px; 
 	 position: absolute; 
 	 width: 103px;
@@ -703,7 +713,7 @@
 
  #RoundedRectangle2cop_15 
 { 
-	 left: 365px; 
+	 left: 20%; 
 	 top: 671px; 
 	 position: absolute; 
 	 width: 157px;
@@ -713,7 +723,7 @@
 
  #RoundedRectangle2cop_16 
 { 
-	 left: 367px; 
+	 left: 20.1%; 
 	 top: 806px; 
 	 position: absolute; 
 	 width: 154px;
@@ -723,7 +733,7 @@
 
  #Orivedenkatu8copy4 
 { 
-	 left: 390px; 
+	 left: 22%; 
 	 top: 813px; 
 	 position: absolute; 
 	 width: 108px;
@@ -733,7 +743,7 @@
 
  #VectorSmartObjectcop_7 
 { 
-	 left: 361px; 
+	 left: 20%; 
 	 top: 707px; 
 	 position: absolute; 
 	 width: 165px;
@@ -743,7 +753,7 @@
 
  #RoundedRectangle1cop_8 
 { 
-	 left: 621px; 
+	 left: 39%; 
 	 top: 883px; 
 	 position: absolute; 
 	 width: 122px;
@@ -753,7 +763,7 @@
 
  #Moreinfocopy5_0 
 { 
-	 left: 650px; 
+	 left: 41%; 
 	 top: 890px; 
 	 position: absolute; 
 	 width: 67px;
@@ -763,7 +773,7 @@
 
  #Score2300UserVilleLa_6 
 { 
-	 left: 631px; 
+	 left: 39%; 
 	 top: 843px; 
 	 position: absolute; 
 	 width: 103px;
@@ -773,7 +783,7 @@
 
  #RoundedRectangle2cop_17 
 { 
-	 left: 603px; 
+	 left: 37%; 
 	 top: 671px; 
 	 position: absolute; 
 	 width: 157px;
@@ -783,7 +793,7 @@
 
  #RoundedRectangle2cop_18 
 { 
-	 left: 605px; 
+	 left: 37.1%; 
 	 top: 806px; 
 	 position: absolute; 
 	 width: 154px;
@@ -793,7 +803,7 @@
 
  #Orivedenkatu8copy4_0 
 { 
-	 left: 628px; 
+	 left: 39%; 
 	 top: 813px; 
 	 position: absolute; 
 	 width: 108px;
@@ -803,7 +813,7 @@
 
  #VectorSmartObjectcop_8 
 { 
-	 left: 585px; 
+	 left: 37%; 
 	 top: 707px; 
 	 position: absolute; 
 	 width: 165px;
@@ -813,7 +823,7 @@
 
  #RoundedRectangle1cop_9 
 { 
-	 left: 860px; 
+	 left: 56%; 
 	 top: 883px; 
 	 position: absolute; 
 	 width: 122px;
@@ -823,7 +833,7 @@
 
  #Moreinfocopy5_1 
 { 
-	 left: 889px; 
+	 left: 58%; 
 	 top: 890px; 
 	 position: absolute; 
 	 width: 67px;
@@ -833,7 +843,7 @@
 
  #Score2300UserVilleLa_7 
 { 
-	 left: 870px; 
+	 left: 56%; 
 	 top: 843px; 
 	 position: absolute; 
 	 width: 103px;
@@ -843,7 +853,7 @@
 
  #RoundedRectangle2cop_19 
 { 
-	 left: 842px; 
+	 left: 54%; 
 	 top: 671px; 
 	 position: absolute; 
 	 width: 157px;
@@ -853,7 +863,7 @@
 
  #RoundedRectangle2cop_20 
 { 
-	 left: 844px; 
+	 left: 54.1%; 
 	 top: 806px; 
 	 position: absolute; 
 	 width: 154px;
@@ -863,7 +873,7 @@
 
  #Orivedenkatu8copy4_1 
 { 
-	 left: 867px; 
+	 left: 56%; 
 	 top: 813px; 
 	 position: absolute; 
 	 width: 108px;
@@ -873,7 +883,7 @@
 
  #VectorSmartObjectcop_9 
 { 
-	 left: 838px; 
+	 left: 54%; 
 	 top: 707px; 
 	 position: absolute; 
 	 width: 165px;
@@ -883,7 +893,7 @@
 
  #RoundedRectangle1cop_10 
 { 
-	 left: 1098px; 
+	 left: 73%; 
 	 top: 883px; 
 	 position: absolute; 
 	 width: 122px;
@@ -893,7 +903,7 @@
 
  #Moreinfocopy5_2 
 { 
-	 left: 1127px; 
+	 left: 75%; 
 	 top: 890px; 
 	 position: absolute; 
 	 width: 67px;
@@ -903,7 +913,7 @@
 
  #Score2300UserVilleLa_8 
 { 
-	 left: 1108px; 
+	 left: 73%; 
 	 top: 843px; 
 	 position: absolute; 
 	 width: 103px;
@@ -913,7 +923,7 @@
 
  #RoundedRectangle2cop_21 
 { 
-	 left: 1080px; 
+	 left: 71%; 
 	 top: 671px; 
 	 position: absolute; 
 	 width: 157px;
@@ -923,7 +933,7 @@
 
  #RoundedRectangle2cop_22 
 { 
-	 left: 1082px; 
+	 left: 71.1%; 
 	 top: 806px; 
 	 position: absolute; 
 	 width: 154px;
@@ -933,7 +943,7 @@
 
  #Orivedenkatu8copy4_2 
 { 
-	 left: 1105px; 
+	 left: 73%; 
 	 top: 813px; 
 	 position: absolute; 
 	 width: 108px;
@@ -943,22 +953,12 @@
 
  #VectorSmartObjectcop_10 
 { 
-	 left: 1062px; 
+	 left: 71%; 
 	 top: 707px; 
 	 position: absolute; 
 	 width: 165px;
 	 height: 90px;
 	 z-index:94;
-} 
-
- #popup 
-{ 
-	 left: 366px; 
-	 top: 95px; 
-	 position: absolute; 
-	 width: 162px;
-	 height: 121px;
-	 z-index:95;
 } 
 
  #TopScoreMostApprecia 

@@ -98,8 +98,12 @@
 			controls.enabled = false;
 			if (intersects[0].object.parent.userData.TYPE === "Bench" || intersects[0].object.parent.userData.TYPE === "Table bench" || intersects[0].object.parent.userData.TYPE === "Sun shade" || intersects[0].object.parent.userData.TYPE === "Barbeque") {
 				SELECTED = intersects[ 0 ].object.parent;
+				elementType = intersects[0].object.parent.userData.TYPE;
+				action = "Move";
 			} else {
 				SELECTED = intersects[ 0 ].object.parent.parent;
+				elementType = intersects[0].object.parent.parent.userData.TYPE;
+				action = "Move";
 			}
 
 			//Picking selected object
@@ -149,8 +153,9 @@
 		event.preventDefault();
 		controls.enabled = true;
 		//If new object has been just added and it's inside yard borders
-		if (ADDED ) { //&& ((ADDED.position.x < 14.5 && ADDED.position.x > -14.5) && (ADDED.position.z < 14.5 && ADDED.position.z > -14.5))) {
-			calculatePoints( ADDED );
+		if (ADDED) { //&& ((ADDED.position.x < 14.5 && ADDED.position.x > -14.5) && (ADDED.position.z < 14.5 && ADDED.position.z > -14.5))) {
+	        action = "Add";
+	        elementType = ADDED.userData.TYPE;
 			SELECTED = null;
 			ADDED = null;
 		    calculatePoints();

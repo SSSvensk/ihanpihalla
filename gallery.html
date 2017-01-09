@@ -2,21 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>psdtowebGalleryOrivedenkatu.psd</title>
+		<title>Gallery - Ihan Pihalla</title>
 		<link href="css/gallerystyles.css" rel="stylesheet" type="text/css">
+		<link href="css/ihanpihallacss.css" rel="stylesheet" type="text/css">
+
 	</head>
 	<body>
 		<div id="background">
-			<div id="Kullervonkatu14"><img src="galleryimages/Kullervonkatu14.png"></div>
-			<div id="Moredesigns"><img src="galleryimages/Moredesigns.png"></div>
-			<div id="Rectangle12"><img src="galleryimages/Rectangle12.png"></div>
-			<div id="VilleKoponen"><img src="images/VilleKoponen.png"></div>
-			<div id="RoundedRectangle4cop"><img src="galleryimages/progressbar.png"></div>
-			<div id="RoundedRectangle4copbar"><img src="galleryimages/progress.png"></div>
-			<div id="MapGameGalleryProfil"><img src="galleryimages/MapGameGalleryProfil.png"></div>
+			<div id="Kullervonkatu14">Orivedenkatu 8</div>
+			<div id="VilleKoponen">Ville Koponen</div>
+			<div id="progressbar"><img src="galleryimages/progressbar.png"></div>
+			<div id="bar"><img src="galleryimages/progress.png"></div>
+			<div id="MapGameGalleryProfil">
+				<table id = "mggp">
+					<tr>
+						<td><a href = "mapstesti.html">Map</a></td>
+						<td><a href = "game.html">Game</a></td>
+						<td><a href = "gallery.html">Gallery</a></td>
+						<td><a href = "profile.html">Profile</a></td>
+						<td><a href = "index.html">Log out</a></td>
+					</tr>
+				</table>
+			</div>
 			<div id="Topscore"><img src="galleryimages/Topscore.png"></div>
-			<div id="VectorSmartObject"><img src="galleryimages/VectorSmartObject.png"></div>
-			<div id="VectorSmartObject_0"><img src="galleryimages/VectorSmartObject_0.png"></div>
+			<div id="VectorSmartObject"><input type = "image" onclick = "openPopup()" src="galleryimages/VectorSmartObject.png"></div>
 			<div id="RoundedRectangle1cop"><img src="galleryimages/RoundedRectangle1cop.png"></div>
 			<div id="Moreinfocopy"><img src="galleryimages/Moreinfocopy.png"></div>
 			<div id="Score2300UserVilleLa"><img src="galleryimages/Score2300UserVilleLa.png"></div>
@@ -101,16 +110,40 @@
 			<div id="RoundedRectangle2cop_22"><img src="galleryimages/RoundedRectangle2cop_22.png"></div>
 			<div id="Orivedenkatu8copy4_2"><img src="galleryimages/Orivedenkatu8copy4_2.png"></div>
 			<div id="VectorSmartObjectcop_10"><img src="galleryimages/VectorSmartObjectcop_10.png"></div>
-			<div id="popup"><img src="galleryimages/popup.png"></div>
-			<div id="TopScoreMostApprecia"><img src="galleryimages/TopScoreMostApprecia.png"></div>
-			<div id="VIewedicon"><img src="galleryimages/VIewedicon.png"></div>
-			<div id="Topicon"><img src="galleryimages/Topicon.png"></div>
-			<div id="Likeicon"><img src="galleryimages/Likeicon.png"></div>
-			<div id="Sortby"><img src="galleryimages/Sortby.png"></div>
-			<div id="popup_0"><img src="galleryimages/popup_0.png"></div>
-			<div id="Kullervonkatu14Vihil"><img src="galleryimages/Kullervonkatu14Vihil.png"></div>
-			<div id="VectorSmartObject_1"><img src="galleryimages/VectorSmartObject_1.png"></div>
-			<div id="Chooseyard"><img src="galleryimages/Chooseyard.png"></div>
+			<div id="popup">
+				<div id = "popupbg">
+		        <img src="galleryimages/popup.png">
+		        <div id = "cont">
+		        <p>
+		        	Sort by:
+		        	<table>
+		        		<tr>
+		        			<td><img src="galleryimages/Topicon.png"></td>
+		        			<td class = "expl">Most rated</td>
+		        		</tr>
+		        		<tr>
+		        			<td><img src="galleryimages/Likeicon.png"></td>
+		        			<td class = "expl">Most liked</td>
+		        		</tr>
+		        		<tr>
+		        			<td><img src="galleryimages/VIewedicon.png"></td>
+		        			<td class = "expl">Most viewed</td>
+		        		</tr>
+		        	</table>
+		        </p>
+	        </div>
+			</div>
 		</div>
+
+		<script>
+		function openPopup() {
+			if (document.getElementById('popup').style.visibility === 'visible') {
+				document.getElementById('popup').style.visibility = 'hidden';
+			} else {
+				document.getElementById('popup').style.visibility = 'visible';
+			}
+			
+		}
+		</script>
  </body>
  </html>
