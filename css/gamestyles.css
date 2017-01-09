@@ -2,7 +2,19 @@
 	margin: 0;
 	padding: 0;
  }
- 
+
+ #eventinfo {
+ 	position: fixed;
+ 	visibility: hidden;
+ 	top: 30%;
+ 	left: 30%;
+ 	background-color: #FFFFFF;
+ 	width: 400px;
+ }
+ .explanationrow {
+ 	background-color: #000000;
+ 	color: #FFFFFF;
+ }
  #background 
 { 
 	 left: 0px; 
@@ -37,6 +49,15 @@
 	top: 9%;
 	left: 79%;
 	width: 10%;
+}
+
+.bottomimage {
+	position: relative;
+}
+.iconimage {
+	position: absolute;
+	top: 4%;
+	left: 4%;
 }
 
  #EcoHappinessEconomic 

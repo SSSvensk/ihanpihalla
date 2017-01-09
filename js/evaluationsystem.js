@@ -3,8 +3,6 @@ function calculatePoints() {
 	    var socialObjects = 0;
 	    var optimalTrees = 20;
 	    var optimalSObjects = 15;
-	    var optimalShades = 2;
-	    var shades = 0;
 	    var totalpoints = 0;
 	    var apoints = 0;
 	    var value = 1815;
@@ -13,28 +11,77 @@ function calculatePoints() {
 
 		for (var i = 0; i < objects.length; i++) {
 			var removeType = objects[i].userData.TYPE;
-		    if (removeType === "Pine tree" || removeType === "Apple tree" || removeType === "Rowan" || removeType === "Lilac" || removeType === "Canadian maple" || removeType === "Willow") {
+		    if (removeType === "Pine tree" || removeType === "Apple tree" || removeType === "Rowan" || removeType === "Lilac" || removeType === "Canadian maple" || removeType === "Willow" || removeType === "Green bench") {
 		    	trees++;
 			    apoints += (optimalTrees - trees + 1) * 100;
 			    apoints += checkLocation((objects[i].position.x + objects[i].userData.REX),(objects[i].position.z + objects[i].userData.REZ));
-                value *= 1.01;
-		    } else if (removeType === "Table bench" || removeType === "Bench" || removeType === "Barbeque" || removeType === "Green bench") {
+		    } else if (removeType === "Table bench" || removeType === "Bench" || removeType === "Barbeque"  || removeType === "Sun shade") {
 			    socialObjects++;
 			    apoints += (optimalSObjects - socialObjects + 1) * 100;
-			    value *= 1.03;
-		    } else if (removeType === "Sun shade") {
-			    shades++;
-			    apoints += (optimalShades - shades + 1) * 100;
-			    value *= 1.03;
 		    }
 		};
 		totalpoints = totalpoints + apoints;
+
+		if ((trees / socialObjects > 2.5) && (trees / socialObjects < 3.5)) {
+			console.log("Your yard is balanced!");
+			totalpoints += 1000;
+			value *= 1.6;
+		} else if ((trees / socialObjects > 1.5) && (trees / socialObjects <= 2.5)) {
+			totalpoints += 300;
+			value *= 1.2;
+		} else if ((trees / socialObjects > 0.5) && (trees / socialObjects <= 1.5)) {
+			totalpoints += 50;
+			value *= 1.01;
+		} else if ((trees / socialObjects >= 3.5) && (trees / socialObjects < 4.5)) {
+			totalpoints += 200;
+			value *= 1.15;
+		} else if ((trees / socialObjects >= 4.5) && (trees / socialObjects < 6)) {
+			totalpoints += 10;
+			value *= 1.01;
+		} else if (trees / socialObjects >= 6 && trees > 5) {
+			totalpoints -= 500;
+			value *= 0.7;
+		}
 		if (totalpoints < 0) {
 			totalpoints = 0;
 		}
 		totalpoints += calculatePointsByDistance();
+		if (oldPoints > totalpoints) {
+			console.log("You did something wrong");
+		} else {
+			console.log("Great job!");
+		}
+
+		var minusPoints = totalpoints - oldPoints;
+		var minusValue = value - oldValue;
+
+		var newevent = {element: elementType, actionType: action, points: minusPoints, vvalue: minusValue};
+		queue.push(newevent);
+		console.log(queue[queue.length-1].element);
+		console.log(queue[queue.length-1].actionType);
+		console.log(queue[queue.length-1].points);
+		console.log(queue[queue.length-1].vvalue);
+		if (queue.length > 5) {
+			queue.shift();
+		};
+		for (var i = queue.length - 1; i >= 0; i--) {
+			document.getElementById('queuen' + i + 'action').innerHTML = queue[i].actionType;
+			document.getElementById('queuen' + i + 'type').innerHTML = queue[i].element;
+			document.getElementById('queuen' + i + 'points').innerHTML = queue[i].points.toFixed(0);
+			document.getElementById('queuen' + i + 'value').innerHTML = queue[i].vvalue.toFixed(0);
+		};
+
+		if (oldValue > value) {
+			console.log("Your yard is poorer");
+		} else if (oldValue == value) {
+			console.log("Not significant change");
+		} else {
+			console.log("Your yard is richer!");
+		}
+		oldValue = value;
+		oldPoints = totalpoints;
 		console.log(value);
-		document.getElementById('points').innerHTML = "<center>" + totalpoints.toFixed(0) + "</center>";
+		document.getElementById('points').innerHTML = "<center><a href = '#' onclick = 'openEvent()'>" + totalpoints.toFixed(0) + "</a></center>";
 	}
 
 	//Checks the distance between tree and building

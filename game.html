@@ -30,8 +30,8 @@
 	console.log("--------------------------------------------------");
 	console.log("Ending texts and credits");
 	console.log("Project manager:                Yunjung 'Pronounce the name again' Ji");
-	console.log("Designers:                      Maria '' Pastukh, Sampo");
-	console.log("Developers:                     Sami-Santeri 'biggest Ilves-fan of the team' Svensk, Catherine 'Cat' Fait");
+	console.log("Designers:                      Maria '' Pastukh, Sung-Bok 'Sampo' Song");
+	console.log("Developers:                     Sami-Santeri 'Ilves-ambassador' Svensk, Catherine 'Cat' Fait");
 	console.log("Researcher and master graduate: Tapio 'Elf' Rintala");
 	console.log("Our facilitator:                Heikki 'Santa Claus' Viitanen");
 	console.log("--------------------------------------------------");
@@ -42,11 +42,17 @@
 	console.log("808 songs during this project, 432 during development phase");
 	console.log("We visited habbo.fi, but what not to do for this project?");
 	console.log("No animals were harmed or killed during this demo!");
+	console.log("--------------------------------------------------");
+	console.log("||   ||  ||   ||**||   ||  ||       ||--||   ||   ||  ||   ||**||   ||      ||       ||**||");
+	console.log("||   ||  ||   ||  ||   ||* ||       ||  ||   ||   ||  ||   ||  ||   ||      ||       ||  ||");
+	console.log("||   ||**||   ||**||   ||**||       ||  ||   ||   ||**||   ||**||   ||      ||       ||  ||");
+	console.log("||   ||**||   ||**||   || *||       ||--||   ||   ||**||   ||**||   ||      ||       ||**||");
+	console.log("||   ||  ||   ||  ||   ||  ||       ||       ||   ||  ||   ||  ||   ||***   ||****   ||  ||");
+	console.log("||   ||  ||   ||  ||   ||  ||       ||       ||   ||  ||   ||  ||   ||***   ||****   ||  ||");
+
 
 	var scene, camera, renderer;
 	var mouse = new THREE.Vector2();
-
-	var value = 1816;
 
 	//Array to store clickable objects
 	var objects = [];
@@ -66,6 +72,12 @@
 	var rType;
 	var borderX, borderY;
 	var borderXX, borderYY;
+
+	var oldPoints = 0;
+	var oldValue = 1815;
+	var action;
+	var elementType;
+	var queue = [];
 
 	var previousX;
 	var previousZ;
@@ -88,8 +100,8 @@
 
 		//Creating scene. Scene is where everything is added.
 		scene = new THREE.Scene();
-		//scene.fog = new THREE.Fog( 0xcce0ff, 30, 150 );
-		scene.background = new THREE.Color( 0xC1FFFF );
+		scene.fog = new THREE.Fog( 0xcce0ff, 30, 150 );
+		scene.background = new THREE.Color( 0xCCE0FF );
 
 		//Creating camera and giving it its position.
 		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
@@ -403,6 +415,8 @@
 	    */
 	    var removeO = new THREE.Object3D();
 	    removeO = objects[indd];
+	    elementType = removeO.userData.TYPE;
+	    action = "Remove";
 	    objects.splice(indd, 1);
 	    scene.remove(removeO);
 		checkOthers();
@@ -1127,7 +1141,6 @@
 	</script>
         <div id = "background">
 			<div id="EcoHappinessEconomic"><img src="images/EcoHappinessEconomic.png"></div>
-			<div id="RoundedRectangle4cop"><img src="images/RoundedRectangle4cop.png"></div>
 			<div id="Yardstatistics"><img src="images/Yardstatistics.png"></div>
 			<div id="points">0</div>
 			<div id="clear"><img src="images/clear.png"></div>
@@ -1160,31 +1173,35 @@
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/pine-tree.png" width = "50" height = "50">
             	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addPinetree()">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/apple-tree.png" width = "50" height = "50">
             	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addApple()">
                 </div>
             </td>
         </tr>
         <tr>
             <td><center>Pine tree</center></td>
-            <td><center><img src="images/AppleTree.png"></center></td>
+            <td><center>Apple tree</center></td>
         </tr>
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/lilac.png" width = "50" height = "50">
             	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addLilac()">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/rowan.png" width = "50" height = "50">
             	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addRowan()">
                 </div>
             </td>
@@ -1196,13 +1213,15 @@
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
+            		<img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/canada.png" width = "50" height = "50">
             	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addCanadianMaple()">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/willow.png" width = "50" height = "50">
             	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addWillow()">
                 </div>
             </td>
@@ -1340,13 +1359,15 @@
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/bench.png" width = "50" height = "50">
             	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/table-and-chairs.png" width = "50" height = "50">
             	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
                 </div>
             </td>
@@ -1358,13 +1379,15 @@
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/barbeque.png" width = "50" height = "50">
             	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBarbeque()">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/sun-shading.png" width = "50" height = "50">
             	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addSunshade()">
                 </div>
             </td>
@@ -1376,13 +1399,15 @@
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/trash.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/bench-with-flowers.png" width = "50" height = "50">
             	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBenchwithFlowers()">
                 </div>
             </td>
@@ -1449,7 +1474,55 @@
         	<img class = "eci" src="images/Ecoimpact.png">
         </div>
 	</div>
+	<div id = "eventinfo">
+		<table id = "eventtable">
+			<tr class = "explanationrow">
+				<td>Action</td>
+				<td>Element</td>
+				<td>Points</td>
+				<td>Impact on value</td>
+			</tr>
+			<tr>
+				<td id = "queuen4action"></td>
+				<td id = "queuen4type"></td>
+				<td id = "queuen4points"></td>
+				<td id = "queuen4value"></td>
+			</tr>
+			<tr>
+				<td id = "queuen3action"></td>
+				<td id = "queuen3type"></td>
+				<td id = "queuen3points"></td>
+				<td id = "queuen3value"></td>
+			</tr>
+			<tr>
+				<td id = "queuen2action"></td>
+				<td id = "queuen2type"></td>
+				<td id = "queuen2points"></td>
+				<td id = "queuen2value"></td>
+			</tr>
+			<tr>
+				<td id = "queuen1action"></td>
+				<td id = "queuen1type"></td>
+				<td id = "queuen1points"></td>
+				<td id = "queuen1value"></td>
+			</tr>
+			<tr>
+				<td id = "queuen0action"></td>
+				<td id = "queuen0type"></td>
+				<td id = "queuen0points"></td>
+				<td id = "queuen0value"></td>
+			</tr>
+		</table>
+	</div>
     <script>
+    function openEvent() {
+    	if (document.getElementById('eventinfo').style.visibility == "visible") {
+    		document.getElementById('eventinfo').style.visibility = "hidden";
+    	} else {
+    		document.getElementById('eventinfo').style.visibility = "visible"
+    	}
+    	;
+    }
     function closeWindow() {
     	document.getElementById('infotree').style.visibility = "hidden";
     	document.getElementById('infoapple').style.visibility = "hidden";
