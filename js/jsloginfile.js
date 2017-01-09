@@ -73,10 +73,10 @@
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
       console.log('Successful login for: ' + response.name);
-      document.getElementById('username').innerHTML = response.name;
-      var im = document.getElementById("profileImage").setAttribute("src", "http://graph.facebook.com/" + response.id + "/picture?type=normal");
-      document.getElementById('profileImage').style.visibility = "visible";
-      document.getElementById('loginbutton').style.display = "none";
+      passName = response.name;
+      //var im = document.getElementById("profileImage").setAttribute("src", "http://graph.facebook.com/" + response.id + "/picture?type=normal");
+      //document.getElementById('profileImage').style.visibility = "visible";
+      //document.getElementById('loginbutton').style.display = "none";
     });
   }
 

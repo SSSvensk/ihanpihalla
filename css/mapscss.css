@@ -7,19 +7,6 @@
         height: 18%;
         background-color: #00AF8E;
       }
-      /*
-      #yellowstripe {
-        background-color: #ECE819;
-        height: 1%;
-        width: 100%;
-      }
-
-      #downpanel {
-        background-color: #00AF8E;
-        height: 21%;
-        width: 100%;
-      }
-      */
       #mapslogo {
         position: absolute;
         display: block;
@@ -32,38 +19,6 @@
         top: 7%;
         left: 42%;
       }
-      #VilleKoponen 
-{ 
-   left: 79%; 
-   top: 4%; 
-   position: absolute; 
-   width: 96px;
-   height: 13px;
-   z-index:17;
-} 
-#progressbar {
-  position: absolute;
-  top: 6%;
-  left: 79%;
-}
-
-#bar {
-    position: absolute;
-  top: 6%;
-  left: 79%;  
-}
-#MapGameGalleryProfil {
-  position: absolute;
-  top: 9%;
-  left: 79%;
-  width: 10%;
-  color: #FFFFFF;
-}
-#mggp {
-  width: 170%;
-  color: #FFFFFF;
-  font-size: 70%;
-}
 
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -99,12 +54,23 @@
     width: 100%;
   }
   .startgame {
-    background-color: #000000;
+    background-color: #FFFFFF;
+    border: 2px solid black;
     padding-right: 10px;
     padding-left: 10px;
     padding-top: 2px;
     padding-bottom: 2px;
     border-radius: 10px;
+    color: #000000;
+  }
+  .startgame a {
+    color: #000000;
+  }
+  .startgame:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+  }
+  .startgame a:hover {
     color: #FFFFFF;
   }
   .gogallery {
@@ -119,6 +85,13 @@
   }
   .gogallery a {
     color: #000000;
+  }
+    .gogallery:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+  }
+  .gogallery a:hover {
+    color: #FFFFFF;
   }
   .sg {
     width: 50%;

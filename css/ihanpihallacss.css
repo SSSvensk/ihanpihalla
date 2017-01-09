@@ -25,6 +25,39 @@ body {
     div#info {
     	visibility: hidden;
     }
+    #VilleKoponen
+{ 
+   left: 79%; 
+   top: 4%; 
+   position: absolute; 
+   width: 166px;
+   height: 13px;
+   z-index:17;
+   color: #FFFFFF;
+} 
+#progressbar {
+  position: absolute;
+  top: 7%;
+  left: 79%;
+}
+
+#bar {
+    position: absolute;
+  top: 7%;
+  left: 79%;  
+}
+#MapGameGalleryProfil {
+  position: absolute;
+  top: 9%;
+  left: 79%;
+  width: 10%;
+  color: #FFFFFF;
+}
+#mggp {
+  width: 170%;
+  color: #FFFFFF;
+  font-size: 70%;
+}
 
     .closegame {
     	position: absolute;
@@ -36,6 +69,9 @@ body {
     }
     .closegame:hover {
     	color: #FFFFFF;
+    }
+    #fblogin {
+        width: 35px;
     }
     table {
     	width: 100%;
