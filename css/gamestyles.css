@@ -93,7 +93,7 @@
  #points 
 { 
 	 left: 86%; 
-	 top: 92%; 
+	 top: 90%; 
 	 position: absolute; 
 	 font-size: 200%;
 	 color: #FFFFFF;
@@ -154,17 +154,23 @@
  #Saveicon 
 { 
 	 left: 79%; 
-	 top: 85%; 
+	 top: 84%; 
 	 position: absolute; 
 	 width: 18px;
 	 height: 19px;
 	 z-index:12;
+	 color: #000000;
+} 
+
+ #Saveicon a
+{ 
+	 color: #000000;
 } 
 
  #Facebookicon 
 { 
 	 left: 81.5%; 
-	 top: 85%; 
+	 top: 84%; 
 	 position: absolute; 
 	 width: 10px;
 	 height: 19px;
@@ -611,3 +617,16 @@
 	 height: 12px;
 	 z-index:57;
 } 
+#consolepanel {
+	left: 190px;
+	top: 84%;
+	width: 62%;
+	border: 2px solid #ECE819;
+	border-radius: 10px;
+	background-color: rgba(0,175,142,0.5);
+	color: #FFFFFF;
+	position: absolute;
+	z-index: 60;
+	border-left: 2px;
+	border-right: 2px;
+}

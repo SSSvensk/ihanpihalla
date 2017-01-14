@@ -18,16 +18,16 @@
     <div id = "toppanel">
       <div id = "mapslogo"><img src="images/mapslogo.png"></div>
       <div id = "findyour"><img src="images/Findyouryardandstart.png"></div>
-      <div id = "VilleKoponen"></div>
-      <div id = "progressbar"><img src="galleryimages/progressbar.png"></div>
-      <div id = "bar"><img src="galleryimages/progress.png"></div>
-      <div id = "MapGameGalleryProfil">
+      <div id = "Username">Username</div>
+      <div id = "pb"><img src="galleryimages/progressbar.png"></div>
+      <div id = "ba"><img src="galleryimages/progress.png"></div>
+      <div id = "MapGameGallery">
         <table id = "mggp">
           <tr>
             <td><a href = "mapstesti.html">Map</a></td>
             <td><a href = "game.html">Game</a></td>
             <td><a href = "gallery.html">Gallery</a></td>
-            <td>Profile</td>
+            <td><a href = "profile.html">Profile</a></td>
             <td><a href = "index.html">Log out</a></td>
           </tr>
         </table>
@@ -44,6 +44,8 @@
 
       document.getElementById('VilleKoponen').innerHTML = localStorage.getItem("name");
 
+      initAutocomplete();
+
       function initAutocomplete() {
          var myLatLng = {lat: 61.5040869, lng: 23.7806253};
 
@@ -57,6 +59,8 @@
               position: google.maps.ControlPosition.RIGHT_CENTER
           },
          });
+
+         google.maps.event.trigger(map, 'resize');
 
          // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
@@ -117,11 +121,11 @@
           map.fitBounds(bounds);
         });
 
-         var contentString = '<div class = "bimage"><img src="images/VectorSmartObject_2.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Hervanta</td><td>|</td><td>Opiskelijankatu 34</td></tr></table></div><div>It used to be forest in 1970. Since that time, it has become an multi-cultural area and area for students.</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Start game</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
-         var contentStringK = '<div class = "bimage"><img src="images/tammela.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Tammela</td><td>|</td><td>Kullervonkatu 14</td></tr></table></div><div>One of the oldest suburbans of Tampere has nowadays ugly buildings with too much parking space</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Start game</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
-         var contentStringL = '<div class = "bimage"><img src="images/hatanpaa.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Hatanpää</td><td>|</td><td>Vihilahdenkatu 2</td></tr></table></div><div>Old countryside landscape has changed rapidly in the late 20th century. Nice location near the lake Pyhäjärvi and Hatanpää Arboretum</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Start game</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
-         var contentStringC = '<div class = "bimage"><img src="images/amuri.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Amuri</td><td>|</td><td>Amurinkatu 43</td></tr></table></div><div>Old factory worker-neighbourhood faced massive change in 70s, when old tight wooden buildings were replaces by ugly concrete architecture. Piece of Kouvola in the middle of Tampere</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Start game</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
-         var contentStringH = '<div class = "bimage"><img src="images/amuri.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Hervanta</td><td>|</td><td>Opiskelijankatu 34</td></tr></table></div><div>Old factory worker-neighbourhood faced massive change in 70s, when old tight wooden buildings were replaces by ugly concrete architecture. Piece of Kouvola in the middle of Tampere</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Start game</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentString = '<div class = "bimage"><img src="images/VectorSmartObject_2.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Hervanta</td><td>|</td><td>Opiskelijankatu 34</td></tr></table></div><div>It used to be forest in 1970. Since that time, it has become an multi-cultural area and area for students.</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Design this yard</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentStringK = '<div class = "bimage"><img src="images/tammela.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Tammela</td><td>|</td><td>Kullervonkatu 14</td></tr></table></div><div>One of the oldest suburbans of Tampere has nowadays ugly buildings with too much parking space</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Design this yard</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentStringL = '<div class = "bimage"><img src="images/hatanpaa.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Hatanpää</td><td>|</td><td>Vihilahdenkatu 2</td></tr></table></div><div>Old countryside landscape has changed rapidly in the late 20th century. Nice location near the lake Pyhäjärvi and Hatanpää Arboretum</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Design this yard</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentStringC = '<div class = "bimage"><img src="images/amuri.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Amuri</td><td>|</td><td>Amurinkatu 43</td></tr></table></div><div>Old factory worker-neighbourhood faced massive change in 70s, when old tight wooden buildings were replaces by ugly concrete architecture. Piece of Kouvola in the middle of Tampere</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Design this yard</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentStringH = '<div class = "bimage"><img src="images/amuri.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Hervanta</td><td>|</td><td>Opiskelijankatu 34</td></tr></table></div><div>Old factory worker-neighbourhood faced massive change in 70s, when old tight wooden buildings were replaces by ugly concrete architecture. Piece of Kouvola in the middle of Tampere</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Design this yard</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
 
          var infowindow = new google.maps.InfoWindow({
             content: contentString,

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Example Address 1</title>
+	<title>Opiskelijankatu 34</title>
 </head>
 <body>
 	<!--Linking JavaScript and CSS-files-->
@@ -14,8 +14,6 @@
 	<script src = "js/OBJLoader.js"></script>
 	<script src = "js/MTLLoader.js"></script>
 	<script src = "js/dat.gui.min.js"></script>
-	<script src = "js/Cube.js"></script>
-	<script src = "js/Edge.js"></script>
 	<script src = "js/mousefunctions.js"></script>
 	<script src = "js/evaluationsystem.js"></script>
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -28,9 +26,8 @@
 	console.log("--------------------------------------------------");
 	console.log("                    Ihan pihalla                  ");
 	console.log("--------------------------------------------------");
-	console.log("Ending texts and credits");
 	console.log("Project manager:                Yunjung 'Pronounce the name again' Ji");
-	console.log("Designers:                      Maria '' Pastukh, Sung-Bok 'Sampo' Song");
+	console.log("Designers:                      Maria 'Kiev' Pastukh, Sung-Bok 'Sampo' Song");
 	console.log("Developers:                     Sami-Santeri 'Ilves-ambassador' Svensk, Catherine 'Cat' Fait");
 	console.log("Researcher and master graduate: Tapio 'Elf' Rintala");
 	console.log("Our facilitator:                Heikki 'Santa Claus' Viitanen");
@@ -39,8 +36,9 @@
 	console.log("6.7 whole notebooks were filled with cryptic notes");
 	console.log("25% of meetings ended with everyone being hungry, cos we forgot to have something to eat.");
 	console.log("On the rest 75% of meetings we didn't realize we had forgotten to eat");
-	console.log("808 songs during this project, 432 during development phase");
+	console.log("808 songs were listened during this project, 432 during development phase");
 	console.log("We visited habbo.fi, but what not to do for this project?");
+	console.log("Tronald Dump was elected to president, we deny any connection between that and this project");
 	console.log("No animals were harmed or killed during this demo!");
 	console.log("--------------------------------------------------");
 	console.log("||   ||  ||   ||**||   ||  ||       ||--||   ||   ||  ||   ||**||   ||      ||       ||**||");
@@ -65,6 +63,7 @@
 	var offset = new THREE.Vector3();
 	var controls;
 	var plane = new THREE.Plane();
+	var autosavenotification = 0;
 
 	var i = 0;
 	var dragged = false;
@@ -75,9 +74,13 @@
 
 	var oldPoints = 0;
 	var oldValue = 1815;
+	var oldRatio = 0;
+	var oldTrees = 0;
+	var oldSobjects = 0;
 	var action;
 	var elementType;
 	var queue = [];
+	var feedbackqueue = ["-", "-", "-"];
 
 	var previousX;
 	var previousZ;
@@ -100,8 +103,8 @@
 
 		//Creating scene. Scene is where everything is added.
 		scene = new THREE.Scene();
-		scene.fog = new THREE.Fog( 0xcce0ff, 30, 150 );
-		scene.background = new THREE.Color( 0xCCE0FF );
+	//	scene.fog = new THREE.Fog( 0xcce0ff, 30, 150 );
+		scene.background = new THREE.Color( 0x00af8e );
 
 		//Creating camera and giving it its position.
 		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
@@ -171,7 +174,7 @@
 				object.traverse( function ( child ) {
                     if ( child instanceof THREE.Mesh ) {
                     	var material = new THREE.MeshPhongMaterial({
-                            color: 0xffffff
+                            color: 0xff8c00
                         });
                         //child.material.ambient.setHex(0xFF0000);
                         child.material = material;
@@ -262,7 +265,7 @@
                         });
                         //child.material.ambient.setHex(0xFF0000);
                         child.material = material;
-                        child.material.color.setHex(0xff443d);
+                        child.material.color.setHex(0x22949f);
                         child.castShadow = true;
 				        child.receiveShadow = true;
                     }
@@ -315,7 +318,7 @@
         ray = new THREE.Ray( camera.position, null );
 
 		//Creating plane
-		var planee = new THREE.Mesh(new THREE.PlaneBufferGeometry(300, 300, 32), new THREE.MeshPhongMaterial({specular: '#fff',fog: true,color: '#327B21',shininess: 0 }));
+		var planee = new THREE.Mesh(new THREE.PlaneBufferGeometry(60, 75, 32), new THREE.MeshPhongMaterial({specular: '#fff',fog: true, color: '#74D2D4',shininess: 0 }));
 		//var planee = new THREE.Mesh( geometry, material );
 
 		//Just inserting coordinates of borders to variables
@@ -1140,16 +1143,22 @@
 
 	</script>
         <div id = "background">
-			<div id="EcoHappinessEconomic"><img src="images/EcoHappinessEconomic.png"></div>
-			<div id="Yardstatistics"><img src="images/Yardstatistics.png"></div>
+			<!--<div id="EcoHappinessEconomic"><img src="images/EcoHappinessEconomic.png"></div>-->
+			<!--<div id="Yardstatistics"><img src="images/Yardstatistics.png"></div>-->
 			<div id="points">0</div>
 			<div id="clear"><img src="images/clear.png"></div>
 			<div id="clearicon"><img src="images/clearicon.png"></div>
 			<div id="Undoredoicon"><img src="images/Undoredoicon.png"></div>
 			<div id="undoredo"><img src="images/undoredo.png"></div>
-			<div id="Saveicon"><img src="images/Saveicon.png"></div>
-			<div id="Facebookicon"><img src="images/Facebookicon.png"></div>
-			<div id="VilleKoponen"></div>
+			<div id="Saveicon"><a href = "gallery.html">Gallery</a></div>
+			<!--<div id="Facebookicon"><img src="images/Facebookicon.png"></div>-->
+			<div id="VilleKoponen">Username</div>
+			<div id ="consolepanel">
+				<div id = "event0">-</div>
+				<div id = "event1">-</div>
+				<div id = "event2">-</div>
+				<div id = "event3">-</div>
+			</div>
 			<div id="progressbar"><img src="galleryimages/progressbar.png"></div>
 			<div id="bar"><img src="galleryimages/progress.png"></div>
 			<div id="MapGameGalleryProfil">
@@ -1158,7 +1167,7 @@
 						<td><a href = "mapstesti.html">Map</a></td>
 						<td>Game</td>
 						<td><a href = "gallery.html">Gallery</a></td>
-						<td>Profile</td>
+						<td><a href = "profile.html">Profile</a></td>
 						<td><a href = "index.html">Log out</a></td>
 					</tr>
 				</table>
@@ -1430,7 +1439,7 @@
 </div>
 </div>
         </div>
-        <div id = "infotree">
+        <div id = "infoLilac">
 		<div class = "right">
 			<img src="images/Rectangle10copy2.png">
 			<p class = "text">Lilac</p>
@@ -1446,7 +1455,7 @@
         	<img class = "eci" src="images/Ecoimpact.png">
         </div>
 
-        <div id = "infoapple">
+        <div id = "infoRowan">
 		<div class = "right">
 			<img src="images/Rectangle10copy2.png">
 			<p class = "text">Rowan</p>
@@ -1459,6 +1468,79 @@
         <div class = "left">
         	<img src="images/Rectangle11.png">
         	<img class = "eci" src="images/Ecoimpact.png">
+        </div>
+        </div>
+        <div id = "infoCanadianmaple">
+		<div class = "right">
+			<img src="images/Rectangle10copy2.png">
+			<p class = "text">Canadian Maple</p>
+			<p class = "desc">Canada</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="rowan1"><img src="images/VectorSmartObject_0.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="images/Rectangle11.png">
+        	<img class = "eci" src="images/Ecoimpact.png">
+        </div>
+        </div>
+        <div id = "infoAppletree">
+		<div class = "right">
+			<img src="images/Rectangle10copy2.png">
+			<p class = "text">Apple tree</p>
+			<p class = "desc">Tree with delicious fruits</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="rowan1"><img src="images/VectorSmartObject_0.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="images/Rectangle11.png">
+        	<img class = "eci" src="images/Ecoimpact.png">
+        </div>
+        </div>
+        <div id = "infoBench">
+		<div class = "right">
+			<img src="images/Rectangle10copy2.png">
+			<p class = "text">Bench</p>
+			<p class = "desc">Place to sit</p>
+			<p class = "bispecies"></p>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+		<div class = "left">
+        	<img src="images/Rectangle11.png">
+        	<img class = "eci" src="images/Ecoimpact.png">
+        </div>
+        </div>
+		<div id = "infoBarbeque">
+		<div class = "right">
+			<img src="images/Rectangle10copy2.png">
+			<p class = "text">Barbeque</p>
+			<p class = "desc">Place to make food and spend time with neighbours</p>
+			<p class = "bispecies"></p>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="images/Rectangle11.png">
+        	<img class = "eci" src="images/Ecoimpact.png">
+        </div>
+        </div>
+        <div id = "infoTable">
+		<div class = "right">
+			<img src="images/Rectangle10copy2.png">
+			<p class = "text">Table</p>
+			<p class = "desc">Place to sit and maybe to have something to eat with friends and neighbours</p>
+			<p class = "bispecies"></p>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="images/Rectangle11.png">
+        	<img class = "eci" src="images/Ecoimpact.png">
+        </div>
         </div>
         <div id = "infoother">
 		<div class = "right">
@@ -1521,11 +1603,15 @@
     	} else {
     		document.getElementById('eventinfo').style.visibility = "visible"
     	}
-    	;
     }
     function closeWindow() {
-    	document.getElementById('infotree').style.visibility = "hidden";
-    	document.getElementById('infoapple').style.visibility = "hidden";
+    	document.getElementById('infoLilac').style.visibility = "hidden";
+    	document.getElementById('infoRowan').style.visibility = "hidden";
+    	document.getElementById('infoBench').style.visibility = "hidden";
+    	document.getElementById('infoTable').style.visibility = "hidden";
+    	document.getElementById('infoBarbeque').style.visibility = "hidden";
+    	document.getElementById('infoCanadianmaple').style.visibility = "hidden";
+    	document.getElementById('infoAppletree').style.visibility = "hidden";
     	document.getElementById('infoother').style.visibility = "hidden";
     }
 var acc = document.getElementsByClassName("accordion");
@@ -1537,7 +1623,7 @@ for (i = 0; i < acc.length; i++) {
         this.nextElementSibling.classList.toggle("show");
   }
 }
-document.getElementById('VilleKoponen').innerHTML = localStorage.getItem("name");
+//document.getElementById('VilleKoponen').innerHTML = localStorage.getItem("name");
 </script>
 </body>
 </html>
