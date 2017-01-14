@@ -1,6 +1,8 @@
  body {
 	margin: 0;
 	padding: 0;
+	width: 100%;
+	height: 1000px;
  }
  
  #background 
@@ -32,7 +34,7 @@
 	 left: 0px; 
 	 top: 0px; 
 	 position: absolute; 
-	 width: 40%;
+	 width: 30%;
 	 height: 100%;
 	 z-index:2;
 	 background-color: #FFFFFF;
@@ -899,7 +901,7 @@
 
  #MikkoTottijrvi 
 { 
-	 left: 352px; 
+	 left: 26%; 
 	 top: 302px; 
 	 position: absolute; 
 	 width: 187px;
@@ -910,7 +912,7 @@
 
  #Score2300 
 { 
-	 left: 373px; 
+	 left: 27%; 
 	 top: 358px; 
 	 position: absolute; 
 	 width: 143px;
@@ -922,7 +924,7 @@
 
  #Orivedenkatu8 
 { 
-	 left: 390px; 
+	 left: 28.5%; 
 	 top: 396px; 
 	 position: absolute; 
 	 width: 108px;
@@ -934,7 +936,7 @@
 
  #VectorSmartObject_10 
 { 
-	 left: 372px; 
+	 left: 27%; 
 	 top: 112px; 
 	 position: absolute; 
 	 width: 143px;

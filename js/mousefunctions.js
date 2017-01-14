@@ -176,7 +176,15 @@
 			        console.log(xco);
 			        console.log(zco);
 			        console.log(rType);
-			    	document.getElementById('infoother').style.visibility = "visible";
+			        if (rType === "Bench") {
+			        	document.getElementById('infoBench').style.visibility = "visible";
+			        } else if (rType === "Table bench") {
+			        	document.getElementById('infoTable').style.visibility = "visible";
+			        } else if (rType === "Barbeque") {
+			        	document.getElementById('infoBarbeque').style.visibility = "visible";
+			        } else {
+			        	document.getElementById('infoother').style.visibility = "visible";
+			        }
 			    } else {
 			    	var xco = INTERSECTED.parent.parent.position.x + INTERSECTED.parent.parent.userData.REX; 
 			        var zco = INTERSECTED.parent.parent.position.z + INTERSECTED.parent.parent.userData.REZ;
@@ -186,7 +194,13 @@
 			        console.log(xco);
 			        console.log(zco);
 			        console.log(rType);
-			    	document.getElementById('infoother').style.visibility = "visible";
+			        if (rType === "Canadian maple") {
+			        	document.getElementById('infoCanadianmaple').style.visibility = "visible";
+			        } else if (rType === "Apple tree") {
+			        	document.getElementById('infoAppletree').style.visibility = "visible";
+			        } else  {
+			        	document.getElementById('info' + rType).style.visibility = "visible";
+			        }
 			    }
 		    }
 	    }

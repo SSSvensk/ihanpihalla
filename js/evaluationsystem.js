@@ -1,13 +1,12 @@
 function calculatePoints() {
 	    var trees = 0;
 	    var socialObjects = 0;
-	    var optimalTrees = 20;
+	    var optimalTrees = 15;
 	    var optimalSObjects = 15;
 	    var totalpoints = 0;
 	    var apoints = 0;
 	    var value = 1815;
-
-	    //-1^2 + 20 
+	    var chengedValue = 0;
 
 		for (var i = 0; i < objects.length; i++) {
 			var removeType = objects[i].userData.TYPE;
@@ -22,29 +21,138 @@ function calculatePoints() {
 		};
 		totalpoints = totalpoints + apoints;
 
+        if (trees != oldTrees) {
+		if (trees < 5 && (oldTrees < trees)) {
+			console.log("Nice! This yard needs definitely more greeness");
+			feedbackqueue.push("Nice! This yard needs definitely more greeness");
+			autosavenotification++;
+			changedValue = 1;
+		} else if (trees < 5 && (oldTrees >= trees)) {
+			console.log("This yard requires urgently more trees and flowers!");
+			feedbackqueue.push("This yard requires urgently more trees and flowers!");
+			autosavenotification++;
+			changedValue = -1;
+		} else if ((trees >= 5 && trees < 10) && (oldTrees < trees)) {
+			console.log("Your yard starts to look green!");
+			feedbackqueue.push("Your yard starts to look green!");
+			changedValue = 1;
+		} else if ((trees >= 5 && trees < 10) && (oldTrees >= trees)) {
+			console.log("Remember that trees have more positive effects than negative");
+			feedbackqueue.push("Remember that trees have more positive effects than negative");
+			changedValue = -1;
+		} else if ((trees >= 10 && trees < 15) && (oldTrees < trees)) {
+			console.log("Perfect! Your yard is a paradise");
+			feedbackqueue.log("Perfect! Your yard is a paradise");
+			changedValue = 1;
+		} else if ((trees >= 10 && trees < 15) && (oldTrees >= trees)) {
+			console.log("Remember not to remove too much trees");
+			feedbackqueue.push("Remember not to remove too much trees");
+			changedValue = -1;
+		} else if ((trees >= 15 && trees < 20) && (oldTrees < trees)) {
+			console.log("Trees are nice, but no one wants their yard to look like a forest");
+			feedbackqueue.push("Trees are nice, but no one wants their yard to look like a forest");
+			changedValue = -1;
+		} else if ((trees >= 15 && trees < 20) && (oldTrees >= trees)) {
+			console.log("Your yard becomes more and more beautiful");
+			feedbackqueue.push("Your yard becomes more and more beautiful");
+			chengedValue = 1;
+		}
+		oldTrees = trees;
+		autosavenotification++;
+		if (autosavenotification % 4 == 0) {
+			feedbackqueue.push("Autosaved!");
+		};
+	}
+
+	if (trees == 0) {
+			feedbackqueue.push("There's need for trees and other green stuff! Add them!");
+		};
+
+	if (socialObjects != oldSobjects) {
+		if (socialObjects < 5 && (oldSobjects < socialObjects)) {
+			console.log("Nice! Residents are in the need of more sociality");
+			feedbackqueue.push("Nice! Residents are in the need of more sociality");
+			changedValue = 3;
+		} else if (socialObjects < 5 && (oldSobjects >= socialObjects)) {
+			console.log("RESIDENTS OF THIS YARD ARE BECOMING ISOLATED!");
+			feedbackqueue.push("RESIDENTS OF THIS YARD ARE BECOMING ISOLATED!");
+			changedValue = -3;
+		} else if ((socialObjects >= 5 && socialObjects < 10) && (oldSobjects < socialObjects)) {
+			console.log("Improve sociality by adding more furniture!");
+			feedbackqueue.push("Improve sociality by adding more furniture!");
+			changedValue = 3;
+		} else if ((socialObjects >= 5 && socialObjects < 10) && (oldSobjects >= socialObjects)) {
+			console.log("Remember residents appreciate community spirit provided by common furniture!");
+			feedbackqueue.push("Remember residents appreciate community spirit provided by common furniture!");
+			changedValue = -3;
+		} else if ((socialObjects >= 10 && socialObjects < 15) && (oldSobjects < socialObjects)) {
+			console.log("Your yard is having strong common spirit");
+			feedbackqueue.push("Your yard is having strong common spirit");
+			changedValue = 3;
+		} else if ((socialObjects >= 10 && socialObjects < 15) && (oldSobjects >= socialObjects)) {
+			console.log("Residents like to spend more time together than alone");
+			feedbackqueue.push("Residents like to spend more time together than alone");
+			changedValue = -3;
+		} else if ((socialObjects >= 15 && socialObjects < 20) && (oldSobjects < socialObjects)) {
+			console.log("Furniture is nice, but don't make your yard too messy!");
+			feedbackqueue.push("Furniture is nice, but don't make your yard too messy!");
+			changedValue = -3;
+		} else if ((socialObjects >= 15 && socialObjects < 20) && (oldSobjects >= socialObjects)) {
+			console.log("Not too much, not too little. Keep the yard comfortable!");
+			feedbackqueue.push("Not too much, not too little. Keep the yard comfortable!");
+			changedValue = 3;
+		}
+		
+		oldSobjects = socialObjects;
+		autosavenotification++;
+		if (autosavenotification % 4 == 0) {
+			feedbackqueue.push("Autosaved!");
+		};
+	}
+
+	    if (socialObjects == 0) {
+			feedbackqueue.push("You aren't activating people! Add furniture to the yard to improve their social life");
+		};
+
+        //Counting the ratio from amount of trees divided by number of "social objects"
 		if ((trees / socialObjects > 2.5) && (trees / socialObjects < 3.5)) {
-			console.log("Your yard is balanced!");
 			totalpoints += 1000;
 			value *= 1.6;
+			feedbackqueue.push("Your yard is comfortable place");
 		} else if ((trees / socialObjects > 1.5) && (trees / socialObjects <= 2.5)) {
 			totalpoints += 300;
 			value *= 1.2;
+			feedbackqueue.push("Have you considered adding some more green?")
 		} else if ((trees / socialObjects > 0.5) && (trees / socialObjects <= 1.5)) {
 			totalpoints += 50;
 			value *= 1.01;
+			feedbackqueue.push("Nice stuff around, but adding green stuff would ONLY has positive impacts");
 		} else if ((trees / socialObjects >= 3.5) && (trees / socialObjects < 4.5)) {
 			totalpoints += 200;
 			value *= 1.15;
+			feedbackqueue.push("There's enough green, what about residents? Give them some activities!")
 		} else if ((trees / socialObjects >= 4.5) && (trees / socialObjects < 6)) {
 			totalpoints += 10;
 			value *= 1.01;
+			feedbackqueue.push("In Finland we love forests, but no one wants to have a forest in their yard!");
 		} else if (trees / socialObjects >= 6 && trees > 5) {
 			totalpoints -= 500;
 			value *= 0.7;
+			feedbackqueue.push("In Finland we love forests, but no one wants to have a forest in their yard!");
 		}
 		if (totalpoints < 0) {
 			totalpoints = 0;
 		}
+		if (feedbackqueue.length > 4) {
+		    do {
+			    feedbackqueue.shift();
+		    }
+		while (feedbackqueue.length > 4);
+	}
+
+	for (var i = 0; i < feedbackqueue.length; i++) {
+		document.getElementById('event' + i).innerHTML = feedbackqueue[i];
+	};
 		totalpoints += calculatePointsByDistance();
 		if (oldPoints > totalpoints) {
 			console.log("You did something wrong");
@@ -55,7 +163,7 @@ function calculatePoints() {
 		var minusPoints = totalpoints - oldPoints;
 		var minusValue = value - oldValue;
 
-		var newevent = {element: elementType, actionType: action, points: minusPoints, vvalue: minusValue};
+		var newevent = {element: elementType, actionType: action, points: minusPoints, vvalue: changedValue};
 		queue.push(newevent);
 		console.log(queue[queue.length-1].element);
 		console.log(queue[queue.length-1].actionType);
@@ -68,7 +176,7 @@ function calculatePoints() {
 			document.getElementById('queuen' + i + 'action').innerHTML = queue[i].actionType;
 			document.getElementById('queuen' + i + 'type').innerHTML = queue[i].element;
 			document.getElementById('queuen' + i + 'points').innerHTML = queue[i].points.toFixed(0);
-			document.getElementById('queuen' + i + 'value').innerHTML = queue[i].vvalue.toFixed(0);
+			document.getElementById('queuen' + i + 'value').innerHTML = queue[i].vvalue.toFixed(0) + "%";
 		};
 
 		if (oldValue > value) {

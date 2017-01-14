@@ -1,3 +1,8 @@
+canvas {
+  width: 0px;
+  height: 0px;
+}
+
 #map {
         height: 82%;
         display: block;
@@ -11,7 +16,7 @@
         position: absolute;
         display: block;
         top: 4%;
-        left: 24%;
+        left: 20%;
       }
       #findyour {
         position: absolute;
@@ -30,6 +35,34 @@
       a {
     text-decoration: none;
   }
+      #Username
+{ 
+   left: 78%; 
+   top: 40px; 
+   position: absolute; 
+   width: 166px;
+   height: 13px;
+   z-index:17;
+   color: #FFFFFF;
+} 
+#pb {
+  position: absolute;
+  top: 55px;
+  left: 78%;
+}
+
+#ba {
+    position: absolute;
+  top: 55px;
+  left: 78%;  
+}
+#MapGameGallery {
+  position: absolute;
+  top: 70px;
+  left: 78%;
+  width: 10%;
+  color: #FFFFFF;
+}
   .inffo {
     background-color: #FFFFFF;
     position: absolute;

@@ -1,22 +1,23 @@
- html {
- 	width: 100%;
- 	height: 100%;
- 	display: block;
- }
-
  body {
- 	margin: 0;
- 	display: block;
-	margin: 0;
-	padding: 0;
 	width: 100%;
 	height: 100%;
+	font-family: Apercu Pro;
  }
 
  img {
  	width: 70%;
  	height: 70%;
  }
+
+ @font-face {
+        font-family: ApercuPro;
+        src: url("ApercuPro-Medium.otf") format("opentype");
+    }
+
+    a {
+    	text-decoration: none;
+    	color: #FFFFFF;
+    }
 
  #fblogin {
  	width: 35px;
@@ -27,6 +28,7 @@
 { 
 	 left: 0px; 
 	 top: 0px; 
+	 display: block;
 	 width: 100%;
 	 height: 100%; 
 	 overflow: hidden;
@@ -34,19 +36,42 @@
 } 
  #rightside {
  	position: absolute;
- 	width: 100%;
+ 	width: 78%;
  	height: 100%;
  }
 
  #Layer5 
 { 
-	 left: 0px; 
+	 left: 22%; 
 	 top: 0px; 
 	 position: absolute; 
-	 width: 100%;
+	 width: 78%;
 	 height: 100%;
+	 background-color: #00AF8E;
 	 z-index:1;
 } 
+
+#loginbg {
+	left: 7%; 
+	 top: 70%; 
+	 position: absolute; 
+	 width: 97px;
+	 height: 28px;
+	 z-index:12;
+	background-color: #000000;
+	border-radius: 10px;
+	border: 2px solid black;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+#loginbg:hover {
+	background-color: #FFFFFF;
+}
+
+#loginbg:hover a{
+	color: #000000;
+}
 
  #leftpanel
  {
@@ -64,6 +89,7 @@
 	 width: 22%;
 	 height: 100%;
 	 z-index:2;
+	 min-width: 220px;
 } 
 
  #RoundedRectangle4 
@@ -79,7 +105,7 @@
  #illustration 
 { 
 	 left: 55%; 
-	 top: 33%; 
+	 top: 27%; 
 	 position: absolute; 
 	 width: 830px;
 	 height: 630px;
@@ -141,8 +167,8 @@
 	 left: 7%; 
 	 top: 80%; 
 	 position: absolute; 
-	 width: 120px;
-	 height: 35px;
+	 width: 70px;
+	 height: 20px;
 	 z-index:10;
 } 
 
@@ -188,10 +214,10 @@
 
  #RoundedRectangle3 
 { 
-	 left: 7%; 
+	 left: 6.7%; 
 	 top: 65%; 
 	 position: absolute; 
-	 width: 8px;
+	 width: 70px;
 	 height: 8px;
 	 z-index:15;
 } 
