@@ -1,0 +1,35 @@
+{
+  "name": "residentialyardgame",
+  "version": "1.0.0",
+  "description": "Make your own eden.",
+  "main": "index.js",
+  "scripts": {
+    "test": "testi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cfleur/residentialyardgame.git"
+  },
+  "keywords": [
+    "ihan",
+    "pihalla",
+    "yard",
+    "design",
+    "tampere",
+    "finland",
+    "eden",
+    "play",
+    "game"
+  ],
+  "author": "cfleur x  SSSvensk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cfleur/residentialyardgame/issues"
+  },
+  "homepage": "https://github.com/cfleur/residentialyardgame#readme",
+  "dependencies": {
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "nodemon": "^1.11.0"
+  }
+}
