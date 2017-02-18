@@ -22,6 +22,9 @@ function calculatePoints() {
 		totalpoints = totalpoints + apoints;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
         if (trees != oldTrees) {
 		if (trees < 5 && (oldTrees < trees)) {
 			console.log("Nice! This yard needs definitely more greeness");
@@ -116,6 +119,7 @@ function calculatePoints() {
 		};
 
         //Counting the ratio from amount of trees divided by number of "social objects"
+<<<<<<< HEAD
 		if ((trees / socialObjects > 2.5) && (trees / socialObjects < 3.5)) {
 			totalpoints += 1000;
 			value *= 1.6;
@@ -141,26 +145,36 @@ function calculatePoints() {
 			value *= 0.7;
 			feedbackqueue.push("In Finland we love forests, but no one wants to have a forest in their yard!");
 =======
+=======
+>>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
 		if ((trees / socialObjects > 2.5) && (trees / socialObjects < 3.5)) {
-			console.log("Your yard is balanced!");
 			totalpoints += 1000;
 			value *= 1.6;
+			feedbackqueue.push("Your yard is comfortable place");
 		} else if ((trees / socialObjects > 1.5) && (trees / socialObjects <= 2.5)) {
 			totalpoints += 300;
 			value *= 1.2;
+			feedbackqueue.push("Have you considered adding some more green?")
 		} else if ((trees / socialObjects > 0.5) && (trees / socialObjects <= 1.5)) {
 			totalpoints += 50;
 			value *= 1.01;
+			feedbackqueue.push("Nice stuff around, but adding green stuff would ONLY has positive impacts");
 		} else if ((trees / socialObjects >= 3.5) && (trees / socialObjects < 4.5)) {
 			totalpoints += 200;
 			value *= 1.15;
+			feedbackqueue.push("There's enough green, what about residents? Give them some activities!")
 		} else if ((trees / socialObjects >= 4.5) && (trees / socialObjects < 6)) {
 			totalpoints += 10;
 			value *= 1.01;
+			feedbackqueue.push("In Finland we love forests, but no one wants to have a forest in their yard!");
 		} else if (trees / socialObjects >= 6 && trees > 5) {
 			totalpoints -= 500;
 			value *= 0.7;
+<<<<<<< HEAD
 >>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
+=======
+			feedbackqueue.push("In Finland we love forests, but no one wants to have a forest in their yard!");
+>>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
 		}
 		if (totalpoints < 0) {
 			totalpoints = 0;
@@ -186,10 +200,14 @@ function calculatePoints() {
 		var minusValue = value - oldValue;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		var newevent = {element: elementType, actionType: action, points: minusPoints, vvalue: changedValue};
 =======
 		var newevent = {element: elementType, actionType: action, points: minusPoints, vvalue: minusValue};
 >>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
+=======
+		var newevent = {element: elementType, actionType: action, points: minusPoints, vvalue: changedValue};
+>>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
 		queue.push(newevent);
 		console.log(queue[queue.length-1].element);
 		console.log(queue[queue.length-1].actionType);
@@ -203,10 +221,14 @@ function calculatePoints() {
 			document.getElementById('queuen' + i + 'type').innerHTML = queue[i].element;
 			document.getElementById('queuen' + i + 'points').innerHTML = queue[i].points.toFixed(0);
 <<<<<<< HEAD
+<<<<<<< HEAD
 			document.getElementById('queuen' + i + 'value').innerHTML = queue[i].vvalue.toFixed(0) + "%";
 =======
 			document.getElementById('queuen' + i + 'value').innerHTML = queue[i].vvalue.toFixed(0);
 >>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
+=======
+			document.getElementById('queuen' + i + 'value').innerHTML = queue[i].vvalue.toFixed(0) + "%";
+>>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
 		};
 
 		if (oldValue > value) {

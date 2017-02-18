@@ -29,10 +29,14 @@ body {
 { 
    left: 79%; 
 <<<<<<< HEAD
+<<<<<<< HEAD
    top: 40px; 
 =======
    top: 4%; 
 >>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
+=======
+   top: 40px; 
+>>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
    position: absolute; 
    width: 166px;
    height: 13px;
@@ -42,29 +46,41 @@ body {
 #progressbar {
   position: absolute;
 <<<<<<< HEAD
+<<<<<<< HEAD
   top: 65px;
 =======
   top: 7%;
 >>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
+=======
+  top: 65px;
+>>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
   left: 79%;
 }
 
 #bar {
     position: absolute;
 <<<<<<< HEAD
+<<<<<<< HEAD
   top: 65px;
 =======
   top: 7%;
 >>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
+=======
+  top: 65px;
+>>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
   left: 79%;  
 }
 #MapGameGalleryProfil {
   position: absolute;
 <<<<<<< HEAD
+<<<<<<< HEAD
   top: 70px;
 =======
   top: 9%;
 >>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
+=======
+  top: 70px;
+>>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
   left: 79%;
   width: 10%;
   color: #FFFFFF;
