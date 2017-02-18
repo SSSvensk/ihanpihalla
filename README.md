@@ -59,3 +59,14 @@ Update 7.1.17: https://github.com/SSSvensk/residentialyardgame/pull/10
 Now I'm going to Ilves's match and be back in the evening
 
 Week left, let's do it!
+
+
+
+Update 18.2.17
+--------------
+Project is officially in the hands of the collaborators, and is set to be revamped and opened to the community. Check back soon.
+--------------
+- Additions: server code (node); see issues. 
+- To do: database code and discussion about data handeling and processing. Bug fixes and other planned additions: see issues. 
+
+Over and out ~^.^~
