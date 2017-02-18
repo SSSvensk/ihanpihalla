@@ -28,7 +28,7 @@ body {
     #VilleKoponen
 { 
    left: 79%; 
-   top: 4%; 
+   top: 40px; 
    position: absolute; 
    width: 166px;
    height: 13px;
@@ -37,18 +37,18 @@ body {
 } 
 #progressbar {
   position: absolute;
-  top: 7%;
+  top: 65px;
   left: 79%;
 }
 
 #bar {
     position: absolute;
-  top: 7%;
+  top: 65px;
   left: 79%;  
 }
 #MapGameGalleryProfil {
   position: absolute;
-  top: 9%;
+  top: 70px;
   left: 79%;
   width: 10%;
   color: #FFFFFF;
@@ -237,7 +237,7 @@ div.showimage input.addApple {
     top:0;
     left:0;
 }
-#infotree {
+#infoLilac {
     visibility: hidden;
         position: fixed;
         top: 30%;
@@ -245,7 +245,7 @@ div.showimage input.addApple {
 
     }
 
-    #infoapple {
+    #infoRowan {
         visibility: hidden;
         position: fixed;
         top: 30%;
