@@ -20,22 +20,13 @@
 	<script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type = "text/javascript">
-
 	//Ceremony
 	console.log("Residential Yard Design Game-team proudly presents");
 	console.log("--------------------------------------------------");
 	console.log("                    Ihan pihalla                  ");
 	console.log("--------------------------------------------------");
 	console.log("Project manager:                Yunjung 'Pronounce the name again' Ji");
-<<<<<<< HEAD
-<<<<<<< HEAD
 	console.log("Designers:                      Maria 'Kiev' Pastukh, Sung-Bok 'Sampo' Song");
-=======
-	console.log("Designers:                      Maria '' Pastukh, Sung-Bok 'Sampo' Song");
->>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
-=======
-	console.log("Designers:                      Maria 'Kiev' Pastukh, Sung-Bok 'Sampo' Song");
->>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
 	console.log("Developers:                     Sami-Santeri 'Ilves-ambassador' Svensk, Catherine 'Cat' Fait");
 	console.log("Researcher and master graduate: Tapio 'Elf' Rintala");
 	console.log("Our facilitator:                Heikki 'Santa Claus' Viitanen");
@@ -55,11 +46,8 @@
 	console.log("||   ||**||   ||**||   || *||       ||--||   ||   ||**||   ||**||   ||      ||       ||**||");
 	console.log("||   ||  ||   ||  ||   ||  ||       ||       ||   ||  ||   ||  ||   ||***   ||****   ||  ||");
 	console.log("||   ||  ||   ||  ||   ||  ||       ||       ||   ||  ||   ||  ||   ||***   ||****   ||  ||");
-
-
 	var scene, camera, renderer;
 	var mouse = new THREE.Vector2();
-
 	//Array to store clickable objects
 	var objects = [];
 	var raycaster = new THREE.Raycaster();
@@ -72,20 +60,14 @@
 	var controls;
 	var plane = new THREE.Plane();
 	var autosavenotification = 0;
-
 	var i = 0;
 	var dragged = false;
 	var selectedId;
 	var rType;
 	var borderX, borderY;
 	var borderXX, borderYY;
-
 	var oldPoints = 0;
 	var oldValue = 1815;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
 	var oldRatio = 0;
 	var oldTrees = 0;
 	var oldSobjects = 0;
@@ -93,49 +75,23 @@
 	var elementType;
 	var queue = [];
 	var feedbackqueue = ["-", "-", "-"];
-<<<<<<< HEAD
-=======
-	var action;
-	var elementType;
-	var queue = [];
->>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
-=======
->>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
-
 	var previousX;
 	var previousZ;
 	var onTop;
 	var indd;
-
 	var area = 3867
 	var greenarea = 0;
-
 	var totalpoints = 0;
-
 	init();
 	//animate();
-
         //Initializer-function to initialize the whole thing
 	function init() {
-
 		container = document.createElement( 'div' );
 		document.body.appendChild( container );
-
 		//Creating scene. Scene is where everything is added.
 		scene = new THREE.Scene();
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//	scene.fog = new THREE.Fog( 0xcce0ff, 30, 150 );
 		scene.background = new THREE.Color( 0x00af8e );
-=======
-		scene.fog = new THREE.Fog( 0xcce0ff, 30, 150 );
-		scene.background = new THREE.Color( 0xCCE0FF );
->>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
-=======
-	//	scene.fog = new THREE.Fog( 0xcce0ff, 30, 150 );
-		scene.background = new THREE.Color( 0x00af8e );
->>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
-
 		//Creating camera and giving it its position.
 		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
 		
@@ -145,26 +101,20 @@
 		//Camera looks to the centre of scene, (I guess it's point 0,0,0)
 		//camera.lookAt(scene.position);
 		camera.lookAt(new THREE.Vector3(50,0,0));
-
         //Renderer stuff
 		renderer = new THREE.WebGLRenderer();
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		document.body.appendChild(renderer.domElement);
-
 		renderer.shadowMapEnabled = true;
 		renderer.shadowMapSoft = true;
-
 		renderer.shadowCameraNear = 3;
 		renderer.shadowCameraFar = camera.far;
 		renderer.shadowCameraFov = 50;
-
 		renderer.shadowMapBias = 0.0039;
 		renderer.shadowMapDarkness = 0.1;
 		renderer.shadowMapWidth = 1024;
 		renderer.shadowMapHeight = 1024;
-
 		var loader = new THREE.OBJLoader();
-
 		loader.load(
 			// resource URL
 			'objects/buildings/Yellowbuilding.obj',
@@ -195,7 +145,6 @@
 				render();
 			}
 		);
-
         loader.load(
 			// resource URL
 			'objects/buildings/Orangebuilding.obj',
@@ -224,7 +173,6 @@
 				render();
 			}
 		);
-
         loader.load(
 			// resource URL
 			'objects/buildings/Redbuilding.obj',
@@ -253,7 +201,6 @@
 				render();
 			}
 		);
-
         loader.load(
 			// resource URL
 			'objects/buildings/Greenbuilding.obj',
@@ -282,7 +229,6 @@
 				render();
 			}
 		);
-
         loader.load(
 			// resource URL
 			'objects/buildings/Grass(base).obj',
@@ -311,20 +257,15 @@
 				render();
 			}
 		);
-
         var onProgress = function(xhr) {};
         var onError = function(xhr) {};
-
         //Different lights. Pick your favourite
-
         //var ambilight = new THREE.AmbientLight( 0x404040 ); // soft white light
 		//scene.add( ambilight );
-
 		var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
 		directionalLight.position.set( 40, 60, 45 );
 		directionalLight.castShadow = true;
 		scene.add( directionalLight );
-
 		directionalLight.shadow.camera.left = -40;
         directionalLight.shadow.camera.right = 30;
         directionalLight.shadow.camera.top = 35;
@@ -337,73 +278,55 @@
 */
 		var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x080820, 0.8 );
 		scene.add( hemiLight );
-
         //Adding event listeners to elements. Basically each action calls certain function. Parameter list is (mouse action, function and some boolean that I have no idea what it's meaning is:D)
         renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
 		renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
 		renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
 		renderer.domElement.addEventListener( 'click', onDocumentMouseClick, false );
-
 		//Not sure if this was important...
         ray = new THREE.Ray( camera.position, null );
-
 		//Creating plane
 		var planee = new THREE.Mesh(new THREE.PlaneBufferGeometry(60, 75, 32), new THREE.MeshPhongMaterial({specular: '#fff',fog: true, color: '#74D2D4',shininess: 0 }));
 		//var planee = new THREE.Mesh( geometry, material );
-
 		//Just inserting coordinates of borders to variables
 		borderY = borderX = 15;
 		borderYY = borderXX = -15;
-
 		//Setting plane's position and rotation. If you remove minus in front of the rotation, the texture stays on the bottom
 		planee.position.y = 0;
 		planee.rotation.x = - Math.PI / 2;
 		planee.receiveShadow = true;
-
 		//Finally adding the plane to the scene
 		scene.add( planee );
-
 		//Setting vectors which define basically in which direction is the yard is and in which direction cubes move
 		var dir = new THREE.Vector3(0,200,0);
 		var centroid = new THREE.Vector3(0,0,0);
 		plane.setFromNormalAndCoplanarPoint(dir, centroid);
-
 		//Creating controls. Now it's possible to rotate the view and zoom
 		controls = new THREE.OrbitControls(camera, renderer.domElement);
 		controls.addEventListener( 'change', render );
-
 		//Setting limits to rotation and zoom.
 		//Vertical rotation is limited, so that it's not possible to look under the plane.
 		controls.minPolarAngle = - Math.PI;
 		controls.maxPolarAngle = Math.PI / 2 - 0.2;
-
 		//No limits for horizontal rotation
 		controls.minAzimuthAngle = -Infinity; // radians
 		controls.maxAzimuthAngle = Infinity; // radians
-
 		//Zoom limits
 		controls.minDistance = 0;
 		//controls.maxDistance = 30;
-
 		//Adding event listener of window if window is resized
 		window.addEventListener( 'resize', onWindowResize, false );
-
 		//Render the scene together
 		render();
 	}
-
 	//When window is resized, this function is called resizing window automatically. Most of this is copypasted...
 	function onWindowResize() {
-
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
-
 		renderer.setSize( window.innerWidth, window.innerHeight );
-
 		//Render after resize to show the change immediately
 		render();
 	}
-
 	//Checking that objects aren't on top of each other
 	/*
 	function checkObjectsNotTopOfEachOther() {
@@ -413,7 +336,6 @@
 		var sxt = SELECTED.position.x - (SELECTED.scale.x / 2);
 		var szo = SELECTED.position.z + (SELECTED.scale.z / 2);
 		var szt = SELECTED.position.z - (SELECTED.scale.z / 2);
-
 		for (var i = 0; i < allObjects.length; i++) {
 			if (i != ind) {
 				var aoxo = allObjects[i].position.x + (allObjects[i].scale.x / 2);
@@ -432,7 +354,6 @@
 	}
 	}
 	*/
-
     //Function to remove object
 	function removeObject() {
 		/*
@@ -457,7 +378,6 @@
 		closeWindow();
 		render();
 	}
-
 	function cancelDragAndDrop() {
 		scene.remove(SELECTED);
 		SELECTED.position.x = previousX;
@@ -465,11 +385,9 @@
 		scene.add(SELECTED);
 		SELECTED = null;
 	}
-
 	function updateWormmeter() {
 		var ratio = greenarea / area;
 	}
-
 	//Animation function. Not needed...
 	function animate() {
 		requestAnimationFrame( animate );
@@ -478,14 +396,12 @@
         directionalLight.position.z = Math.sin( timer ) * 10;
 		render();
 	}
-
 	//Rendering function
 	function render() {
 		var timer = Date.now() * 0.0005;
 		camera.lookAt( scene.position );
 		renderer.render(scene, camera);
 	}
-
 	function addApple() {
 		var loader = new THREE.OBJLoader();
 		var bigObject = new THREE.Object3D();
@@ -571,9 +487,7 @@
 		scene.add(bigObject);
 		render();
 		objects.push(bigObject);
-
 	}
-
 	function addTablebench() {
 		var loader = new THREE.OBJLoader();
 		var material = new THREE.MeshPhongMaterial({
@@ -607,9 +521,7 @@
 				i++;
 			}
 		);
-
 	}
-
 	function addBench() {
 		var loader = new THREE.OBJLoader();
 		var material = new THREE.MeshPhongMaterial({
@@ -640,9 +552,7 @@
 				i++;
 			}
 		);
-
 	}
-
 	function addBarbeque() {
 		var loader = new THREE.OBJLoader();
 		var material = new THREE.MeshPhongMaterial({
@@ -676,7 +586,6 @@
 			}
 		);
 	}
-
 	function addSunshade() {
 		var loader = new THREE.OBJLoader();
 		var material = new THREE.MeshPhongMaterial({
@@ -711,7 +620,6 @@
 			}
 		);
 	}
-
 	function addBenchwithFlowers() {
 		var loader = new THREE.OBJLoader();
 		var bigObject = new THREE.Object3D();
@@ -796,9 +704,7 @@
 		scene.add(bigObject);
 		render();
 		objects.push(bigObject);
-
 	}
-
 	function addPinetree() {
 		var loader = new THREE.OBJLoader();
 		var bigObject = new THREE.Object3D();
@@ -859,9 +765,7 @@
 		scene.add(bigObject);
 		render();
 		objects.push(bigObject);
-
 	}
-
 	function addLilac() {
 		var loader = new THREE.OBJLoader();
 		var bigObject = new THREE.Object3D();
@@ -924,9 +828,7 @@
 		scene.add(bigObject);
 		render();
 		objects.push(bigObject);
-
 	}
-
 	function addCanadianMaple() {
 		var loader = new THREE.OBJLoader();
 		var bigObject = new THREE.Object3D();
@@ -989,9 +891,7 @@
 		scene.add(bigObject);
 		render();
 		objects.push(bigObject);
-
 	}
-
 	function addWillow() {
 		var loader = new THREE.OBJLoader();
 		var bigObject = new THREE.Object3D();
@@ -1049,9 +949,7 @@
 		scene.add(bigObject);
 		render();
 		objects.push(bigObject);
-
 	}
-
 	function addTree() {
 		var loader = new THREE.OBJLoader();
 		var material = new THREE.MeshPhongMaterial({
@@ -1085,7 +983,6 @@
 			}
 		);
     }
-
     function addRowan() {
 		var loader = new THREE.OBJLoader();
 		var bigObject = new THREE.Object3D();
@@ -1112,7 +1009,6 @@
 				object.castShadow = true;
 				bigObject.add(object);
 				render();
-
 			}
 		);
         var leafmaterial = new THREE.MeshPhongMaterial({
@@ -1168,23 +1064,11 @@
 		scene.add(bigObject);
 		render();
 		objects.push(bigObject);
-
 	}
-
 	</script>
         <div id = "background">
-<<<<<<< HEAD
-<<<<<<< HEAD
 			<!--<div id="EcoHappinessEconomic"><img src="images/EcoHappinessEconomic.png"></div>-->
 			<!--<div id="Yardstatistics"><img src="images/Yardstatistics.png"></div>-->
-=======
-			<div id="EcoHappinessEconomic"><img src="images/EcoHappinessEconomic.png"></div>
-			<div id="Yardstatistics"><img src="images/Yardstatistics.png"></div>
->>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
-=======
-			<!--<div id="EcoHappinessEconomic"><img src="images/EcoHappinessEconomic.png"></div>-->
-			<!--<div id="Yardstatistics"><img src="images/Yardstatistics.png"></div>-->
->>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
 			<div id="points">0</div>
 			<div id="clear"><img src="images/clear.png"></div>
 			<div id="clearicon"><img src="images/clearicon.png"></div>
@@ -1643,13 +1527,6 @@
     	} else {
     		document.getElementById('eventinfo').style.visibility = "visible"
     	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    	;
->>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
-=======
->>>>>>> febf234b4fca6f663c90607ae986476b53f10a25
     }
     function closeWindow() {
     	document.getElementById('infoLilac').style.visibility = "hidden";
@@ -1663,7 +1540,6 @@
     }
 var acc = document.getElementsByClassName("accordion");
 var i;
-
 for (i = 0; i < acc.length; i++) {
     acc[i].onclick = function(){
         this.classList.toggle("active");
