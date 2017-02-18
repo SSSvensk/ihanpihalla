@@ -35,6 +35,7 @@ canvas {
       a {
     text-decoration: none;
   }
+<<<<<<< HEAD
       #Username
 { 
    left: 78%; 
@@ -63,6 +64,8 @@ canvas {
   width: 10%;
   color: #FFFFFF;
 }
+=======
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
   .inffo {
     background-color: #FFFFFF;
     position: absolute;

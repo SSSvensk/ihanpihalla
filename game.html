@@ -27,7 +27,11 @@
 	console.log("                    Ihan pihalla                  ");
 	console.log("--------------------------------------------------");
 	console.log("Project manager:                Yunjung 'Pronounce the name again' Ji");
+<<<<<<< HEAD
 	console.log("Designers:                      Maria 'Kiev' Pastukh, Sung-Bok 'Sampo' Song");
+=======
+	console.log("Designers:                      Maria '' Pastukh, Sung-Bok 'Sampo' Song");
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
 	console.log("Developers:                     Sami-Santeri 'Ilves-ambassador' Svensk, Catherine 'Cat' Fait");
 	console.log("Researcher and master graduate: Tapio 'Elf' Rintala");
 	console.log("Our facilitator:                Heikki 'Santa Claus' Viitanen");
@@ -74,6 +78,7 @@
 
 	var oldPoints = 0;
 	var oldValue = 1815;
+<<<<<<< HEAD
 	var oldRatio = 0;
 	var oldTrees = 0;
 	var oldSobjects = 0;
@@ -81,6 +86,11 @@
 	var elementType;
 	var queue = [];
 	var feedbackqueue = ["-", "-", "-"];
+=======
+	var action;
+	var elementType;
+	var queue = [];
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
 
 	var previousX;
 	var previousZ;
@@ -103,8 +113,13 @@
 
 		//Creating scene. Scene is where everything is added.
 		scene = new THREE.Scene();
+<<<<<<< HEAD
 	//	scene.fog = new THREE.Fog( 0xcce0ff, 30, 150 );
 		scene.background = new THREE.Color( 0x00af8e );
+=======
+		scene.fog = new THREE.Fog( 0xcce0ff, 30, 150 );
+		scene.background = new THREE.Color( 0xCCE0FF );
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
 
 		//Creating camera and giving it its position.
 		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
@@ -1143,8 +1158,13 @@
 
 	</script>
         <div id = "background">
+<<<<<<< HEAD
 			<!--<div id="EcoHappinessEconomic"><img src="images/EcoHappinessEconomic.png"></div>-->
 			<!--<div id="Yardstatistics"><img src="images/Yardstatistics.png"></div>-->
+=======
+			<div id="EcoHappinessEconomic"><img src="images/EcoHappinessEconomic.png"></div>
+			<div id="Yardstatistics"><img src="images/Yardstatistics.png"></div>
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
 			<div id="points">0</div>
 			<div id="clear"><img src="images/clear.png"></div>
 			<div id="clearicon"><img src="images/clearicon.png"></div>
@@ -1603,6 +1623,10 @@
     	} else {
     		document.getElementById('eventinfo').style.visibility = "visible"
     	}
+<<<<<<< HEAD
+=======
+    	;
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
     }
     function closeWindow() {
     	document.getElementById('infoLilac').style.visibility = "hidden";

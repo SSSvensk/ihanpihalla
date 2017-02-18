@@ -28,7 +28,11 @@ body {
     #VilleKoponen
 { 
    left: 79%; 
+<<<<<<< HEAD
    top: 40px; 
+=======
+   top: 4%; 
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
    position: absolute; 
    width: 166px;
    height: 13px;
@@ -37,18 +41,30 @@ body {
 } 
 #progressbar {
   position: absolute;
+<<<<<<< HEAD
   top: 65px;
+=======
+  top: 7%;
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
   left: 79%;
 }
 
 #bar {
     position: absolute;
+<<<<<<< HEAD
   top: 65px;
+=======
+  top: 7%;
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
   left: 79%;  
 }
 #MapGameGalleryProfil {
   position: absolute;
+<<<<<<< HEAD
   top: 70px;
+=======
+  top: 9%;
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
   left: 79%;
   width: 10%;
   color: #FFFFFF;

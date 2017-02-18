@@ -21,6 +21,7 @@ function calculatePoints() {
 		};
 		totalpoints = totalpoints + apoints;
 
+<<<<<<< HEAD
         if (trees != oldTrees) {
 		if (trees < 5 && (oldTrees < trees)) {
 			console.log("Nice! This yard needs definitely more greeness");
@@ -139,6 +140,27 @@ function calculatePoints() {
 			totalpoints -= 500;
 			value *= 0.7;
 			feedbackqueue.push("In Finland we love forests, but no one wants to have a forest in their yard!");
+=======
+		if ((trees / socialObjects > 2.5) && (trees / socialObjects < 3.5)) {
+			console.log("Your yard is balanced!");
+			totalpoints += 1000;
+			value *= 1.6;
+		} else if ((trees / socialObjects > 1.5) && (trees / socialObjects <= 2.5)) {
+			totalpoints += 300;
+			value *= 1.2;
+		} else if ((trees / socialObjects > 0.5) && (trees / socialObjects <= 1.5)) {
+			totalpoints += 50;
+			value *= 1.01;
+		} else if ((trees / socialObjects >= 3.5) && (trees / socialObjects < 4.5)) {
+			totalpoints += 200;
+			value *= 1.15;
+		} else if ((trees / socialObjects >= 4.5) && (trees / socialObjects < 6)) {
+			totalpoints += 10;
+			value *= 1.01;
+		} else if (trees / socialObjects >= 6 && trees > 5) {
+			totalpoints -= 500;
+			value *= 0.7;
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
 		}
 		if (totalpoints < 0) {
 			totalpoints = 0;
@@ -163,7 +185,11 @@ function calculatePoints() {
 		var minusPoints = totalpoints - oldPoints;
 		var minusValue = value - oldValue;
 
+<<<<<<< HEAD
 		var newevent = {element: elementType, actionType: action, points: minusPoints, vvalue: changedValue};
+=======
+		var newevent = {element: elementType, actionType: action, points: minusPoints, vvalue: minusValue};
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
 		queue.push(newevent);
 		console.log(queue[queue.length-1].element);
 		console.log(queue[queue.length-1].actionType);
@@ -176,7 +202,11 @@ function calculatePoints() {
 			document.getElementById('queuen' + i + 'action').innerHTML = queue[i].actionType;
 			document.getElementById('queuen' + i + 'type').innerHTML = queue[i].element;
 			document.getElementById('queuen' + i + 'points').innerHTML = queue[i].points.toFixed(0);
+<<<<<<< HEAD
 			document.getElementById('queuen' + i + 'value').innerHTML = queue[i].vvalue.toFixed(0) + "%";
+=======
+			document.getElementById('queuen' + i + 'value').innerHTML = queue[i].vvalue.toFixed(0);
+>>>>>>> 5a9db78c7a529498dc109cc7fec369180c99e9f0
 		};
 
 		if (oldValue > value) {
