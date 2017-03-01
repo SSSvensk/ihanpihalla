@@ -13,8 +13,8 @@ app.set("view engine", "ejs");
 // app.engine('html', require('ejs').renderFile);
 
 // Tell express to listen for requests
-app.listen(3001, function(){
-	console.log("Server has started on port 3001...");
+var listener = app.listen(3000, function(){
+	console.log("Server has started on port " + listener.address().port + "...");
 })
 
 // Define routes
@@ -37,6 +37,15 @@ app.get("/play", function(req,res){
 app.get("/gallery", function(req,res){
 	console.log("Request made to /gallery.");
 	res.sendFile(__dirname + '/gallery.html');
+})
+
+//Routing CSS-files
+app.get("/css/styles.css", function(req,res){
+res.sendFile(__dirname + '/css/styles.css');
+})
+
+app.get("/css/mapscss.css", function(req,res){
+res.sendFile(__dirname + '/css/mapscss.css');
 })
 // Might be useful later
 //app.get("/users/:userid", function(req,res){
