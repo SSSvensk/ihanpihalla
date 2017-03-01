@@ -133,7 +133,7 @@
 
  #Undoredoicon 
 { 
-	 left: 86.5%; 
+	 left: 86%; 
 	 top: 84%; 
 	 position: absolute; 
 	 width: 41px;
@@ -164,7 +164,7 @@
 
  #Saveicon a
 { 
-	 color: #000000;
+	 color: #FFFFFF;
 } 
 
  #Facebookicon 

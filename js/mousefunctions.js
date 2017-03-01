@@ -96,7 +96,7 @@
 			//Not able to rotate the view or zoom while mousedown on object
 			//Only focusing on clicked object now...
 			controls.enabled = false;
-			if (intersects[0].object.parent.userData.TYPE === "Bench" || intersects[0].object.parent.userData.TYPE === "Table bench" || intersects[0].object.parent.userData.TYPE === "Sun shade" || intersects[0].object.parent.userData.TYPE === "Barbeque") {
+			if (intersects[0].object.parent.userData.TYPE != null) {
 				SELECTED = intersects[ 0 ].object.parent;
 				elementType = intersects[0].object.parent.userData.TYPE;
 				action = "Move";
@@ -167,7 +167,7 @@
 		    raycaster.setFromCamera( mouse, camera );
 		    var intersects = raycaster.intersectObjects( objects, true );
 		    if (INTERSECTED && !dragged) {
-		    	if (intersects[0].object.parent.userData.TYPE === "Bench" || intersects[0].object.parent.userData.TYPE === "Table bench" || intersects[0].object.parent.userData.TYPE === "Sun shade" || intersects[0].object.parent.userData.TYPE === "Barbeque") {
+		    	if (intersects[0].object.parent.userData.TYPE != null) {
 		    		var xco = INTERSECTED.parent.position.x + INTERSECTED.parent.userData.REX; 
 			        var zco = INTERSECTED.parent.position.z + INTERSECTED.parent.userData.REZ;
 			        var obidi = INTERSECTED.parent.userData.OBID;
@@ -176,14 +176,14 @@
 			        console.log(xco);
 			        console.log(zco);
 			        console.log(rType);
-			        if (rType === "Bench") {
-			        	document.getElementById('infoBench').style.visibility = "visible";
-			        } else if (rType === "Table bench") {
+			        if (rType === "Table bench") {
 			        	document.getElementById('infoTable').style.visibility = "visible";
-			        } else if (rType === "Barbeque") {
-			        	document.getElementById('infoBarbeque').style.visibility = "visible";
-			        } else {
+			        } else if (rType === "Brick paving") {
+			        	document.getElementById('infoBrickPaving').style.visibility = "visible";
+			        } else if (rType === "Sun shade" || rType === "Ping pong" || rType === "Gym1" || rType === "Gym2" || rType === "Oregano" || rType === "Basket") {
 			        	document.getElementById('infoother').style.visibility = "visible";
+			        } else {
+			        	document.getElementById('info' + rType).style.visibility = "visible";
 			        }
 			    } else {
 			    	var xco = INTERSECTED.parent.parent.position.x + INTERSECTED.parent.parent.userData.REX; 
@@ -198,6 +198,12 @@
 			        	document.getElementById('infoCanadianmaple').style.visibility = "visible";
 			        } else if (rType === "Apple tree") {
 			        	document.getElementById('infoAppletree').style.visibility = "visible";
+			        } else if (rType === "Pine tree") {
+			        	document.getElementById('infoPinetree').style.visibility = "visible";
+			        } else if (rType === "Grass paving") {
+			        	document.getElementById('infoGrassPaving').style.visibility = "visible";
+			        } else if (rType === "Playground" || rType === "Green bench" || rType === "Willow") {
+			        	document.getElementById('infoother').style.visibility = "visible";
 			        } else  {
 			        	document.getElementById('info' + rType).style.visibility = "visible";
 			        }

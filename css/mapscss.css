@@ -103,7 +103,7 @@ canvas {
     background-color: #000000;
     color: #FFFFFF;
   }
-  .startgame a:hover {
+  .startgame:hover a {
     color: #FFFFFF;
   }
   .gogallery {
@@ -123,7 +123,7 @@ canvas {
     background-color: #000000;
     color: #FFFFFF;
   }
-  .gogallery a:hover {
+  .gogallery:hover a {
     color: #FFFFFF;
   }
   .sg {

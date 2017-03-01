@@ -6,6 +6,7 @@ var app = express();
 app.use(express.static("css"));
 app.use(express.static("images"));
 app.use(express.static("js"));
+app.use(express.static("objects"));
 
 app.set("view engine", "ejs");
 
@@ -40,12 +41,23 @@ app.get("/gallery", function(req,res){
 })
 
 //Routing CSS-files
-app.get("/css/styles.css", function(req,res){
-res.sendFile(__dirname + '/css/styles.css');
-})
+
 
 app.get("/css/mapscss.css", function(req,res){
 res.sendFile(__dirname + '/css/mapscss.css');
+})
+app.get("/css/gamestyles.css", function(req,res){
+res.sendFile(__dirname + '/css/gamestyles.css');
+})
+app.get("/css/ihanpihallacss.css", function(req,res){
+res.sendFile(__dirname + '/css/ihanpihallacss.css');
+})
+
+app.get("/js/three.min.js", function(req,res){
+res.sendFile(__dirname + '/js/three.min.js');
+})
+app.get("/js/OBJLoader.js", function(req,res){
+res.sendFile(__dirname + '/js/OBJLoader.js');
 })
 // Might be useful later
 //app.get("/users/:userid", function(req,res){
