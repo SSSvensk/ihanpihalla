@@ -40,25 +40,6 @@ app.get("/gallery", function(req,res){
 	res.sendFile(__dirname + '/gallery.html');
 })
 
-//Routing CSS-files
-
-
-app.get("/css/mapscss.css", function(req,res){
-res.sendFile(__dirname + '/css/mapscss.css');
-})
-app.get("/css/gamestyles.css", function(req,res){
-res.sendFile(__dirname + '/css/gamestyles.css');
-})
-app.get("/css/ihanpihallacss.css", function(req,res){
-res.sendFile(__dirname + '/css/ihanpihallacss.css');
-})
-
-app.get("/js/three.min.js", function(req,res){
-res.sendFile(__dirname + '/js/three.min.js');
-})
-app.get("/js/OBJLoader.js", function(req,res){
-res.sendFile(__dirname + '/js/OBJLoader.js');
-})
 // Might be useful later
 //app.get("/users/:userid", function(req,res){
 //	var userid = req.params.userid;
