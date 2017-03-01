@@ -6,6 +6,7 @@ var app = express();
 app.use(express.static("css"));
 app.use(express.static("images"));
 app.use(express.static("js"));
+app.use(express.static("objects"));
 
 app.set("view engine", "ejs");
 
@@ -13,8 +14,8 @@ app.set("view engine", "ejs");
 // app.engine('html', require('ejs').renderFile);
 
 // Tell express to listen for requests
-app.listen(3001, function(){
-	console.log("Server has started on port 3001...");
+var listener = app.listen(3000, function(){
+	console.log("Server has started on port " + listener.address().port + "...");
 })
 
 // Define routes
@@ -38,6 +39,7 @@ app.get("/gallery", function(req,res){
 	console.log("Request made to /gallery.");
 	res.sendFile(__dirname + '/gallery.html');
 })
+
 // Might be useful later
 //app.get("/users/:userid", function(req,res){
 //	var userid = req.params.userid;

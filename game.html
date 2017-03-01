@@ -9,13 +9,14 @@
 	<link rel = "stylesheet" href = "css/ihanpihallacss.css">
 	<link rel = "stylesheet" href = "css/gamestyles.css">
     <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
-	<script src = "js/three.min.js"></script>
-	<script src = "js/OrbitControls.js"></script>
-	<script src = "js/OBJLoader.js"></script>
-	<script src = "js/MTLLoader.js"></script>
-	<script src = "js/dat.gui.min.js"></script>
-	<script src = "js/mousefunctions.js"></script>
-	<script src = "js/evaluationsystem.js"></script>
+	<script src = "three.min.js"></script>
+	<script src = "OrbitControls.js"></script>
+	<script src = "OBJLoader.js"></script>
+	<script src = "MTLLoader.js"></script>
+	<script src = "dat.gui.min.js"></script>
+	<script src = "mousefunctions.js"></script>
+	<script src = "evaluationsystem.js"></script>
+	<script src = "Add.js"></script>
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -26,19 +27,25 @@
 	console.log("--------------------------------------------------");
 	console.log("                    Ihan pihalla                  ");
 	console.log("--------------------------------------------------");
-	console.log("Project manager:                Yunjung 'Pronounce the name again' Ji");
-	console.log("Designers:                      Maria 'Kiev' Pastukh, Sung-Bok 'Sampo' Song");
-	console.log("Developers:                     Sami-Santeri 'Ilves-ambassador' Svensk, Catherine 'Cat' Fait");
-	console.log("Researcher and master graduate: Tapio 'Elf' Rintala");
-	console.log("Our facilitator:                Heikki 'Santa Claus' Viitanen");
+	console.log("Project manager:     Yunjung 'Pronounce the name again' Ji");
+	console.log("Designers:           Maria Pastukh, Sung-Bok Song");
+	console.log("Developers:          Sami-Santeri 'Ilves-representative' Svensk, Catherine '~^.^~' Fait");
+	console.log("Researcher:          Tapio 'Are you drunk?' Rintala");
+	console.log("Our facilitator:     Heikki 'Santa Claus' Viitanen");
 	console.log("--------------------------------------------------");
+	console.log("4 countries and 4 mother tongues (leads to total disaster)");
 	console.log("Countless cups of coffee and tea were needed");
 	console.log("6.7 whole notebooks were filled with cryptic notes");
 	console.log("25% of meetings ended with everyone being hungry, cos we forgot to have something to eat.");
 	console.log("On the rest 75% of meetings we didn't realize we had forgotten to eat");
 	console.log("808 songs were listened during this project, 432 during development phase");
-	console.log("We visited habbo.fi, but what not to do for this project?");
-	console.log("Tronald Dump was elected to president, we deny any connection between that and this project");
+	console.log("We visited habbo.fi, but what not to do for this project??");
+	console.log("Meaning of ragequit explained briefly step by step.");
+	console.log("If our team built a human chain around the world, we would definitely need more members to our team!");
+	console.log("Actually we would need about 200 million new team members");
+	console.log("Sadly, 140 million of them would drown and die");
+	console.log("That's why there's only six of us");
+	console.log("Thanks to Puhehuhe for very positive support and constructive feedback!");
 	console.log("No animals were harmed or killed during this demo!");
 	console.log("--------------------------------------------------");
 	console.log("||   ||  ||   ||**||   ||  ||       ||--||   ||   ||  ||   ||**||   ||      ||       ||**||");
@@ -73,7 +80,7 @@
 	var borderXX, borderYY;
 
 	var oldPoints = 0;
-	var oldValue = 1815;
+	var oldValue = 1;
 	var oldRatio = 0;
 	var oldTrees = 0;
 	var oldSobjects = 0;
@@ -93,9 +100,8 @@
 	var totalpoints = 0;
 
 	init();
-	//animate();
 
-        //Initializer-function to initialize the whole thing
+    //Initializer-function to initialize the whole thing
 	function init() {
 
 		container = document.createElement( 'div' );
@@ -104,7 +110,7 @@
 		//Creating scene. Scene is where everything is added.
 		scene = new THREE.Scene();
 	//	scene.fog = new THREE.Fog( 0xcce0ff, 30, 150 );
-		scene.background = new THREE.Color( 0x00af8e );
+		scene.background = new THREE.Color( 0x00bece );
 
 		//Creating camera and giving it its position.
 		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
@@ -133,157 +139,9 @@
 		renderer.shadowMapWidth = 1024;
 		renderer.shadowMapHeight = 1024;
 
-		var loader = new THREE.OBJLoader();
+		addBuildings();
 
-		loader.load(
-			// resource URL
-			'objects/buildings/Yellowbuilding.obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                    	var material = new THREE.MeshPhongMaterial({
-                            color: 0xffffff
-                        });
-                        //child.material.ambient.setHex(0xFF0000);
-                        
-                        child.material = material;
-                        child.material.color.setHex(0xffd72c);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-				        
-                    }
-                } );
-				object.position.set(52,0,50);
-				object.rotateY(Math.PI / 2.8);
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.updateMatrix();
-				//object.castShadow = true;
-				object.userData = { OBID: i, TYPE: "Building", REX: -15.6, REZ: -7.6};
-				i++;
-				scene.add( object );
-				render();
-			}
-		);
 
-        loader.load(
-			// resource URL
-			'objects/buildings/Orangebuilding.obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                    	var material = new THREE.MeshPhongMaterial({
-                            color: 0xff8c00
-                        });
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0xff8c00);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.position.set(52,0,50);
-				object.rotateY(Math.PI / 2.8);
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.updateMatrix();
-				object.castShadow = true;
-				object.userData = { OBID: i, TYPE: "Building", REX: 16.9, REZ: 5.2};
-				i++;
-				scene.add( object );
-				render();
-			}
-		);
-
-        loader.load(
-			// resource URL
-			'objects/buildings/Redbuilding.obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                    	var material = new THREE.MeshPhongMaterial({
-                            color: 0xffffff
-                        });
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0x1b8690);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.position.set(52,0,50);
-				object.rotateY(Math.PI / 2.8);
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.updateMatrix();
-				object.castShadow = true;
-				object.userData = { OBID: i, TYPE: "Building", REX: 11.9, REZ: 28.4};
-				i++;
-				scene.add( object );
-				render();
-			}
-		);
-
-        loader.load(
-			// resource URL
-			'objects/buildings/Greenbuilding.obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                    	var material = new THREE.MeshPhongMaterial({
-                            color: 0xffffff
-                        });
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0xff443d);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.position.set(52,0,50);
-				object.rotateY(Math.PI / 2.8);
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.updateMatrix();
-				object.castShadow = true;
-				object.userData = { OBID: i, TYPE: "Building", REX: -19.6, REZ: 17};
-				i++;
-				scene.add( object );
-				render();
-			}
-		);
-
-        loader.load(
-			// resource URL
-			'objects/buildings/Grass(base).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                    	var material = new THREE.MeshPhongMaterial({
-                            color: 0xffffff
-                        });
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0x22949f);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.position.set(52,-0.15,50);
-				object.rotateY(Math.PI / 2.8);
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.updateMatrix();
-				object.castShadow = true;
-				object.userData = { OBID: i, TYPE: "Building", REX: -19.6, REZ: 17};
-				i++;
-				scene.add( object );
-				render();
-			}
-		);
-
-        var onProgress = function(xhr) {};
-        var onError = function(xhr) {};
 
         //Different lights. Pick your favourite
 
@@ -291,7 +149,7 @@
 		//scene.add( ambilight );
 
 		var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
-		directionalLight.position.set( 40, 60, 45 );
+		directionalLight.position.set( 20, 30, 25 );
 		directionalLight.castShadow = true;
 		scene.add( directionalLight );
 
@@ -318,7 +176,7 @@
         ray = new THREE.Ray( camera.position, null );
 
 		//Creating plane
-		var planee = new THREE.Mesh(new THREE.PlaneBufferGeometry(60, 75, 32), new THREE.MeshPhongMaterial({specular: '#fff',fog: true, color: '#74D2D4',shininess: 0 }));
+		var planee = new THREE.Mesh(new THREE.PlaneBufferGeometry(60, 75, 32), new THREE.MeshPhongMaterial({fog: true, color: '#89E0E7',shininess: 0 }));
 		//var planee = new THREE.Mesh( geometry, material );
 
 		//Just inserting coordinates of borders to variables
@@ -374,48 +232,9 @@
 		render();
 	}
 
-	//Checking that objects aren't on top of each other
-	/*
-	function checkObjectsNotTopOfEachOther() {
-		if (SELECTED) {
-		var ind = allObjects.indexOf(SELECTED);
-		var sxo = SELECTED.position.x + (SELECTED.scale.x / 2);
-		var sxt = SELECTED.position.x - (SELECTED.scale.x / 2);
-		var szo = SELECTED.position.z + (SELECTED.scale.z / 2);
-		var szt = SELECTED.position.z - (SELECTED.scale.z / 2);
-
-		for (var i = 0; i < allObjects.length; i++) {
-			if (i != ind) {
-				var aoxo = allObjects[i].position.x + (allObjects[i].scale.x / 2);
-				var aoxt = allObjects[i].position.x - (allObjects[i].scale.x / 2);
-				var aozo = allObjects[i].position.z + (allObjects[i].scale.z / 2);
-				var aozt = allObjects[i].position.z - (allObjects[i].scale.z / 2);
-				if (((sxo >= aoxt) && (szo >= aozt) && (szt <= aozt) && (sxt <= aoxt)) || ((szo >= aozt) && (sxt <= aoxo) && (sxo >= aoxo) && (szt <= aozt)) || ((aoxo >= sxt) && (aozo >= szt) && (aozt <= szt) && (aoxt <= sxt)) || ((aozo >= szt) && (aoxt <= sxo) && (aoxo >= sxo) && (aozt <= szt))) {
-					onTop = 1;
-					break;
-				} else {
-					onTop = 0;
-				}
-			}
-		};
-		return onTop;
-	}
-	}
-	*/
 
     //Function to remove object
 	function removeObject() {
-		/*
-        if (rType === "Bench" || rType === "Table bench" || rType === "Sun shade" || rType === "Barbeque") {
-		    var ind = objects.indexOf(INTERSECTED.parent);
-		    objects.splice(ind, 1);
-		    scene.remove(INTERSECTED.parent);
-	    } else {
-		    var ind = objects.indexOf(INTERSECTED.parent.parent);
-		    objects.splice(ind, 1);
-		    scene.remove(INTERSECTED.parent.parent);
-	    }
-	    */
 	    var removeO = new THREE.Object3D();
 	    removeO = objects[indd];
 	    elementType = removeO.userData.TYPE;
@@ -436,10 +255,6 @@
 		SELECTED = null;
 	}
 
-	function updateWormmeter() {
-		var ratio = greenarea / area;
-	}
-
 	//Animation function. Not needed...
 	function animate() {
 		requestAnimationFrame( animate );
@@ -456,702 +271,14 @@
 		renderer.render(scene, camera);
 	}
 
-	function addApple() {
-		var loader = new THREE.OBJLoader();
-		var bigObject = new THREE.Object3D();
-		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-		// load a resource
-		loader.load(
-			// resource URL
-			'objects/Elements/Trees/AppleTree_wood(orange).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0x95673f);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				//object.matrixWorld(2,0,2);
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				//object.updateMatrix();
-				object.castShadow = true;
-				bigObject.add(object);
-				render();
-			}
-		);
-        var leafmaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-        loader.load(
-			// resource URL
-			'objects/Elements/Trees/AppleTree_leaves(green).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = leafmaterial;
-                        child.material.color.setHex(0x1ebd12);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				//object.matrixWorld(2,0,2);
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				//object.updateMatrix();
-				object.castShadow = true;
-				bigObject.add(object);
-			}
-		);
-		var fruitmaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-        loader.load(
-			// resource URL
-			'objects/Elements/Trees/AppleTree_apples(red).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = fruitmaterial;
-                        child.material.color.setHex(0xf83043);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				object.castShadow = true;
-				bigObject.add(object);
-			}
-		);
-        var arr = [];
-		bigObject.userData = { OBID: i, TYPE: "Apple tree" , REX: 34.25, REZ: -30.17, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
-		i++;
-		ADDED = bigObject;
-		scene.add(bigObject);
-		render();
-		objects.push(bigObject);
-
-	}
-
-	function addTablebench() {
-		var loader = new THREE.OBJLoader();
-		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-		// load a resource
-		loader.load(
-			// resource URL
-			'objects/model_C_tablebenches.obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0x996306);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.position.set(0,0,0);
-				object.scale.set(0.001,0.001,0.001);
-				object.castShadow = true;
-				object.receiveShadow = true;
-				var arr = [];
-				object.userData = { OBID: i, TYPE: "Table bench" , REX: -62, REZ: 50 , ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 5 };
-				ADDED = object;
-				scene.add( object );
-				render();
-				objects.push(object);
-				i++;
-			}
-		);
-
-	}
-
-	function addBench() {
-		var loader = new THREE.OBJLoader();
-		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-		// load a resource
-		loader.load(
-			// resource URL
-			'objects/model_C_bench.obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        child.material.color.setHex(0xf2cf8a);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.scale.set(0.0008,0.0008,0.0008);
-				object.position.set(0,0,0);
-				object.castShadow = true;
-				var arr = [];
-				object.userData = { OBID: i, TYPE: "Bench" , REX: -50, REZ: 39, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 5 };
-				ADDED = object;
-				scene.add( object );
-				render();
-				objects.push(object);
-				i++;
-			}
-		);
-
-	}
-
-	function addBarbeque() {
-		var loader = new THREE.OBJLoader();
-		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-		// load a resource
-		loader.load(
-			// resource URL
-			'objects/Elements/Furniture/Barbeque.obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0x0000c3);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.scale.set(0.0008,0.0008,0.0008);
-				object.position.set(0,0,0);
-				object.castShadow = true;
-				var arr = [];
-				object.userData = { OBID: i, TYPE: "Barbeque" , REX: 9.29, REZ: -77.62, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 5 };
-				ADDED = object;
-				scene.add( object );
-				render();
-				objects.push(object);
-				i++;
-			}
-		);
-	}
-
-	function addSunshade() {
-		var loader = new THREE.OBJLoader();
-		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-		// load a resource
-		loader.load(
-			// resource URL
-			'objects/Elements/Furniture/SunShade.obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        child.material = material;
-                        child.material.color.setHex(0xffffff);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				//object.matrixWorld(2,0,2);
-				object.scale.set(0.0008,0.0008,0.0008);
-				object.position.set(0,0,0);
-				//object.updateMatrix();
-				object.castShadow = true;
-				var arr = [];
-				object.userData = { OBID: i, TYPE: "Sun shade" , REX: 7.6, REZ: -71.87, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 5 };
-				ADDED = object;
-				scene.add( object );
-				render();
-				objects.push(object);
-				i++;
-			}
-		);
-	}
-
-	function addBenchwithFlowers() {
-		var loader = new THREE.OBJLoader();
-		var bigObject = new THREE.Object3D();
-		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-		// load a resource
-		loader.load(
-			// resource URL
-			'objects/Elements/Furniture/BenchWithFlowers.obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0x95673f);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.scale.set(0.0008,0.0008,0.0008);
-				object.position.set(0,0,0);
-				//object.updateMatrix();
-				object.castShadow = true;
-				bigObject.add(object);
-				render();
-			}
-		);
-        var flowermaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-        loader.load(
-			// resource URL
-			'objects/Elements/Furniture/BenchWithFlowers_flowers(red).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = flowermaterial;
-                        child.material.color.setHex(0xfd0309);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.scale.set(0.0008,0.0008,0.0008);
-				object.position.set(0,0,0);
-				object.castShadow = true;
-				bigObject.add(object);
-			}
-		);
-		var leafmaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-        loader.load(
-			// resource URL
-			'objects/Elements/Furniture/BenchWithFlowers_leaves(green).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = leafmaterial;
-                        child.material.color.setHex(0x4adc0a);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				//object.matrixWorld(2,0,2);
-				object.scale.set(0.0008,0.0008,0.0008);
-				object.position.set(0,0,0);
-				//object.updateMatrix();
-				object.castShadow = true;
-				bigObject.add(object);
-			}
-		);
-        var arr = [];
-		bigObject.userData = { OBID: i, TYPE: "Green bench" , REX: 2.49, REZ: -75.11, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 5 };
-		i++;
-		ADDED = bigObject;
-		scene.add(bigObject);
-		render();
-		objects.push(bigObject);
-
-	}
-
-	function addPinetree() {
-		var loader = new THREE.OBJLoader();
-		var bigObject = new THREE.Object3D();
-		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-		// load a resource
-		loader.load(
-			// resource URL
-			'objects/Elements/Trees/Pinetree_wood(orange).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0xffa500);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				object.castShadow = true;
-				bigObject.add(object);
-				render();
-			}
-		);
-        var leafmaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-        loader.load(
-			// resource URL
-			'objects/Elements/Trees/Pinetree_leaves(R0G80B0).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = leafmaterial;
-                        child.material.color.setHex(0x1ebd12);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				//object.matrixWorld(2,0,2);
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				//object.updateMatrix();
-				object.castShadow = true;
-				bigObject.add(object);
-			}
-		);
-        var arr = [];
-		bigObject.userData = { OBID: i, TYPE: "Pine tree" , REX: 51.68, REZ: -38.27, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
-		i++;
-		ADDED = bigObject;
-		scene.add(bigObject);
-		render();
-		objects.push(bigObject);
-
-	}
-
-	function addLilac() {
-		var loader = new THREE.OBJLoader();
-		var bigObject = new THREE.Object3D();
-		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-		// load a resource
-		loader.load(
-			// resource URL
-			'objects/Elements/Trees/Lilac_tree(orange).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0xffa500);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				//object.matrixWorld(2,0,2);
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				//object.updateMatrix();
-				object.castShadow = true;
-				bigObject.add(object);
-				render();
-			}
-		);
-        var leafmaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-        loader.load(
-			// resource URL
-			'objects/Elements/Trees/Lilac_leaves(R154G145B219).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = leafmaterial;
-                        child.material.color.setHex(0x1ebd12);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				//object.matrixWorld(2,0,2);
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				//object.updateMatrix();
-				object.castShadow = true;
-				bigObject.add(object);
-			}
-		);
-        var arr = [];
-		bigObject.userData = { OBID: i, TYPE: "Lilac" , REX: 36.22, REZ: -25.96, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
-		i++;
-		ADDED = bigObject;
-		scene.add(bigObject);
-		render();
-		objects.push(bigObject);
-
-	}
-
-	function addCanadianMaple() {
-		var loader = new THREE.OBJLoader();
-		var bigObject = new THREE.Object3D();
-		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-		// load a resource
-		loader.load(
-			// resource URL
-			'objects/Elements/Trees/CanadianMaple_wood(orange).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0xffa500);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				//object.matrixWorld(2,0,2);
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				//object.updateMatrix();
-				object.castShadow = true;
-				bigObject.add(object);
-				render();
-			}
-		);
-        var leafmaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-        loader.load(
-			// resource URL
-			'objects/Elements/Trees/CanadianMaple_leaves(green).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = leafmaterial;
-                        child.material.color.setHex(0x1ebd12);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				//object.matrixWorld(2,0,2);
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				//object.updateMatrix();
-				object.castShadow = true;
-				bigObject.add(object);
-			}
-		);
-        var arr = [];
-		bigObject.userData = { OBID: i, TYPE: "Canadian maple" , REX: 37.64, REZ: -36, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
-		i++;
-		ADDED = bigObject;
-		scene.add(bigObject);
-		render();
-		objects.push(bigObject);
-
-	}
-
-	function addWillow() {
-		var loader = new THREE.OBJLoader();
-		var bigObject = new THREE.Object3D();
-		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-		// load a resource
-		loader.load(
-			// resource URL
-			'objects/Elements/Trees/Willow_wood(orange).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        child.material = material;
-                        child.material.color.setHex(0xffa500);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				object.castShadow = true;
-				bigObject.add(object);
-				render();
-			}
-		);
-        var leafmaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-        loader.load(
-			// resource URL
-			'objects/Elements/Trees/Willow_leaves(R0G80B0).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = leafmaterial;
-                        child.material.color.setHex(0x1ebd12);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				object.castShadow = true;
-				bigObject.add(object);
-			}
-		);
-        var arr = [];
-		bigObject.userData = { OBID: i, TYPE: "Willow" , REX: 38.84, REZ: -22.45, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
-		i++;
-		ADDED = bigObject;
-		scene.add(bigObject);
-		render();
-		objects.push(bigObject);
-
-	}
-
-	function addTree() {
-		var loader = new THREE.OBJLoader();
-		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-		// load a resource
-		loader.load(
-			// resource URL
-			'objects/LS13_01.obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0x08dd0f);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.position.set(0,0,0);
-				object.scale.set(4,4,4);
-				object.castShadow = true;
-				var arr = [];
-				object.userData = { OBID: i, TYPE: "Tree", REX: 0, REZ: 0, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
-				i++;
-				//ADDED = object;
-				scene.add( object );
-				render();
-				objects.push(object);
-			}
-		);
-    }
-
-    function addRowan() {
-		var loader = new THREE.OBJLoader();
-		var bigObject = new THREE.Object3D();
-		var material = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-		// load a resource
-		loader.load(
-			// resource URL
-			'objects/Elements/Trees/Rowan_tree(orange).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = material;
-                        child.material.color.setHex(0x95673f);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				object.castShadow = true;
-				bigObject.add(object);
-				render();
-
-			}
-		);
-        var leafmaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-        loader.load(
-			// resource URL
-			'objects/Elements/Trees/Rowan_leaves(green).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = leafmaterial;
-                        child.material.color.setHex(0x1ebd12);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				object.castShadow = true;
-				bigObject.add(object);
-			}
-		);
-		var fruitmaterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-        });
-        loader.load(
-			// resource URL
-			'objects/Elements/Trees/Rowan_berries(red).obj',
-			// Function when resource is loaded
-			function ( object ) {
-				object.traverse( function ( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        //child.material.ambient.setHex(0xFF0000);
-                        child.material = fruitmaterial;
-                        child.material.color.setHex(0xf83043);
-                        child.castShadow = true;
-				        child.receiveShadow = true;
-                    }
-                } );
-				object.scale.set(0.0005,0.0005,0.0005);
-				object.position.set(0,0,0);
-				object.castShadow = true;
-				bigObject.add(object);
-			}
-		);
-        var arr = [];
-		bigObject.userData = { OBID: i, TYPE: "Rowan" , REX: 44.24, REZ: -29.02, ReceivedPoints: 0, adjacentObjects: arr, RADIUS: 10 };
-		i++;
-		ADDED = bigObject;
-		scene.add(bigObject);
-		render();
-		objects.push(bigObject);
-
-	}
-
 	</script>
         <div id = "background">
-			<!--<div id="EcoHappinessEconomic"><img src="images/EcoHappinessEconomic.png"></div>-->
-			<!--<div id="Yardstatistics"><img src="images/Yardstatistics.png"></div>-->
 			<div id="points">0</div>
-			<div id="clear"><img src="images/clear.png"></div>
-			<div id="clearicon"><img src="images/clearicon.png"></div>
-			<div id="Undoredoicon"><img src="images/Undoredoicon.png"></div>
-			<div id="undoredo"><img src="images/undoredo.png"></div>
+			<div id="clear"><img src="clear.png"></div>
+			<div id="clearicon"><img src="clearicon.png"></div>
+			<div id="Undoredoicon"><img src="arrows.png" width = "50" height = "20"></div>
+			<div id="undoredo"><img src="undoredo.png"></div>
 			<div id="Saveicon"><a href = "gallery.html">Gallery</a></div>
-			<!--<div id="Facebookicon"><img src="images/Facebookicon.png"></div>-->
 			<div id="VilleKoponen">Username</div>
 			<div id ="consolepanel">
 				<div id = "event0">-</div>
@@ -1159,8 +286,8 @@
 				<div id = "event2">-</div>
 				<div id = "event3">-</div>
 			</div>
-			<div id="progressbar"><img src="galleryimages/progressbar.png"></div>
-			<div id="bar"><img src="galleryimages/progress.png"></div>
+			<div id="progressbar"><img src="galleryprogressbar.png"></div>
+			<div id="bar"><img src="galleryprogress.png"></div>
 			<div id="MapGameGalleryProfil">
 				<table id = "mggp">
 					<tr>
@@ -1172,26 +299,26 @@
 					</tr>
 				</table>
 			</div>
-			<div id="Logo"><img src="images/SmallLogo.png"></div>
+			<div id="Logo"><img src="SmallLogo.png"></div>
 
 			<div class = "elementmenu">
 
-<button class="accordion"><div class = "butaccontain"><img src="images/Trees.png"><img src="images/Rectangle5.png"></div></button>
+<button class="accordion"><div class = "butaccontain"><img src="Trees.png"><img src="Rectangle5.png"></div></button>
 <div class="panel">
     <table class = "elementtable">
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
             	    <img class = "iconimage" src="icons/pine-tree.png" width = "50" height = "50">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addPinetree()">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addPinetree()">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
             	    <img class = "iconimage" src="icons/apple-tree.png" width = "50" height = "50">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addApple()">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addApple()">
                 </div>
             </td>
         </tr>
@@ -1202,16 +329,16 @@
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
             	    <img class = "iconimage" src="icons/lilac.png" width = "50" height = "50">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addLilac()">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addLilac()">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
             	    <img class = "iconimage" src="icons/rowan.png" width = "50" height = "50">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addRowan()">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addRowan()">
                 </div>
             </td>
         </tr>
@@ -1222,16 +349,18 @@
         <tr>
             <td>
             	<div class = "showimage">
-            		<img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            		<img class = "bottomimage" src="RoundedRectangle2cop.png">
             	    <img class = "iconimage" src="icons/canada.png" width = "50" height = "50">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addCanadianMaple()">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
             	    <img class = "iconimage" src="icons/willow.png" width = "50" height = "50">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addWillow()">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
                 </div>
             </td>
         </tr>
@@ -1242,98 +371,110 @@
     </table>
 </div>
 
-<button class="accordion"><div class = "butaccontain"><img src="images/Flowers.png"><img src="images/Rectangle5.png"></div></button>
+<button class="accordion"><div class = "butaccontain"><img src="Flowers.png"><img src="Rectangle5.png"></div></button>
 <div class="panel">
 	<table class = "elementtable">
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTree()">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/oregano.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/Loosestrife.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
                 </div>
             </td>
         </tr>
         <tr>
-            <td><center>Test</center></td>
+            <td><center>Oregano</center></td>
             <td><center>Loose strife</center></td>
         </tr>
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/Caltha-palustris.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/Geranium-sanguineum.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
                 </div>
             </td>
         </tr>
         <tr>
-            <td><center>Tea rose</center></td>
-            <td><center>Crocus</center></td>
+            <td><center>Caltha<br>Palustris</center></td>
+            <td><center>Geranium<br>Sanguineum</center></td>
         </tr>
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/rose-grass.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
                 </div>
             </td>
-            <td>
+            <!--<td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
                 </div>
-            </td>
+            </td>-->
         </tr>
         <tr>
-            <td><center>Aquilegia</center></td>
-            <td><center>Dutch Iris</center></td>
+            <td><center>Rose Grass</center></td>
+            <!--<td><center>Dutch Iris</center></td>-->
         </tr>
     </table>
 </div>
 
-<button class="accordion"><div class = "butaccontain"><img src="images/Paving.png"><img src="images/Rectangle5.png"></div></button>
+<button class="accordion"><div class = "butaccontain"><img src="Paving.png"><img src="Rectangle5.png"></div></button>
 <div class="panel">
 	<table class = "elementtable">
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/asphalt.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addAsphalt()">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/brick-paving.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addBrickPaving()">
                 </div>
             </td>
         </tr>
         <tr>
             <td><center>Asphalt</center></td>
-            <td><center>Charcoal<br>stones</center></td>
+            <td><center>Paving brick</center></td>
         </tr>
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/paving-with-grass.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addPavingGrass()">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/lawn.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/sandstone.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addLawn()">
                 </div>
             </td>
         </tr>
@@ -1342,42 +483,45 @@
             <td><center>Lawn</center></td>
         </tr>
         <tr>
-            <td>
+            <!--<td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
                 </div>
-            </td>
+            </td>-->
             <td>
             	<div class = "showimage">
-            	    <img src="images/RoundedRectangle2cop.png">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/sandstone.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
                 </div>
             </td>
         </tr>
         <tr>
-            <td><center>Paving brick</center></td>
+            <!--<td><center>Charcoal<br>Stones</center></td>-->
             <td><center>Sandstone</center></td>
         </tr>
     </table>
 </div>
 
-<button class="accordion"><div class = "butaccontain"><img src="images/Furniture.png"><img src="images/Rectangle5.png"></div></button>
+<button class="accordion"><div class = "butaccontain"><img src="Furniture.png"><img src="Rectangle5.png"></div></button>
 <div class="panel">
 	<table class = "elementtable">
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
             	    <img class = "iconimage" src="icons/bench.png" width = "50" height = "50">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBench()">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addBench()">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
             	    <img class = "iconimage" src="icons/table-and-chairs.png" width = "50" height = "50">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addTablebench()">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addTablebench()">
                 </div>
             </td>
         </tr>
@@ -1388,16 +532,16 @@
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
             	    <img class = "iconimage" src="icons/barbeque.png" width = "50" height = "50">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBarbeque()">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addBarbeque()">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
             	    <img class = "iconimage" src="icons/sun-shading.png" width = "50" height = "50">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addSunshade()">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addSunshade()">
                 </div>
             </td>
         </tr>
@@ -1408,16 +552,18 @@
         <tr>
             <td>
             	<div class = "showimage">
-            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
             	    <img class = "iconimage" src="icons/trash.png" width = "50" height = "50">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
                 </div>
             </td>
             <td>
             	<div class = "showimage">
-            	    <img class = "bottomimage" src="images/RoundedRectangle2cop.png">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
             	    <img class = "iconimage" src="icons/bench-with-flowers.png" width = "50" height = "50">
-            	    <input class = "addElement" type = "image" src = "images/RoundedRectangle2.png" onclick = "addBenchwithFlowers()">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addBenchwithFlowers()">
                 </div>
             </td>
         </tr>
@@ -1428,81 +574,172 @@
     </table>
 </div>
 
-<button class="accordion"><div class = "butaccontain"><img src="images/Sport.png"><img src="images/Rectangle5.png"></div></button>
+<button class="accordion"><div class = "butaccontain"><img src="Sport.png"><img src="Rectangle5.png"></div></button>
 <div class="panel">
-	<p>MOI</p>
+	<table class = "elementtable">
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/basketring.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addBasket()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/playground.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addPlayground()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Basket ring</center></td>
+            <td><center>Playground</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/gym.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addGymo()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/gym.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addGymt()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Gym 1</center></td>
+            <td><center>Gym 2</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/pingpong.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/trampoline.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Ping Pong</center></td>
+            <td><center>Trampoline</center></td>
+        </tr>
+    </table>
 </div>
 
-<button class="accordion"><div class = "butaccontain"><img src="images/Buildings.png"><img src="images/Rectangle5.png"></div></button>
+<button class="accordion"><div class = "butaccontain"><img src="Buildings.png"><img src="Rectangle5.png"></div></button>
 <div class="panel">
 	<p>MOI</p>
 </div>
 </div>
         </div>
-        <div id = "infoLilac">
+
+        <!-- Pine tree -->
+        <div class = "infoBox" id = "infoPinetree">
 		<div class = "right">
-			<img src="images/Rectangle10copy2.png">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Pine tree</p>
+			<p class = "desc">Pines grow well in acid soils, some also on calcareous soils. Pine pollen may play an important role in the functioning of detrital food webs. Nutrients from pollen may enable fungi to decompose nutritionally scarce litter. </p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="lilac1"><img src="VectorSmartObject.png"></div>
+			<div id="lilac2"><img width = "50" height = "47" src="squirrel.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Lilac -->
+        <div class = "infoBox" id = "infoLilac">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
 			<p class = "text">Lilac</p>
 			<p class = "desc">Lilac is attracting divers animals like moths, butterflies, birds, larvae and caterpillars. They are working as pollinators. Pollinators are important for agricultural economies and food supply. Also birds are eating pest too.</p>
 			<p class = "bispecies">Biodiversity related species</p>
-			<div id="lilac1"><img src="images/VectorSmartObject.png"></div>
-			<div id="lilac2"><img src="images/VectorSmartObject_0.png"></div>
+			<div id="lilac1"><img src="VectorSmartObject.png"></div>
+			<div id="lilac2"><img src="VectorSmartObject_0.png"></div>
 			<button class = "remove" onclick = "removeObject()">Remove object</button>
 			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
 		</div>
         <div class = "left">
-        	<img src="images/Rectangle11.png">
-        	<img class = "eci" src="images/Ecoimpact.png">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
         </div>
 
-        <div id = "infoRowan">
+        <!-- Rowan -->
+        <div class = "infoBox" id = "infoRowan">
 		<div class = "right">
-			<img src="images/Rectangle10copy2.png">
+			<img src="Rectangle10copy2.png">
 			<p class = "text">Rowan</p>
 			<p class = "desc">Rowan’s berries are working as food for pollinators. Rowan attracts diverse pollinators. Pollinators are important for agricultural economies and food supply.</p>
 			<p class = "bispecies">Biodiversity related species</p>
-			<div id="rowan1"><img src="images/VectorSmartObject_0.png"></div>
+			<div id="rowan1"><img src="VectorSmartObject_0.png"></div>
 			<button class = "remove" onclick = "removeObject()">Remove object</button>
 			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
 		</div>
         <div class = "left">
-        	<img src="images/Rectangle11.png">
-        	<img class = "eci" src="images/Ecoimpact.png">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
         </div>
         </div>
-        <div id = "infoCanadianmaple">
+
+        <!-- Canadian maple -->
+        <div class = "infoBox" id = "infoCanadianmaple">
 		<div class = "right">
-			<img src="images/Rectangle10copy2.png">
+			<img src="Rectangle10copy2.png">
 			<p class = "text">Canadian Maple</p>
 			<p class = "desc">Canada</p>
 			<p class = "bispecies">Biodiversity related species</p>
-			<div id="rowan1"><img src="images/VectorSmartObject_0.png"></div>
+			<div id="rowan1"><img src="VectorSmartObject_0.png"></div>
 			<button class = "remove" onclick = "removeObject()">Remove object</button>
 			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
 		</div>
         <div class = "left">
-        	<img src="images/Rectangle11.png">
-        	<img class = "eci" src="images/Ecoimpact.png">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
         </div>
         </div>
-        <div id = "infoAppletree">
+
+        <!-- Apple tree -->
+        <div class = "infoBox" id = "infoAppletree">
 		<div class = "right">
-			<img src="images/Rectangle10copy2.png">
+			<img src="Rectangle10copy2.png">
 			<p class = "text">Apple tree</p>
-			<p class = "desc">Tree with delicious fruits</p>
+			<p class = "desc">Apples are self-incompatible; they must cross-pollinate to develop fruit. During the flowering each season, apple growers often utilize pollinators to carry pollen. Honey bees are most commonly used.</p>
 			<p class = "bispecies">Biodiversity related species</p>
-			<div id="rowan1"><img src="images/VectorSmartObject_0.png"></div>
+			<div id="rowan1"><img src="VectorSmartObject_0.png"></div>
 			<button class = "remove" onclick = "removeObject()">Remove object</button>
 			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
 		</div>
         <div class = "left">
-        	<img src="images/Rectangle11.png">
-        	<img class = "eci" src="images/Ecoimpact.png">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
         </div>
         </div>
-        <div id = "infoBench">
+
+        <!-- Bench -->
+        <div class = "infoBox" id = "infoBench">
 		<div class = "right">
-			<img src="images/Rectangle10copy2.png">
+			<img src="Rectangle10copy2.png">
 			<p class = "text">Bench</p>
 			<p class = "desc">Place to sit</p>
 			<p class = "bispecies"></p>
@@ -1510,13 +747,15 @@
 			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
 		</div>
 		<div class = "left">
-        	<img src="images/Rectangle11.png">
-        	<img class = "eci" src="images/Ecoimpact.png">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
         </div>
         </div>
-		<div id = "infoBarbeque">
+
+        <!-- Barbeque -->
+		<div class = "infoBox" id = "infoBarbeque">
 		<div class = "right">
-			<img src="images/Rectangle10copy2.png">
+			<img src="Rectangle10copy2.png">
 			<p class = "text">Barbeque</p>
 			<p class = "desc">Place to make food and spend time with neighbours</p>
 			<p class = "bispecies"></p>
@@ -1524,13 +763,15 @@
 			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
 		</div>
         <div class = "left">
-        	<img src="images/Rectangle11.png">
-        	<img class = "eci" src="images/Ecoimpact.png">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
         </div>
         </div>
-        <div id = "infoTable">
+
+        <!-- Table -->
+        <div class = "infoBox" id = "infoTable">
 		<div class = "right">
-			<img src="images/Rectangle10copy2.png">
+			<img src="Rectangle10copy2.png">
 			<p class = "text">Table</p>
 			<p class = "desc">Place to sit and maybe to have something to eat with friends and neighbours</p>
 			<p class = "bispecies"></p>
@@ -1538,31 +779,101 @@
 			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
 		</div>
         <div class = "left">
-        	<img src="images/Rectangle11.png">
-        	<img class = "eci" src="images/Ecoimpact.png">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
         </div>
         </div>
-        <div id = "infoother">
+
+        <!-- Other -->
+        <div class = "infoBox" id = "infoother">
 		<div class = "right">
-			<img src="images/Rectangle10copy2.png">
-			<p class = "text">Social object!</p>
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Other object!</p>
 			<p class = "desc">This improves social wellbeing and brings happiness to your house!</p>
 			<p class = "bispecies">Biodiversity related species</p>
 			<button class = "remove" onclick = "removeObject()">Remove object</button>
 			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
 		</div>
         <div class = "left">
-        	<img src="images/Rectangle11.png">
-        	<img class = "eci" src="images/Ecoimpact.png">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
         </div>
-	</div>
+	    </div>
+
+	    <!-- Lawn -->
+        <div class = "infoBox" id = "infoLawn">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Lawn</p>
+			<p class = "desc">If you change your yard ground with lawn, there’s the possibility for diverse soil faunas to live such as earthworms. Then the soil of your yard are getting healthier and it’s good for clean drinking water, decreasing surface water runoff and global climate regulation.</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="lilac1"><img width = "50" height = "47" src="worm.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Asphalt -->
+        <div class = "infoBox" id = "infoAsphalt">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Asphalt</p>
+			<p class = "desc">There’s no possibility for any kind of soil faunas living, tree and flower growing. Soil provides a vital habitat, primarily for microbes (including bacteria and fungi) and macrofauna (such as earthworms, termites, and millipedes). The primary role of soil biota is to recycle organic matter that is derived from the "above-ground plant-based food web". But it’s impossible with asphalt.</p>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Brick paving -->
+        <div class = "infoBox" id = "infoBrickPaving">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Brick paving</p>
+			<p class = "desc">If you change your yard ground with paving brick, there’s the possibility for diverse soil faunas to live such as earthworms. Then the soil of your yard are getting healthier and it’s good for clean drinking water, decreasing surface water runoff and global climate regulation.</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="lilac1"><img width = "50" height = "47" src="worm.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Grass block -->
+        <div class = "infoBox" id = "infoGrassPaving">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Grass paving</p>
+			<p class = "desc">If you change your yard ground with grass block, there’s the possibility for diverse soil faunas to live such as earthworms. Then the soil of your yard are getting healthier and it’s good for clean drinking water, decreasing surface water runoff and global climate regulation.</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="lilac1"><img width = "50" height = "47" src="worm.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+
 	<div id = "eventinfo">
 		<table id = "eventtable">
 			<tr class = "explanationrow">
 				<td>Action</td>
 				<td>Element</td>
 				<td>Points</td>
-				<td>Impact on value</td>
+				<td id = "orgvalue">Impact on value</td>
 			</tr>
 			<tr>
 				<td id = "queuen4action"></td>
@@ -1612,6 +923,11 @@
     	document.getElementById('infoBarbeque').style.visibility = "hidden";
     	document.getElementById('infoCanadianmaple').style.visibility = "hidden";
     	document.getElementById('infoAppletree').style.visibility = "hidden";
+    	document.getElementById('infoPinetree').style.visibility = "hidden";
+    	document.getElementById('infoBrickPaving').style.visibility = "hidden";
+    	document.getElementById('infoLawn').style.visibility = "hidden";
+    	document.getElementById('infoAsphalt').style.visibility = "hidden";
+    	document.getElementById('infoGrassPaving').style.visibility = "hidden";
     	document.getElementById('infoother').style.visibility = "hidden";
     }
 var acc = document.getElementsByClassName("accordion");

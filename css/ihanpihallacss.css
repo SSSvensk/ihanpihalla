@@ -237,19 +237,12 @@ div.showimage input.addApple {
     top:0;
     left:0;
 }
-#infoLilac {
+.infoBox {
     visibility: hidden;
         position: fixed;
         top: 30%;
         left: 40%;
 
-    }
-
-    #infoRowan {
-        visibility: hidden;
-        position: fixed;
-        top: 30%;
-        left: 40%;
     }
     .right {
         display: inline-block;
