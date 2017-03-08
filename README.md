@@ -1,6 +1,8 @@
 # residentialyardgame
 Repo for RYDG project and voluntarily work after the project.
 
+To contribute to this project, see https://github.com/SSSvensk/ihanpihalla/blob/master/How2Contribute.md
+
 Current game found in following address (only client-side implementation):
 http://people.uta.fi/~ss98607/ihanpihalla/
 
