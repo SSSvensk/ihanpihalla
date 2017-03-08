@@ -1,7 +1,7 @@
 # residentialyardgame
 Repo for RYDG project and voluntarily work after the project.
 
-Current game found in following address:
+Current game found in following address (only client-side implementation):
 http://people.uta.fi/~ss98607/ihanpihalla/
 
 This repository contains code used for Residential Yard Design Game or Ihan Pihalla. This is a simple web app to add elements to yard-like environment. Based on how good your yard design is, more points you've got.
