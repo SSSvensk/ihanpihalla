@@ -15,7 +15,7 @@ OSMBuildings?
 Server-side language: NodeJS
 Database: MySQL?
 
-Chat channel: TBA
+Chat channel: https://springproject2017.slack.com/signup
 
 ~^.^~
 
