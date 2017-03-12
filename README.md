@@ -1,21 +1,28 @@
 # residentialyardgame
 Repo for RYDG project and voluntarily work after the project.
 
+This repository contains code used for Residential Yard Design Game or Ihan Pihalla. This is a simple web app to add elements to yard-like environment. Based on how good your yard design is, more points you've got.
+
+
 To contribute to this project, see https://github.com/SSSvensk/ihanpihalla/blob/master/How2Contribute.md
+
+Chat channel: https://springproject2017.slack.com (ask someone in team to invite you)
 
 Current game found in following address (only client-side implementation):
 http://people.uta.fi/~ss98607/ihanpihalla/
 
-This repository contains code used for Residential Yard Design Game or Ihan Pihalla. This is a simple web app to add elements to yard-like environment. Based on how good your yard design is, more points you've got.
-
-JS libraries/frameworks used for this project so far:
+Libraries/frameworks used for this project so far:
 Three JS (https://github.com/mrdoob/three.js/)
-OSMBuildings?
 
-Server-side language: NodeJS
+...and maybe
+Bootstrap + jQuery, 
+OSMBuildings
+
+Cliet-side: HTML + CSS + JS
+
+Server-side: NodeJS + modules
+
 Database: MySQL?
-
-Chat channel: https://springproject2017.slack.com/signup
 
 ~^.^~
 
