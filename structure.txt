@@ -1,0 +1,10 @@
+DB
+---
+server --> route data flows
+config --> connect to FB, Twitter etc..
+db --> connect to DB
+---       ---
+frontpage | js-files
+map       | Angular, Vanilla
+game      | etc...
+gallery

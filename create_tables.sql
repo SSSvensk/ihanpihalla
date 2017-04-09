@@ -1,0 +1,43 @@
+CREATE TABLE user (
+id INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(30),
+address VARCHAR(40),
+PRIMARY KEY (id));
+
+CREATE TABLE designer (
+id INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(30),
+address VARCHAR(40),
+PRIMARY KEY (id));
+
+CREATE TABLE yard (
+id INT NOT NULL AUTO_INCREMENT,
+address VARCHAR(40),
+PRIMARY KEY (id));
+
+CREATE TABLE yardinstance (
+id INT NOT NULL AUTO_INCREMENT,
+yardid INT NOT NULL,
+userid INT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (userid) REFERENCES designer(id),
+FOREIGN KEY (yardid) REFERENCES yard(id));
+
+CREATE TABLE einstance (
+id INT NOT NULL AUTO_INCREMENT,
+xco DECIMAL(6,2),
+yco DECIMAL(6,2),
+eid INT NOT NULL,
+yid INT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (eid) REFERENCES element(id),
+FOREIGN KEY (yid) REFERENCES yard(id));
+
+CREATE TABLE action (
+eiid INT NOT NULL,
+uid INT NOT NULL,
+action INT,
+points INT,
+PRIMARY KEY (uid),
+FOREIGN KEY (uid) REFERENCES user(id),
+FOREIGN KEY (eiid) REFERENCES einstance(id));
