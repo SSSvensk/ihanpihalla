@@ -18,9 +18,15 @@ Three JS (https://github.com/mrdoob/three.js/)
 Bootstrap + jQuery, 
 OSMBuildings
 
-Cliet-side: HTML + CSS + JS
+Client-side: HTML + CSS + JS
 
-Server-side: NodeJS + modules
+Server-side: NodeJS
+Required npm modules:
+* express
+* express-session
+* passport
+* passport-facebook
+* passport-twitter
 
 Database: MySQL?
 
