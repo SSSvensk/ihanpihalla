@@ -1,0 +1,945 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title><%= address %></title>
+</head>
+<body>
+	<!--Linking JavaScript and CSS-files-->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel = "stylesheet" href = "ihanpihallacss.css">
+	<link rel = "stylesheet" href = "gamestyles.css">
+    <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+	<script src = "three.min.js"></script>
+	<script src = "OrbitControls.js"></script>
+	<script src = "OBJLoader.js"></script>
+	<script src = "MTLLoader.js"></script>
+	<script src = "dat.gui.min.js"></script>
+	<script src = "mousefunctions.js"></script>
+	<script src = "evaluationsystem.js"></script>
+	<script src = "Add.js"></script>
+	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src = "https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src = "ejs.min.js"></script>
+	<script type = "text/javascript">
+
+	//Ceremony
+	console.log("Residential Yard Design Game-team proudly presents");
+	console.log("--------------------------------------------------");
+	console.log("                    Ihan pihalla                  ");
+	console.log("--------------------------------------------------");
+	console.log("Project manager:     Yunjung 'Pronounce the name again' Ji");
+	console.log("Designers:           Maria Pastukh, Sung-Bok Song");
+	console.log("Developers:          Sami-Santeri 'Ilves-representative' Svensk, Catherine '~^.^~' Fait");
+	console.log("Researcher:          Tapio 'Are you drunk?' Rintala");
+	console.log("Our facilitator:     Heikki 'Santa Claus' Viitanen");
+	console.log("--------------------------------------------------");
+	console.log("4 countries and 4 mother tongues (leads to total disaster)");
+	console.log("Countless cups of coffee and tea were needed");
+	console.log("6.7 whole notebooks were filled with cryptic notes");
+	console.log("25% of meetings ended with everyone being hungry, cos we forgot to have something to eat.");
+	console.log("On the rest 75% of meetings we didn't realize we had forgotten to eat");
+	console.log("808 songs were listened during this project, 432 during development phase");
+	console.log("We visited habbo.fi, but what not to do for this project??");
+	console.log("Meaning of ragequit explained briefly step by step.");
+	console.log("If our team built a human chain around the world, we would definitely need more members to our team!");
+	console.log("Actually we would need about 200 million new team members");
+	console.log("Sadly, 140 million of them would drown and die");
+	console.log("That's why there's only six of us");
+	console.log("Thanks to Puhehuhe for very positive support and constructive feedback!");
+	console.log("No animals were harmed or killed during this demo!");
+	console.log("--------------------------------------------------");
+	console.log("||   ||  ||   ||**||   ||  ||       ||--||   ||   ||  ||   ||**||   ||      ||       ||**||");
+	console.log("||   ||  ||   ||  ||   ||* ||       ||  ||   ||   ||  ||   ||  ||   ||      ||       ||  ||");
+	console.log("||   ||**||   ||**||   ||**||       ||  ||   ||   ||**||   ||**||   ||      ||       ||  ||");
+	console.log("||   ||**||   ||**||   || *||       ||--||   ||   ||**||   ||**||   ||      ||       ||**||");
+	console.log("||   ||  ||   ||  ||   ||  ||       ||       ||   ||  ||   ||  ||   ||***   ||****   ||  ||");
+	console.log("||   ||  ||   ||  ||   ||  ||       ||       ||   ||  ||   ||  ||   ||***   ||****   ||  ||");
+
+
+	var scene, camera, renderer;
+	var mouse = new THREE.Vector2();
+
+	//Array to store clickable objects
+	var objects = [];
+	var raycaster = new THREE.Raycaster();
+	var container;
+	var SELECTED;
+	var INTERSECTED;
+	var ADDED;
+	var intersection = new THREE.Vector3();
+	var offset = new THREE.Vector3();
+	var controls;
+	var plane = new THREE.Plane();
+	var autosavenotification = 0;
+
+	var i = 0;
+	var dragged = false;
+	var selectedId;
+	var rType;
+	var borderX, borderY;
+	var borderXX, borderYY;
+
+	var oldPoints = 0;
+	var oldValue = 1;
+	var oldRatio = 0;
+	var oldTrees = 0;
+	var oldSobjects = 0;
+	var action;
+	var elementType;
+	var queue = [];
+	var feedbackqueue = ["-", "-", "-"];
+
+	var previousX;
+	var previousZ;
+	var onTop;
+	var indd;
+
+	var area = 3867
+	var greenarea = 0;
+
+	var totalpoints = 0;
+
+	init();
+
+    //Initializer-function to initialize the whole thing
+	function init() {
+
+		container = document.createElement( 'div' );
+		document.body.appendChild( container );
+
+		//Creating scene. Scene is where everything is added.
+		scene = new THREE.Scene();
+	//	scene.fog = new THREE.Fog( 0xcce0ff, 30, 150 );
+		scene.background = new THREE.Color( 0x00bece );
+
+		//Creating camera and giving it its position.
+		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+		
+		//Camera is in position where x=30, y=20 and z=0
+		camera.position.set(-30,50,30);
+		
+		//Camera looks to the centre of scene, (I guess it's point 0,0,0)
+		//camera.lookAt(scene.position);
+		camera.lookAt(new THREE.Vector3(50,0,0));
+
+        //Renderer stuff
+		renderer = new THREE.WebGLRenderer();
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		document.body.appendChild(renderer.domElement);
+
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapSoft = true;
+
+		renderer.shadowCameraNear = 3;
+		renderer.shadowCameraFar = camera.far;
+		renderer.shadowCameraFov = 50;
+
+		renderer.shadowMapBias = 0.0039;
+		renderer.shadowMapDarkness = 0.1;
+		renderer.shadowMapWidth = 1024;
+		renderer.shadowMapHeight = 1024;
+
+		addBuildings();
+
+        //Different lights. Pick your favourite
+
+        //var ambilight = new THREE.AmbientLight( 0x404040 ); // soft white light
+		//scene.add( ambilight );
+
+		var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
+		directionalLight.position.set( 20, 30, 25 );
+		directionalLight.castShadow = true;
+		scene.add( directionalLight );
+
+		directionalLight.shadow.camera.left = -40;
+        directionalLight.shadow.camera.right = 30;
+        directionalLight.shadow.camera.top = 35;
+        directionalLight.shadow.camera.bottom = -30;
+/*
+		var pointLight = new THREE.PointLight( 0xffffff, 1.5, 40 );
+		pointLight.position.set( 0, 5, 0 );
+		pointLight.castShadow = true;
+		scene.add( pointLight );
+*/
+		var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x080820, 0.8 );
+		scene.add( hemiLight );
+
+        //Adding event listeners to elements. Basically each action calls certain function. Parameter list is (mouse action, function and some boolean that I have no idea what it's meaning is:D)
+        renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
+		renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
+		renderer.domElement.addEventListener( 'click', onDocumentMouseClick, false );
+
+		//Not sure if this was important...
+        ray = new THREE.Ray( camera.position, null );
+
+		//Creating plane
+		var planee = new THREE.Mesh(new THREE.PlaneBufferGeometry(60, 75, 32), new THREE.MeshPhongMaterial({fog: true, color: '#89E0E7',shininess: 0 }));
+		//var planee = new THREE.Mesh( geometry, material );
+
+		//Just inserting coordinates of borders to variables
+		borderY = borderX = 15;
+		borderYY = borderXX = -15;
+
+		//Setting plane's position and rotation. If you remove minus in front of the rotation, the texture stays on the bottom
+		planee.position.y = 0;
+		planee.rotation.x = - Math.PI / 2;
+		planee.receiveShadow = true;
+
+		//Finally adding the plane to the scene
+		scene.add( planee );
+
+		//Setting vectors which define basically in which direction is the yard is and in which direction cubes move
+		var dir = new THREE.Vector3(0,200,0);
+		var centroid = new THREE.Vector3(0,0,0);
+		plane.setFromNormalAndCoplanarPoint(dir, centroid);
+
+		//Creating controls. Now it's possible to rotate the view and zoom
+		controls = new THREE.OrbitControls(camera, renderer.domElement);
+		controls.addEventListener( 'change', render );
+
+		//Setting limits to rotation and zoom.
+		//Vertical rotation is limited, so that it's not possible to look under the plane.
+		controls.minPolarAngle = - Math.PI;
+		controls.maxPolarAngle = Math.PI / 2 - 0.2;
+
+		//No limits for horizontal rotation
+		controls.minAzimuthAngle = -Infinity; // radians
+		controls.maxAzimuthAngle = Infinity; // radians
+
+		//Zoom limits
+		controls.minDistance = 0;
+		//controls.maxDistance = 30;
+
+		//Adding event listener of window if window is resized
+		window.addEventListener( 'resize', onWindowResize, false );
+
+		//Render the scene together
+		render();
+	}
+
+	//When window is resized, this function is called resizing window automatically. Most of this is copypasted...
+	function onWindowResize() {
+
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+
+		renderer.setSize( window.innerWidth, window.innerHeight );
+
+		//Render after resize to show the change immediately
+		render();
+	}
+
+
+    //Function to remove object
+	function removeObject() {
+	    var removeO = new THREE.Object3D();
+	    removeO = objects[indd];
+	    elementType = removeO.userData.TYPE;
+	    action = "Remove";
+	    objects.splice(indd, 1);
+	    scene.remove(removeO);
+		checkOthers();
+		calculatePoints();
+		closeWindow();
+		render();
+	}
+
+	function cancelDragAndDrop() {
+		scene.remove(SELECTED);
+		SELECTED.position.x = previousX;
+		SELECTED.position.z = previousZ;
+		scene.add(SELECTED);
+		SELECTED = null;
+	}
+
+	//Animation function. Not needed...
+	function animate() {
+		requestAnimationFrame( animate );
+		var timer = Date.now() * 0.005;
+		directionalLight.position.x = Math.cos( timer ) * 10;
+        directionalLight.position.z = Math.sin( timer ) * 10;
+		render();
+	}
+
+	//Rendering function
+	function render() {
+		var timer = Date.now() * 0.0005;
+		camera.lookAt( scene.position );
+		renderer.render(scene, camera);
+	}
+
+	</script>
+        <div id = "background">
+			<div id="points">0</div>
+			<div id="clear"><img src="clear.png"></div>
+			<div id="clearicon"><img src="clearicon.png"></div>
+			<div id="Undoredoicon"><img src="arrows.png" width = "50" height = "20"></div>
+			<div id="undoredo"><img src="undoredo.png"></div>
+			<div id="Saveicon"><a href = "gallery.html">Gallery</a></div>
+			<div id="VilleKoponen"><%= username %></div>
+			<!--
+			<div id ="consolepanel">
+				<div id = "event0">-</div>
+				<div id = "event1">-</div>
+				<div id = "event2">-</div>
+				<div id = "event3">-</div>
+			</div>
+		-->
+			<div id="progressbar"><img src="progressbar.png"></div>
+			<div id="bar"><img src="progress.png"></div>
+			<div id="MapGameGalleryProfil">
+				<table id = "mggp">
+					<tr>
+						<td><a href = "mapstesti.html">Map</a></td>
+						<td>Game</td>
+						<td><a href = "gallery.html">Gallery</a></td>
+						<td><a href = "profile.html">Profile</a></td>
+						<td><a href = "index.html">Log out</a></td>
+					</tr>
+				</table>
+			</div>
+
+			<div class = "elementmenu">
+
+<button class="accordion"><div class = "butaccontain"><img src="Trees.png"><img src="Rectangle5.png"></div></button>
+<div class="panel">
+    <table class = "elementtable">
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/pine-tree.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addPinetree()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/apple-tree.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addApple()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Pine tree</center></td>
+            <td><center>Apple tree</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/lilac.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addLilac()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/rowan.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addRowan()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Lilac</center></td>
+            <td><center>Rowan</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            		<img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/canada.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/willow.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Canadian<br>Maple</center></td>
+            <td><center>Willow</center></td>
+        </tr>
+    </table>
+</div>
+
+<button class="accordion"><div class = "butaccontain"><img src="Flowers.png"><img src="Rectangle5.png"></div></button>
+<div class="panel">
+	<table class = "elementtable">
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/oregano.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/Loosestrife.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Oregano</center></td>
+            <td><center>Loose strife</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/Caltha-palustris.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/Geranium-sanguineum.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Caltha<br>Palustris</center></td>
+            <td><center>Geranium<br>Sanguineum</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/rose-grass.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+            <!--<td>
+            	<div class = "showimage">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>-->
+        </tr>
+        <tr>
+            <td><center>Rose Grass</center></td>
+            <!--<td><center>Dutch Iris</center></td>-->
+        </tr>
+    </table>
+</div>
+
+<button class="accordion"><div class = "butaccontain"><img src="Paving.png"><img src="Rectangle5.png"></div></button>
+<div class="panel">
+	<table class = "elementtable">
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/asphalt.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addAsphalt()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/brick-paving.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addBrickPaving()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Asphalt</center></td>
+            <td><center>Paving brick</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/paving-with-grass.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addPavingGrass()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/lawn.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/sandstone.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addLawn()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Grass block</center></td>
+            <td><center>Lawn</center></td>
+        </tr>
+        <tr>
+            <!--<td>
+            	<div class = "showimage">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>-->
+            <td>
+            	<div class = "showimage">
+            	    <img src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/sandstone.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <!--<td><center>Charcoal<br>Stones</center></td>-->
+            <td><center>Sandstone</center></td>
+        </tr>
+    </table>
+</div>
+
+<button class="accordion"><div class = "butaccontain"><img src="Furniture.png"><img src="Rectangle5.png"></div></button>
+<div class="panel">
+	<table class = "elementtable">
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/bench.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addBench()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/table-and-chairs.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addTablebench()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Bench</center></td>
+            <td><center>Table bench</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/barbeque.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addBarbeque()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/sun-shading.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addSunshade()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Barbeque</center></td>
+            <td><center>Sun Shade</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/trash.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/bench-with-flowers.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addBenchwithFlowers()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Trash bin</center></td>
+            <td><center>Benches<br>with<br>greenery</center></td>
+        </tr>
+    </table>
+</div>
+
+<button class="accordion"><div class = "butaccontain"><img src="Sport.png"><img src="Rectangle5.png"></div></button>
+<div class="panel">
+	<table class = "elementtable">
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/basketring.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addBasket()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/playground.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addPlayground()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Basket ring</center></td>
+            <td><center>Playground</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/gym.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addGymo()">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/gym.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png" onclick = "addGymt()">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Gym 1</center></td>
+            <td><center>Gym 2</center></td>
+        </tr>
+        <tr>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/pingpong.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+            <td>
+            	<div class = "showimage">
+            	    <img class = "bottomimage" src="RoundedRectangle2cop.png">
+            	    <img class = "iconimage" src="icons/trampoline.png" width = "50" height = "50">
+            	    <img class = "iconimage" src="icons/lock.png" width = "50" height = "50">
+            	    <input class = "addElement" type = "image" src = "RoundedRectangle2.png">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><center>Ping Pong</center></td>
+            <td><center>Trampoline</center></td>
+        </tr>
+    </table>
+</div>
+
+<button class="accordion"><div class = "butaccontain"><img src="Buildings.png"><img src="Rectangle5.png"></div></button>
+<div class="panel">
+	<p>MOI</p>
+</div>
+</div>
+        </div>
+
+        <!-- Pine tree -->
+        <div class = "infoBox" id = "infoPinetree">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Pine tree</p>
+			<p class = "desc">Pines grow well in acid soils, some also on calcareous soils. Pine pollen may play an important role in the functioning of detrital food webs. Nutrients from pollen may enable fungi to decompose nutritionally scarce litter. </p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="lilac1"><img src="VectorSmartObject.png"></div>
+			<div id="lilac2"><img width = "50" height = "47" src="squirrel.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Lilac -->
+        <div class = "infoBox" id = "infoLilac">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Lilac</p>
+			<p class = "desc">Lilac is attracting divers animals like moths, butterflies, birds, larvae and caterpillars. They are working as pollinators. Pollinators are important for agricultural economies and food supply. Also birds are eating pest too.</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="lilac1"><img src="VectorSmartObject.png"></div>
+			<div id="lilac2"><img src="VectorSmartObject_0.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Rowan -->
+        <div class = "infoBox" id = "infoRowan">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Rowan</p>
+			<p class = "desc">Rowan’s berries are working as food for pollinators. Rowan attracts diverse pollinators. Pollinators are important for agricultural economies and food supply.</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="rowan1"><img src="VectorSmartObject_0.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Canadian maple -->
+        <div class = "infoBox" id = "infoCanadianmaple">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Canadian Maple</p>
+			<p class = "desc">Canada</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="rowan1"><img src="VectorSmartObject_0.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Apple tree -->
+        <div class = "infoBox" id = "infoAppletree">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Apple tree</p>
+			<p class = "desc">Apples are self-incompatible; they must cross-pollinate to develop fruit. During the flowering each season, apple growers often utilize pollinators to carry pollen. Honey bees are most commonly used.</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="rowan1"><img src="VectorSmartObject_0.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Bench -->
+        <div class = "infoBox" id = "infoBench">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Bench</p>
+			<p class = "desc">Place to sit</p>
+			<p class = "bispecies"></p>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+		<div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Barbeque -->
+		<div class = "infoBox" id = "infoBarbeque">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Barbeque</p>
+			<p class = "desc">Place to make food and spend time with neighbours</p>
+			<p class = "bispecies"></p>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Table -->
+        <div class = "infoBox" id = "infoTable">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Table</p>
+			<p class = "desc">Place to sit and maybe to have something to eat with friends and neighbours</p>
+			<p class = "bispecies"></p>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Other -->
+        <div class = "infoBox" id = "infoother">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Other object!</p>
+			<p class = "desc">This improves social wellbeing and brings happiness to your house!</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+	    </div>
+
+	    <!-- Lawn -->
+        <div class = "infoBox" id = "infoLawn">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Lawn</p>
+			<p class = "desc">If you change your yard ground with lawn, there’s the possibility for diverse soil faunas to live such as earthworms. Then the soil of your yard are getting healthier and it’s good for clean drinking water, decreasing surface water runoff and global climate regulation.</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="lilac1"><img width = "50" height = "47" src="worm.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Asphalt -->
+        <div class = "infoBox" id = "infoAsphalt">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Asphalt</p>
+			<p class = "desc">There’s no possibility for any kind of soil faunas living, tree and flower growing. Soil provides a vital habitat, primarily for microbes (including bacteria and fungi) and macrofauna (such as earthworms, termites, and millipedes). The primary role of soil biota is to recycle organic matter that is derived from the "above-ground plant-based food web". But it’s impossible with asphalt.</p>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Brick paving -->
+        <div class = "infoBox" id = "infoBrickPaving">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Brick paving</p>
+			<p class = "desc">If you change your yard ground with paving brick, there’s the possibility for diverse soil faunas to live such as earthworms. Then the soil of your yard are getting healthier and it’s good for clean drinking water, decreasing surface water runoff and global climate regulation.</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="lilac1"><img width = "50" height = "47" src="worm.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+        <!-- Grass block -->
+        <div class = "infoBox" id = "infoGrassPaving">
+		<div class = "right">
+			<img src="Rectangle10copy2.png">
+			<p class = "text">Grass paving</p>
+			<p class = "desc">If you change your yard ground with grass block, there’s the possibility for diverse soil faunas to live such as earthworms. Then the soil of your yard are getting healthier and it’s good for clean drinking water, decreasing surface water runoff and global climate regulation.</p>
+			<p class = "bispecies">Biodiversity related species</p>
+			<div id="lilac1"><img width = "50" height = "47" src="worm.png"></div>
+			<button class = "remove" onclick = "removeObject()">Remove object</button>
+			<button class = "closebutton" onclick = "closeWindow()">&#10006;</button>
+		</div>
+        <div class = "left">
+        	<img src="Rectangle11.png">
+        	<img class = "eci" src="Ecoimpact.png">
+        </div>
+        </div>
+
+
+	<div id = "eventinfo">
+		<table id = "eventtable">
+			<tr class = "explanationrow">
+				<td>Action</td>
+				<td>Element</td>
+				<td>Points</td>
+				<td id = "orgvalue">Impact on value</td>
+			</tr>
+			<tr>
+				<td id = "queuen4action"></td>
+				<td id = "queuen4type"></td>
+				<td id = "queuen4points"></td>
+				<td id = "queuen4value"></td>
+			</tr>
+			<tr>
+				<td id = "queuen3action"></td>
+				<td id = "queuen3type"></td>
+				<td id = "queuen3points"></td>
+				<td id = "queuen3value"></td>
+			</tr>
+			<tr>
+				<td id = "queuen2action"></td>
+				<td id = "queuen2type"></td>
+				<td id = "queuen2points"></td>
+				<td id = "queuen2value"></td>
+			</tr>
+			<tr>
+				<td id = "queuen1action"></td>
+				<td id = "queuen1type"></td>
+				<td id = "queuen1points"></td>
+				<td id = "queuen1value"></td>
+			</tr>
+			<tr>
+				<td id = "queuen0action"></td>
+				<td id = "queuen0type"></td>
+				<td id = "queuen0points"></td>
+				<td id = "queuen0value"></td>
+			</tr>
+		</table>
+	</div>
+    <script>
+    function openEvent() {
+    	if (document.getElementById('eventinfo').style.visibility == "visible") {
+    		document.getElementById('eventinfo').style.visibility = "hidden";
+    	} else {
+    		document.getElementById('eventinfo').style.visibility = "visible"
+    	}
+    }
+    function closeWindow() {
+    	document.getElementById('infoLilac').style.visibility = "hidden";
+    	document.getElementById('infoRowan').style.visibility = "hidden";
+    	document.getElementById('infoBench').style.visibility = "hidden";
+    	document.getElementById('infoTable').style.visibility = "hidden";
+    	document.getElementById('infoBarbeque').style.visibility = "hidden";
+    	document.getElementById('infoCanadianmaple').style.visibility = "hidden";
+    	document.getElementById('infoAppletree').style.visibility = "hidden";
+    	document.getElementById('infoPinetree').style.visibility = "hidden";
+    	document.getElementById('infoBrickPaving').style.visibility = "hidden";
+    	document.getElementById('infoLawn').style.visibility = "hidden";
+    	document.getElementById('infoAsphalt').style.visibility = "hidden";
+    	document.getElementById('infoGrassPaving').style.visibility = "hidden";
+    	document.getElementById('infoother').style.visibility = "hidden";
+    }
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        this.classList.toggle("active");
+        this.nextElementSibling.classList.toggle("show");
+  }
+}
+//document.getElementById('VilleKoponen').innerHTML = localStorage.getItem("name");
+</script>
+</body>
+</html>

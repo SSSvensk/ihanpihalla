@@ -13,11 +13,24 @@ connection.connect(function(err) {
 })
 
 module.exports = {
-  selectMatches: function (callback) {
-    var queryString = 'SELECT ottelu.id AS matchid, ottelu.gametime, j1.nickname AS home, j2.nickname AS away, homegoals, awaygoals, j1.imgname AS homelogo, j2.imgname AS awaylogo FROM ottelu LEFT JOIN joukkue j1 ON j1.id = ottelu.homeid LEFT JOIN joukkue j2 ON j2.id = ottelu.awayid ORDER BY gametime ASC;';
-    connection.query(queryString, function(err, rows, fields) {
+  selectUser: function (uid, callback) {
+    connection.query('SELECT * FROM designer WHERE smid = ?', uid, function(err, rows, fields) {
     if (err) throw err;
     console.log(rows.length);
+    console.log(rows);
+   
+    if (rows.length > 0) {
+      return callback(rows[0]);
+    } else {
+      return callback(null);
+    }
+  });
+  },
+  selectUsersByYard: function (ad, callback) {
+    connection.query('SELECT * FROM designer WHERE address = ?', ad, function(err, rows, fields) {
+    if (err) throw err;
+    console.log(rows);
+    console.log(1);
    
     if (rows.length > 0) {
       return callback(rows);
@@ -26,25 +39,32 @@ module.exports = {
     }
   });
   },
-  selectNextMatch: function (callback) {
-    var queryString = 'SELECT * FROM ottelu WHERE gametime >= CURDATE()';
-    connection.query(queryString, function(err, rows, fields) {
+  selectYards: function (callback) {
+    connection.query('SELECT address FROM yard ORDER BY address', function(err, rows, fields) {
     if (err) throw err;
     console.log(rows.length);
-    console.log(rows[0].id);
+    console.log(rows);
    
     if (rows.length > 0) {
-      return callback(rows[0].id);
+      return callback(rows);
     } else {
       return callback(null);
     }
   });
   },
+  addAddress: function (i, ad) {
+    connection.query('UPDATE designer SET address = ? WHERE smid = ?', [ad, i], function(err, rows, fields) {
+    if (err) throw err;
+    console.log(rows.length);
+    console.log(i);
+    console.log(ad);
+    });
+  },
   insertUser: function (n, fi) {
-    var userquery = {name: n, fbid: fi};
-    var queryString = 'INSERT INTO fbusers SET ?';
+    var userquery = {name: n, smid: fi};
+    var queryString = 'INSERT INTO designer SET ?';
   connection.query(queryString, userquery, function(err, rows, fields) {
     if (err) throw err;
   });
-  },
+  }
 };

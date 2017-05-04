@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Map - Ihan Pihalla</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href= "ihanpihallacss.css">
+    <link rel="stylesheet" href= "mapscss.css">
+  </head>
+  <body>
+
+    <div id = "toppanel">
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Ihan Pihalla</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Ottelut <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Page 2</a></li>
+        <li><a href="#">Page 3</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id = "username"><span class="glyphicon glyphicon-user"></span> <%= username %></a></li>
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+    </div>
+    <div id="map"></div>
+
+    <script>
+      var map;
+      var marker, kmarker, lmarker, cmarker, hmarker;
+      var iii = 1;
+
+      document.getElementById('VilleKoponen').innerHTML = localStorage.getItem("name");
+
+      initAutocomplete();
+
+      function initAutocomplete() {
+         var myLatLng = {lat: 61.5040869, lng: 23.7806253};
+
+         map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: myLatLng,
+            mapTypeId: 'satellite',
+            disableDefaultUI: true,
+            zoomControl: true,
+            zoomControlOptions: {
+              position: google.maps.ControlPosition.RIGHT_CENTER
+          },
+         });
+
+         google.maps.event.trigger(map, 'resize');
+
+         // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+
+         var contentString = '<div class = "bimage"><img src="images/VectorSmartObject_2.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Hervanta</td><td>|</td><td>Opiskelijankatu 34</td></tr></table></div><div>It used to be forest in 1970. Since that time, it has become an multi-cultural area and area for students.</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Design this yard</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentStringK = '<div class = "bimage"><img src="images/tammela.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Tammela</td><td>|</td><td>Kullervonkatu 14</td></tr></table></div><div>One of the oldest suburbans of Tampere has nowadays ugly buildings with too much parking space</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Design this yard</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentStringL = '<div class = "bimage"><img src="images/hatanpaa.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Hatanpää</td><td>|</td><td>Vihilahdenkatu 2</td></tr></table></div><div>Old countryside landscape has changed rapidly in the late 20th century. Nice location near the lake Pyhäjärvi and Hatanpää Arboretum</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Design this yard</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentStringC = '<div class = "bimage"><img src="images/amuri.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Amuri</td><td>|</td><td>Amurinkatu 43</td></tr></table></div><div>Old factory worker-neighbourhood faced massive change in 70s, when old tight wooden buildings were replaces by ugly concrete architecture. Piece of Kouvola in the middle of Tampere</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Design this yard</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+         var contentStringH = '<div class = "bimage"><img src="images/amuri.png"></div><div class = "middle"><table class = "areaaddress"><tr><td>Hervanta</td><td>|</td><td>Opiskelijankatu 34</td></tr></table></div><div>Old factory worker-neighbourhood faced massive change in 70s, when old tight wooden buildings were replaces by ugly concrete architecture. Piece of Kouvola in the middle of Tampere</div><div><table class = "actionmenu"><tr><td class = "sg"><div class = "startgame"><a href = "game.html">Design this yard</a></div></td><td class = "gg"><div class = "gogallery"><a href = "gallery.html">Gallery</a></div></td></tr></table></div>';
+
+         var infowindow = new google.maps.InfoWindow({
+            content: contentString,
+            maxWidth: 265
+         });
+         var infowindowK = new google.maps.InfoWindow({
+            content: contentStringK,
+            maxWidth: 265
+         });
+         var infowindowL = new google.maps.InfoWindow({
+            content: contentStringL,
+            maxWidth: 265
+         });
+         var infowindowC = new google.maps.InfoWindow({
+            content: contentStringC,
+            maxWidth: 265
+         });
+         var infowindowH = new google.maps.InfoWindow({
+            content: contentString,
+            maxWidth: 265
+         });
+
+         marker = new google.maps.Marker({
+            position: {lat: 61.4508166, lng: 23.8330702},
+            draggable: false,
+            map: map,
+            icon: 'Ellipse1.png',
+            title: 'Tammela'
+         });
+
+         kmarker = new google.maps.Marker({
+            position: {lat: 61.5029378, lng: 23.777303},
+            draggable: false,
+            map: map,
+            icon: 'Ellipse1.png',
+            title: 'Tammela'
+         });
+
+         lmarker = new google.maps.Marker({
+            position: {lat: 61.4792277, lng: 23.7607302},
+            draggable: false,
+            map: map,
+            icon: 'Ellipse1.png',
+            title: 'Hatanpää'
+         });
+
+         cmarker = new google.maps.Marker({
+            position: {lat: 61.5001054, lng: 23.7425518},
+            draggable: false,
+            map: map,
+            icon: 'Ellipse1.png',
+            title: 'Amuri'
+         });
+
+         hmarker = new google.maps.Marker({
+            position: {lat: 61.4508166, lng: 23.8330702},
+            draggable: false,
+            map: map,
+            icon: 'Ellipse1.png',
+            title: 'Hervanta'
+         });
+
+         marker.addListener('click', function() {
+            infowindow.open(map, marker);
+            infowindowK.close();
+            infowindowL.close();
+            infowindowC.close();
+            infowindowH.close();
+         });
+
+         kmarker.addListener('click', function() {
+            infowindowK.open(map, kmarker);
+            infowindow.close();
+            infowindowL.close();
+            infowindowC.close();
+            infowindowH.close();
+         });
+
+         lmarker.addListener('click', function() {
+            infowindowL.open(map, lmarker);
+            infowindow.close();
+            infowindowK.close();
+            infowindowC.close();
+            infowindowH.close();
+         });
+
+         cmarker.addListener('click', function() {
+            infowindowC.open(map, cmarker);
+            infowindow.close();
+            infowindowK.close();
+            infowindowL.close();
+            infowindowH.close();
+         });
+
+         hmarker.addListener('click', function() {
+            infowindowH.open(map, hmarker);
+            infowindow.close();
+            infowindowK.close();
+            infowindowL.close();
+            infowindowC.close();
+         });
+
+      }
+    </script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA--pyfMnawhJ50Lwzpsiht-wTmBAHg0s8&callback=initMap"
+    async defer></script>-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA--pyfMnawhJ50Lwzpsiht-wTmBAHg0s8&libraries=places&callback=initAutocomplete"
+    async defer></script>
+  </body>
+</html>

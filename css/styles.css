@@ -1,313 +1,171 @@
  body {
-	width: 100%;
-	height: 100%;
 	font-family: Apercu Pro;
- }
-
- img {
- 	width: 70%;
- 	height: 70%;
+    
+    background-size: 1440px 800px;
+    background-repeat:no-repeat;
+    display: compact;
+    background-attachment: fixed;
+    
  }
 
  @font-face {
-        font-family: ApercuPro;
-        src: url("ApercuPro-Medium.otf") format("opentype");
+    font-family: ApercuPro;
+    src: url("ApercuPro-Medium.otf") format("opentype");
+}
+
+a {
+	text-decoration: none;
+    color: green;
+}
+
+input {
+    color: black;
+}
+#profilepic {
+    border-radius: 10px;
+}
+
+.modal {
+    color: black;
+}
+
+.row {
+    background: rgba(0, 0, 0, 0.3)!important;
+}
+
+.panel-default { 
+    border: 0 !important;
+}
+
+.panel-transparent {
+        background: none;
+    }
+.panel-transparent .panel-body{
+        background: rgba(0, 0, 0, 0.3)!important;
     }
 
-    a {
-    	text-decoration: none;
-    	color: #FFFFFF;
+#toppanel {
+    background-color: #00AF8E;
+    color: #F4ED38;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
     }
-
- #fblogin {
- 	width: 35px;
- 	height: 33px;
- }
- 
- #background 
-{ 
-	 left: 0px; 
-	 top: 0px; 
-	 display: block;
-	 width: 100%;
-	 height: 100%; 
-	 overflow: hidden;
-	 z-index:0;
-} 
- #rightside {
- 	position: absolute;
- 	width: 78%;
- 	height: 100%;
- }
-
- #Layer5 
-{ 
-	 left: 22%; 
-	 top: 0px; 
-	 position: absolute; 
-	 width: 78%;
-	 height: 100%;
-	 background-color: #00AF8E;
-	 z-index:1;
-} 
-
-#loginbg {
-	left: 7%; 
-	 top: 70%; 
-	 position: absolute; 
-	 width: 97px;
-	 height: 28px;
-	 z-index:12;
-	background-color: #000000;
-	border-radius: 10px;
-	border: 2px solid black;
-	color: #FFFFFF;
-	text-align: center;
+    .cancelbtn {
+       width: 100%;
+    }
 }
-
-#loginbg:hover {
-	background-color: #FFFFFF;
-}
-
-#loginbg:hover a{
-	color: #000000;
-}
-
- #leftpanel
- {
- 	position: absolute;
- 	width: 100%;
- 	height: 100%;
- }
-
- #Rectangle1copy3 
-{ 
-	 left: -1px; 
-	 top: -1px; 
-	 position: absolute;
-	 float: left;
-	 width: 22%;
-	 height: 100%;
-	 z-index:2;
-	 min-width: 220px;
-} 
-
- #RoundedRectangle4 
-{ 
-	 left: 6.8%; 
-	 top: 88%; 
-	 position: absolute; 
-	 width: 485px;
-	 height: 19px;
-	 z-index:3;
-} 
-
- #illustration 
-{ 
-	 left: 55%; 
-	 top: 27%; 
-	 position: absolute; 
-	 width: 830px;
-	 height: 630px;
-	 z-index:4;
-} 
-
- #RoundedRectangle1cop 
-{ 
-	 left: 646px; 
-	 top: 920px; 
-	 position: absolute; 
-	 width: 208px;
-	 height: 62px;
-	 z-index:5;
-} 
-
- #Start 
-{ 
-	 left: 708px; 
-	 top: 935px; 
-	 position: absolute; 
-	 width: 92px;
-	 height: 31px;
-	 z-index:6;
-} 
-
- #Logo 
-{ 
-	 left: 30%; 
-	 top: 10%; 
-	 position: absolute; 
-	 width: 596px;
-	 height: 250px;
-	 z-index:7;
-} 
-
- #Designshareexplorean 
-{ 
-	 left: 30%; 
-	 top: 70%; 
-	 position: absolute; 
-	 width: 393px;
-	 height: 69px;
-	 z-index:8;
-} 
-
- #ExploreTampereyards 
-{ 
-	 left: 30%; 
-	 top: 50%; 
-	 position: absolute; 
-	 width: 455px;
-	 height: 139px;
-	 z-index:9;
-} 
-
- #RegisterButton 
-{ 
-	 left: 7%; 
-	 top: 80%; 
-	 position: absolute; 
-	 width: 70px;
-	 height: 20px;
-	 z-index:10;
-} 
-
- #ForgotpasswordButton 
-{ 
-	 left: 7%; 
-	 top: 77%; 
-	 position: absolute; 
-	 width: 109px;
-	 height: 14px;
-	 z-index:11;
-} 
-
- #RoundedRectangle1 
-{ 
-	 left: 7%; 
-	 top: 70%; 
-	 position: absolute; 
-	 width: 197px;
-	 height: 50px;
-	 z-index:12;
-} 
-
- #Login 
-{ 
-	 left: 9.5%; 
-	 top: 70.5%; 
-	 position: absolute; 
-	 width: 69px;
-	 height: 25px;
-	 z-index:13;
-} 
-
- #rememberme 
-{ 
-	 left: 8%; 
-	 top: 65%; 
-	 position: absolute; 
-	 width: 85px;
-	 height: 10px;
-	 z-index:14;
-} 
-
- #RoundedRectangle3 
-{ 
-	 left: 6.7%; 
-	 top: 65%; 
-	 position: absolute; 
-	 width: 190px;
-	 height: 8px;
-	 z-index:15;
-} 
-
- #Rectangle1copy6 
-{ 
-	 left: 7%; 
-	 top: 60%; 
-	 position: absolute; 
-	 width: 197px;
-	 height: 34px;
-	 z-index:16;
-} 
-
- #Password 
-{ 
-	 left: 206px; 
-	 top: 597px; 
-	 position: absolute; 
-	 width: 71px;
-	 height: 13px;
-	 z-index:17;
-} 
-
- #Rectangle1copy4 
-{ 
-	 left: 7%; 
-	 top: 55%; 
-	 position: absolute; 
-	 width: 197px;
-	 height: 34px;
-	 z-index:18;
-} 
-
- #UsernameorEmail 
-{ 
-	 left: 166px; 
-	 top: 545px; 
-	 position: absolute; 
-	 width: 151px;
-	 height: 14px;
-	 z-index:19;
-} 
-
- #or 
-{ 
-	 left: 10.7%; 
-	 top: 50%; 
-	 position: absolute; 
-	 width: 34px;
-	 height: 19px;
-	 z-index:20;
-} 
-
- #Facebook 
-{ 
-	 left: 10.5%; 
-	 top: 40%; 
-	 position: absolute; 
-	 width: 46px;
-	 height: 47px;
-	 z-index:21;
-} 
-
- #Twitter 
-{ 
-	 left: 7%; 
-	 top: 40%; 
-	 position: absolute; 
-	 width: 49px;
-	 height: 48px;
-	 z-index:22;
-} 
-
- #Googleicon 
-{ 
-	 left: 14%; 
-	 top: 40%; 
-	 position: absolute; 
-	 width: 47px;
-	 height: 47px;
-	 z-index:23;
-} 
-
- #Loginwith 
-{ 
-	 left: 7%; 
-	 top: 32%; 
-	 position: absolute; 
-	 width: 192px;
-	 height: 40px;
-	 z-index:24;
-} 

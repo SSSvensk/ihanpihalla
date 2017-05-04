@@ -1,0 +1,48 @@
+<html>
+<head>
+	<title><%= address %></title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <script src = "http://hammerjs.github.io/dist/hammer.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <style>
+    body {
+    padding-top: 70px;
+    }
+    </style>
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Ihan Pihalla</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id = "username"><img src="<%= picture %>?width=20&height=20" id = "profilepic" alt = "Prof"></span> <%= username %></a></li>
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+ <h1><%= address %> <a href="/play">Play!</a></h1>
+ 
+ <% for(var i = 0; i < userlist.length; i++) { %>
+    <%= userlist[i].name %><br>
+ <% } %>
+
+</body>
+</html> 

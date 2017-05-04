@@ -1,29 +1,117 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Login - Ihan Pihalla</title>
-		<link href="styles.css" rel="stylesheet" type="text/css">
-		<script src = "jsloginfile.js"></script>
-	</head>
-	<body>
-		Moi!
-        <div id = "fblogin"><a href="/auth/facebook">FB Login</a></div>
-        <div id = "fblogin"><a href="/auth/twitter">Twitter Login</a></div>
-		<script>
-            function storeName() {
-                var inputName = document.getElementById("name");
-                localStorage.setItem("name", inputName.value); 
-                window.location.href = "mapstesti.html";
-            }
-            /*
-            function storeFBName() {
-            	var passName;
-            	testAPI();
-            	localStorage("name", passName);
-            	window.location.href = "mapstesti.html";
-            }
-            */
-		</script>
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Ihan Pihalla</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <style>
+    body {
+    padding-top: 70px;
+    background: url('bg.jpg');
+    color: white;
+    }
+    </style>
+  </head>
+  <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>                        
+              </button>
+              <a class="navbar-brand" href="#">Ihan Pihalla</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+
+              <ul class="nav navbar-nav navbar-right">
+                <li><a onclick="document.getElementById('id01').style.display='block'" style="width:auto;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div class="container">
+          <div class = "panel panel-default panel-transparent">
+            <div class = "panel-body">
+              <p><h1 class = "text-center">Just type your address and we're ready to go!</h1></p>
+              <input type="text" placeholder="Type your address!" name="uname" required>
+              <p class = "text-center">Already a member? <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login here!</a></p>
+            </div>
+          </div>
+          <div class = "row">
+            <div class="col-md-4">
+              <p><h2 class = "text-center">Design</h2></p>
+              <p class = "text-left">
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti. Lorem ipsum ligula ut hendrerit mollis, ipsum erat vehicula risus, eu suscipit sem libero nec erat. Aliquam erat volutpat. Sed congue augue vitae neque. Nulla consectetuer porttitor pede. Fusce purus morbi tortor magna condimentum vel, placerat id blandit sit amet tortor.</p>
+            </div>
+            <div class="col-md-4">
+              <p><h2 class = "text-center">Connect</h2></p>
+              <p class = "text-left">
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti. Lorem ipsum ligula ut hendrerit mollis, ipsum erat vehicula risus, eu suscipit sem libero nec erat. Aliquam erat volutpat. Sed congue augue vitae neque. Nulla consectetuer porttitor pede. Fusce purus morbi tortor magna condimentum vel, placerat id blandit sit amet tortor.</p>
+            </div>
+            <div class="col-md-4">
+              <p><h2 class = "text-center">Enspire</h2></p>
+              <p class = "text-left">
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti. Lorem ipsum ligula ut hendrerit mollis, ipsum erat vehicula risus, eu suscipit sem libero nec erat. Aliquam erat volutpat. Sed congue augue vitae neque. Nulla consectetuer porttitor pede. Fusce purus morbi tortor magna condimentum vel, placerat id blandit sit amet tortor.</p>
+            </div>
+          </div>
+        </div>
+
+<div id="id01" class="modal">
+  
+  <form class="modal-content animate" action="/action_page.php">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="img_avatar2.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <a href="/auth/facebook">FB Login</a> <a href="/auth/twitter">Twitter Login</a><br>
+      <label><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+        
+      <button type="submit">Login</button>
+      <input type="checkbox" checked="checked"> Remember me
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+  </form>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+$(function(){ 
+     var navMain = $(".navbar-collapse"); // avoid dependency on #id
+     // "a:not([data-toggle])" - to avoid issues caused
+     // when you have dropdown inside navbar
+     navMain.on("click", "a:not([data-toggle])", null, function () {
+         navMain.collapse('hide');
+     });
+ });
+</script>
  </body>
  </html>

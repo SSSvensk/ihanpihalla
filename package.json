@@ -28,8 +28,12 @@
   },
   "homepage": "https://github.com/cfleur/residentialyardgame#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-twitter": "^1.0.4"
   }
 }
